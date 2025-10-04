@@ -36,7 +36,8 @@ Aplikasi ini bertujuan untuk:
 - 👨‍💻 **Programmer**: Faiz Ilyas Zulkarnaen  
 - 🎨 **UI/UX Designer**: Pandu Winata  
 - 📝 **Dokumentasi**: Salma & Yupia  
-- 📂 **Project Manager**: Noval Kurniawan  
+- 📂 **Project Manager**: Noval Kurniawan
+- 📝 **Assisten Manager** : Gilang Prayoga 
 
 ---
 
