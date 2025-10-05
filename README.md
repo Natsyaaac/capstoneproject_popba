@@ -37,7 +37,7 @@ Aplikasi ini bertujuan untuk:
 - 🎨 **UI/UX Designer**: Pandu Winata  
 - 📝 **Dokumentasi**: Salma & Yupia  
 - 📂 **Project Manager**: Noval Kurniawan  
-
+- 📝 **Assiten manager**: Gilang Prayoga
 ---
 
 ## 🚀 Cara Menjalankan Aplikasi
