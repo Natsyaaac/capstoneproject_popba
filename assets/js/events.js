@@ -4,7 +4,7 @@
 * @version 1.1.1
 */
 /*jshint esversion: 6 */
-/* globals $, modeMultiply, initialiseBalloons, modeAddSubtract, modeDivide, playGame, returnBtnIdArray, makeNotActive */
+/* globals $, initialiseBalloons, playGame, returnBtnIdArray, makeNotActive */
 /* globals checkOtherStickyButtons, checkSelectedAnswer, returnToMenu, muteAudio, unMuteAudio, muteAudioToggle */
 
 // Initialisation Event Handlers //
@@ -46,22 +46,6 @@ $("#heavy").on("click", modeHeavy);
 $("#volume").on("click", modeVolume);
 $("#up").on("click", modeUp);
 $("#operator").on("click", modeOperator);
-// On click event added to play button to run playGame function //
-// $("#play").on("click", playGame);
-
-$("#add").on("click", modeAddSubtract);
-
-// On click event added to subtract button to switch to addition and subtraction option mode //
-$("#subtract").on("click", modeAddSubtract);
-
-// On click event added to multiply button to switch to multiply option mode //
-$("#multiply").on("click", modeMultiply);
-
-// On click event added to divide button to switch to divide option mode //
-$("#divide").on("click", modeDivide);
-
-
-
 
 // On click event handler added to multiplication and division options buttons with the .btn-mul-div-toggle class in multiplication and division modes //
 // Removes active class on all other multiplication and division buttons to give toggle behaviour to options buttons with the .btn-mul-div-toggle class //
