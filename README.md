@@ -1,480 +1,633 @@
-# Balloon Pop Maths #
-[Balloon Pop Maths Live Site](https://richardhenyash.github.io/balloon-pop-maths/)  
+# 🎈 Balloon Pop Maths #
+
+[Versi Langsung Balloon Pop Maths](https://richardhenyash.github.io/balloon-pop-maths/)  
 
 <img src="./assets/testing/responsive/balloon-pop-maths-responsive.png" width="100%" style="margin: 15px;">
 
-## Contents ##
-- [Background](#background)
-- [Project Goals](#project-goals)
-- [Site Owner Goals](#site-owner-goals)
-- [User Goals](#user-goals)
-- [UX](#ux)
-    - [Project Strategy](#project-strategy)
-        - [Opportunities Matrix](#opportunities-matrix)
-        - [Initial Development Phase](#initial-development-phase)
-    - [Project Scope](#project-scope)
-        - [User Demographics](#user-demographics)
-        - [User Requirements](#user-requirements)
-        - [User Stories](#user-stories)
-        - [Contraints](#constraints)
-        - [Functional Requirements](#functional-requirements)
-        - [Business Rules](#business-rules)
-        - [Key Features](#key-features)
-    - [Site Map](#site-map)
-    - [Wireframes](#wireframes)
-    - [Design Choices](#design-choices)
-        - [Fonts](#fonts)
-        - [Colours](#colours)
-- [Technologies](#technologies)
-    - [Languages](#languages)
-    - [Frameworks Libraries and Tools](#frameworks-libraries-and-tools)
-    - [Browser Support](#browser-support)
-- [Structure](#structure)
-    - [Information Architecture](#information-architecture)
-    - [Features Implemented](#features-implemented)
-        - [Features Implemented in Phase 1](#features-implemented-in-phase-1)
-        - [Features To Be Implemented In Future Development Phases](#features-to-be-implemented-in-future-development-phases)
-        - [Design Changes During The Phase 1 Development](#design-changes-during-the-phase-1-development)
-    - [Responsive Styling](#responsive-styling)
-- [JavaScript Code Library](#javascript-code-library)
-- [Game Logic](#game-logic)
-- [Testing](#testing)
-- [Deployment](#deployment)
-- [Credits](#credits)
-- [Acknowledgements](#acknowledgements)
+## 👥 Anggota Tim – Kelompok 14 ##
+- 👨‍💻 **Programmer**: Faiz Ilyas Zulkarnaen  
+- 🎨 **UI/UX Designer**: Pandu Winata  
+- 📝 **Dokumentasi**: Salma & Yupia  
+- 📂 **Project Manager**: Noval Kurniawan
+- 🧠 **Brain**: Gilang Prayoga
 
-## Background ##
-During the Covid pandemic, many parents have been required to facilitate education for their children at home. Often, parents have found
-themselves juggling full time jobs and home education responsibilities. School work, especially for younger children, requires a 
-high degree of facilitation and help from busy parents. Interative web based maths games can give children an engaging way of 
-learning new maths skills and reinforcing existing maths knowledge independently.
 
-## Project Goals ##
-To provide a simple and engaging maths game that young children are able to play independently to learn new maths skills and to
-reinforce existing maths knowledge.
+## 📌 Informasi Tambahan
+- **Universitas**: Universitas Muhammadiyah Metro  
+- **Program Studi**: Ilmu Komputer – @prodi_ilkom_ummet   
+- **Tahun Akademik**: 2025  
 
-## Site Owner Goals ##
-Developing the site will serve as a learning experience for the developer. The finished website will act as a showcase for the
-developer's new skills and will also help to raise the developer's profile. The developer also hopes that his 7 year old
-son will become a keen user of the site!
+---
 
-## User Goals ##
-To play the maths game for fun, to learn new maths skills and to reinforce existing maths knowledge.
+✨ Dengan **Pop Balon Ajaib**, belajar matematika jadi lebih **mudah, seru, dan menyenangkan**!
 
-## UX ##
+## Daftar Isi ##
+- [Latar Belakang](#latar-belakang)
+- [Tujuan Proyek](#tujuan-proyek)
+- [Tujuan Pemilik Situs](#tujuan-pemilik-situs)
+- [Tujuan Pengguna](#tujuan-pengguna)
+- [UX (Pengalaman Pengguna)](#ux-pengalaman-pengguna)
+    - [Strategi Proyek](#strategi-proyek)
+        - [Matriks Peluang](#matriks-peluang)
+        - [Tahap Awal Pengembangan](#tahap-awal-pengembangan)
+    - [Ruang Lingkup Proyek](#ruang-lingkup-proyek)
+        - [Demografi Pengguna](#demografi-pengguna)
+        - [Kebutuhan Pengguna](#kebutuhan-pengguna)
+        - [Cerita Pengguna (User Stories)](#cerita-pengguna-user-stories)
+        - [Keterbatasan (Constraints)](#keterbatasan-constraints)
+        - [Persyaratan Fungsional](#persyaratan-fungsional)
+        - [Aturan Bisnis](#aturan-bisnis)
+        - [Fitur Utama](#fitur-utama)
+    - [Peta Situs](#peta-situs)
+    - [Wireframe (Rancangan Awal)](#wireframe-rancangan-awal)
+    - [Pilihan Desain](#pilihan-desain)
+        - [Jenis Huruf (Font)](#jenis-huruf-font)
+        - [Warna](#warna)
+- [Teknologi](#teknologi)
+    - [Bahasa Pemrograman](#bahasa-pemrograman)
+    - [Framework, Library, dan Alat](#framework-library-dan-alat)
+    - [Dukungan Peramban (Browser Support)](#dukungan-peramban-browser-support)
+- [Struktur Proyek](#struktur-proyek)
+    - [Arsitektur Informasi](#arsitektur-informasi)
+    - [Fitur yang Telah Diterapkan](#fitur-yang-telah-diterapkan)
+        - [Fitur yang Diterapkan di Tahap 1](#fitur-yang-diterapkan-di-tahap-1)
+        - [Fitur yang Akan Diterapkan di Tahap Pengembangan Berikutnya](#fitur-yang-akan-diterapkan-di-tahap-pengembangan-berikutnya)
+        - [Perubahan Desain Selama Tahap 1 Pengembangan](#perubahan-desain-selama-tahap-1-pengembangan)
+    - [Gaya Responsif (Responsive Styling)](#gaya-responsif-responsive-styling)
+- [Pustaka Kode JavaScript](#pustaka-kode-javascript)
+- [Logika Permainan](#logika-permainan)
+- [Pengujian](#pengujian)
+- [Penerapan (Deployment)](#penerapan-deployment)
+    - [Proses Penerapan ke GitHub Pages](#proses-penerapan-ke-github-pages)
+    - [Forking Proyek (Menyalin Repositori)](#forking-proyek-menyalin-repositori)
+    - [Cloning Proyek (Menggandakan Repositori)](#cloning-proyek-menggandakan-repositori)
+- [Kredit (Credits)](#kredit-credits)
+- [Ucapan Terima Kasih (Acknowledgements)](#ucapan-terima-kasih-acknowledgements)
 
-### Project Strategy ###
 
-#### Opportunities Matrix ####
-The following opportunities were identified and ranked using a score of 1 - 5 for importance and viability:
+## Latar Belakang (Background) ##
+Selama pandemi Covid, banyak orang tua diharuskan untuk memfasilitasi pendidikan anak-anak mereka di rumah.  
+Sering kali, para orang tua harus membagi waktu antara pekerjaan penuh waktu dan tanggung jawab pendidikan di rumah.  
+Tugas sekolah, terutama untuk anak-anak usia dini, membutuhkan tingkat pendampingan dan bantuan yang tinggi dari orang tua yang sibuk.  
+Permainan matematika berbasis web yang interaktif dapat memberikan cara yang menarik bagi anak-anak untuk belajar keterampilan matematika baru dan memperkuat pengetahuan matematika yang sudah mereka miliki secara mandiri.
 
-Opportunity | Importance |Viability
-------------| -----------|---------
-Balloon Pop Multiplication game|5|4
-Balloon Pop Division game|3|4
-Balloon Pop Addition game|3|4
-Balloon Pop Subtraction game|3|4
-Contact Form to contact developer|3|5
-Link to developer [GitHub](https://github.com/richardhenyash) page|4|5
-Subscribe Option|1|2
+---
+
+## Tujuan Proyek (Project Goals) ##
+Menyediakan permainan matematika yang sederhana namun menarik sehingga anak-anak dapat memainkannya secara mandiri untuk mempelajari keterampilan matematika baru serta memperkuat pengetahuan matematika yang telah mereka pelajari sebelumnya.
+
+---
+
+## Tujuan Pemilik Situs (Site Owner Goals) ##
+Pengembangan situs ini berfungsi sebagai pengalaman belajar bagi pengembangnya.  
+Situs web yang sudah selesai nantinya akan menjadi sarana untuk memamerkan keterampilan baru pengembang dan juga membantu meningkatkan profilnya.  
+Selain itu, pengembang berharap bahwa putranya yang berusia 7 tahun akan menjadi pengguna setia situs ini!
+
+---
+
+## Tujuan Pengguna (User Goals) ##
+Untuk memainkan permainan matematika dengan cara yang menyenangkan, mempelajari keterampilan matematika baru, serta memperkuat pengetahuan matematika yang telah dimiliki.
+
+---
+
+## UX (Pengalaman Pengguna) ##
+
+### Strategi Proyek (Project Strategy) ###
+
+Strategi utama dari proyek **Balloon Pop Maths** adalah mengembangkan permainan edukatif berbasis web yang **mudah diakses dan menarik untuk anak-anak sekolah dasar (SD)**.  
+Game ini dirancang agar anak-anak dapat belajar dan berlatih konsep dasar matematika seperti **penjumlahan, pengurangan, perkalian, dan pembagian** dengan cara yang menyenangkan dan interaktif.  
+
+Pendekatan ini diambil karena banyak anak SD cenderung lebih mudah memahami pelajaran melalui **visualisasi dan permainan interaktif**, dibandingkan metode konvensional seperti buku teks atau latihan tertulis.  
+Dengan permainan ini, siswa tidak hanya belajar menghitung, tetapi juga **mengasah fokus, refleks, dan ketepatan berpikir** dalam waktu singkat.  
+
+Selain itu, proyek ini juga bertujuan untuk menjadi contoh nyata penerapan **HTML, CSS, dan JavaScript** dalam membuat aplikasi edukatif sederhana yang dapat digunakan di berbagai perangkat, baik laptop maupun ponsel.
+
+#### Matriks Peluang (Opportunities Matrix) ####
+Peluang-peluang berikut telah diidentifikasi dan diberi peringkat menggunakan skor **1–5** berdasarkan **tingkat kepentingan** dan **kelayakan**:
+
+| Peluang | Kepentingan | Kelayakan |
+|----------|--------------|-----------|
+| Permainan Balloon Pop Perkalian | 5 | 4 |
+| Permainan Balloon Pop Pembagian | 3 | 4 |
+| Permainan Balloon Pop Penjumlahan | 3 | 4 |
+| Permainan Balloon Pop Pengurangan | 3 | 4 |
+| Formulir Kontak untuk menghubungi pengembang | 3 | 5 |
+| Tautan ke halaman [GitHub](https://github.com/richardhenyash) pengembang | 4 | 5 |
+| Opsi Berlangganan (Subscribe Option) | 1 | 2 |
 
 <img src="/assets/wireframes/initial-strategy.png" style="margin: 15px; width: 400px;">
 
-#### Initial Development Phase ####
-The opportunities matrix was used to help decide which items should be included for the initial development phase (phase 1):
-Item|Development Phase
-----|-----------------
-Balloon Pop Multiplication game|1
-Contact Form to contact developer|1
-Link to developer [GitHub](https://github.com/richardhenyash) page|1
-Balloon Pop Division game|1
-Balloon Pop Addition game|1
-Balloon Pop Subtraction game|1
-Subscribe Option|2
+---
 
-### Project Scope ###
-#### User Demographics ####
-* The primary users of the site will be Key Stage 1 and 2 school pupils from ages 5 to 10.
-* A simple, bright, colorful and engaging design would fit this demographic.
 
-#### User Requirements ####
-* Visually engaging.
-* Easy to navigate.
-* Easy to update game settings.
-* Responsive design is required as users may be viewing the site on Mobile, Tablet or Desktop.
+#### Tahap Awal Pengembangan (Initial Development Phase) ####
+Matriks peluang digunakan untuk membantu menentukan item mana yang akan dimasukkan dalam tahap awal pengembangan (fase 1).  
+Fase ini difokuskan pada pembuatan fitur utama yang berhubungan langsung dengan inti permainan dan interaksi pengguna.
+
+| Item | Fase Pengembangan |
+|------|--------------------|
+| Permainan Balloon Pop Perkalian | 1 |
+| Formulir Kontak untuk menghubungi pengembang | 1 |
+| Tautan ke halaman [GitHub](https://github.com/richardhenyash) pengembang | 1 |
+| Permainan Balloon Pop Pembagian | 1 |
+| Permainan Balloon Pop Penjumlahan | 1 |
+| Permainan Balloon Pop Pengurangan | 1 |
+| Opsi Berlangganan (Subscribe Option) | 2 |
+
+Pada **Fase 1**, fokus utama adalah membangun seluruh mode permainan matematika (penjumlahan, pengurangan, perkalian, dan pembagian) agar anak-anak bisa langsung bermain dan belajar secara interaktif.  
+Sementara itu, fitur tambahan seperti **opsi berlangganan** direncanakan untuk diterapkan pada fase pengembangan berikutnya agar situs tetap dapat berkembang tanpa mengganggu fungsi utama.
+
+---
+
+### Ruang Lingkup Proyek (Project Scope) ###
+
+#### Demografi Pengguna (User Demographics) ####
+- Pengguna utama situs ini adalah **siswa sekolah dasar (kelas 1–5)** berusia sekitar **5 hingga 10 tahun**.  
+- Desain yang sederhana, cerah, penuh warna, dan menarik sangat sesuai untuk kelompok usia ini.  
+- Game ini dibuat agar anak-anak bisa belajar mandiri sambil tetap merasa seperti sedang bermain, bukan belajar secara formal.
+
+#### Kebutuhan Pengguna (User Requirements) ####
+- Harus **menarik secara visual** dan menyenangkan untuk dilihat.  
+- **Mudah dinavigasi**, bahkan oleh anak-anak kecil.  
+- Pengguna dapat **dengan mudah mengubah pengaturan permainan**, seperti mode atau tingkat kesulitan.  
+- Desain harus **responsif**, karena pengguna bisa memainkan permainan ini di berbagai perangkat seperti **ponsel, tablet, maupun komputer desktop**.  
+
+---
 
 #### User Stories ####
-* ***As a user, I am playing the game for fun and enjoyment.***
-* ***As a user, I am playing the game to learn new maths skills.***
-* ***As a user, I am playing the game to reinforce existing maths knowledge.***
-* ***As a user or parent, I would like to to provide feedback to the developer about the game.***
+* ***Sebagai pengguna (anak SD), saya bermain game ini untuk bersenang-senang dan menikmati pengalaman belajar.***
+* ***Sebagai pengguna, saya bermain game ini untuk mempelajari keterampilan matematika baru dengan cara yang menyenangkan.***
+* ***Sebagai pengguna, saya bermain game ini untuk memperkuat pengetahuan matematika yang sudah saya miliki melalui latihan interaktif.***
+* ***Sebagai pengguna atau orang tua, saya ingin memberikan masukan kepada pengembang tentang pengalaman bermain game ini agar dapat terus ditingkatkan.***
+
+---
+
+### Strategi Proyek ###
+Proyek ini bertujuan untuk **menggabungkan pembelajaran matematika dengan hiburan interaktif** bagi anak-anak Sekolah Dasar (usia 5–10 tahun).  
+Strategi yang digunakan meliputi:
+
+* Membuat tampilan game yang **cerah, menarik, dan mudah dipahami** oleh anak-anak.
+* Menghadirkan suasana belajar yang **menyenangkan melalui permainan** seperti *Balloon Pop*.
+* Menyediakan berbagai tingkat kesulitan agar anak dapat **belajar secara bertahap sesuai kemampuan**.
+* Memberikan kesempatan kepada **guru dan orang tua** untuk menggunakan game ini sebagai **alat bantu belajar tambahan** di rumah atau di sekolah.
+* Menumbuhkan **motivasi belajar matematika sejak dini** melalui pengalaman bermain yang positif.
+
+---
 
 #### Constraints #####
-* Developer skill set - the developer is currently learning JavaScript.
-* Developer's available time - the developer is working full time whilst studying.
-This coupled with the developer's current skills constraints may impact on whether
-all four maths games can be incorporated into the site in the initial development phase.
+* **Kemampuan pengembang** – pengembang saat ini masih dalam tahap belajar JavaScript.
+* **Keterbatasan waktu pengembang** – pengembang bekerja penuh waktu sambil menempuh studi.
+  Hal ini dapat memengaruhi jumlah permainan matematika yang bisa dimasukkan dalam fase awal pengembangan.
+
+---
 
 #### Functional Requirements ####
-* The user would like to be able to select different maths games to play.
-* The user would like to be able to select different options within each maths game - e.g. 2x, 5x and 10x tables
-within the multiplication game, or addition of numbers up to 20 in the addition game.
-* The user would like to be able to set the difficulty level of the maths games -  this will give the games a wider age appeal.
-* The user needs to be able to initiate the game from the menu, and return to the main menu if they want to abort the current game.
-* The user would like to see their current score, and their previous top score. This will mean that the user is more likely to play
-another game or return to the site in the future to better their previous score.
-* The user would like to be able to contact the developer.
+* Pengguna dapat memilih berbagai jenis permainan matematika untuk dimainkan.
+* Pengguna dapat memilih opsi berbeda dalam setiap permainan — misalnya tabel perkalian 2x, 5x, dan 10x pada game perkalian, atau penjumlahan hingga 20 pada game penjumlahan.
+* Pengguna dapat mengatur tingkat kesulitan permainan agar sesuai dengan usia dan kemampuan.
+* Pengguna dapat memulai permainan dari menu utama, serta kembali ke menu kapan pun mereka ingin menghentikan permainan.
+* Pengguna dapat melihat skor saat ini dan skor tertinggi sebelumnya — hal ini memotivasi mereka untuk terus bermain dan meningkatkan hasil belajar.
+* Pengguna dapat menghubungi pengembang untuk memberikan saran, masukan, atau laporan bug.
 
-#### Business Rules ####
-* It is not envisaged that the game will be sold for profit. However, the game should be as much fun as possible to play, in order to 
-maximise the learning opportunities for users, increase the game's following and therefore increase the profile of the developer.
+---
 
-#### Key Features ####
-The following key features have been identified and scored from 1 - 5 for importance and difficulty. The proposed development phase has also been indicated:
-Feature|Importance|Difficulty|Development Phase
--------|----------|----------|-----------------
-Balloon Pop Multiplication game| 5 | 3 | 1 |
-Contact Form to contact developer | 4 | 2 | 1
-Link to developer [GitHub](https://github.com/richardhenyash) page | 3 | 1 | 1
-Balloon Pop Division game| 3 | 3 | 1
-Balloon Pop Addition game| 3 | 3 | 1
-Balloon Pop Subtraction game| 3 | 3 | 1
-Subscribe Option| 1 | 3 | 2
+#### Aturan Bisnis (Business Rules) ####
+* Game ini **tidak direncanakan untuk dijual demi keuntungan**.  
+  Namun, permainan harus dibuat **semenarik dan semenyenangkan mungkin** agar:
+  - Dapat **memaksimalkan peluang belajar** bagi anak-anak yang memainkannya.  
+  - **Menarik lebih banyak pengguna** untuk mencoba dan bermain.  
+  - Meningkatkan **popularitas game serta profil pengembang** sebagai pembuat game edukatif yang positif dan bermanfaat.
 
-### Site Map ###
-An initial [Site Map](/assets/wireframes/site-map.png) was produced, and is shown below:  
+---
+
+#### Fitur Utama (Key Features) ####
+Berikut fitur-fitur utama yang telah diidentifikasi dan dinilai dengan skala **1–5** untuk tingkat **kepentingan** dan **kesulitan**.  
+Tahap pengembangan yang direncanakan juga disertakan:
+
+Fitur | Kepentingan | Tingkat Kesulitan | Tahap Pengembangan
+------|--------------|-------------------|-------------------
+Balloon Pop Multiplication game (Perkalian) | 5 | 3 | 1
+Contact Form untuk menghubungi pengembang | 4 | 2 | 1
+Tautan ke halaman [GitHub](https://github.com/richardhenyash) pengembang | 3 | 1 | 1
+Balloon Pop Division game (Pembagian) | 3 | 3 | 1
+Balloon Pop Addition game (Penjumlahan) | 3 | 3 | 1
+Balloon Pop Subtraction game (Pengurangan) | 3 | 3 | 1
+Fitur Berlangganan (Subscribe Option) | 1 | 3 | 2
+
+---
+
+### Peta Situs (Site Map) ###
+Sebuah **peta situs awal (Site Map)** telah dibuat untuk menunjukkan alur navigasi dari halaman utama hingga ke bagian permainan dan kontak pengembang.  
+Peta ini membantu dalam memahami bagaimana pengguna (anak-anak SD) dapat berpindah antarhalaman dengan mudah dan intuitif.
+
 <img src="./assets/wireframes/site-map.png" width="400px" style="margin: 15px;">
 
+---
+
 ### Wireframes ###
-[Hand Sketches](/assets/wireframes/rev0) were drafted showing the home page and times table game:  
+
+[Sketsa Awal (Hand Sketches)](/assets/wireframes/rev0) dibuat untuk menggambarkan tampilan halaman utama dan tampilan permainan tabel perkalian (times table):  
 
 <img src="./assets/wireframes/rev0/home-sketch.jpg" width="600px" style="margin: 15px;">
 <img src="./assets/wireframes/rev0/game-sketch.jpg" width="600px" style="margin: 15px;">
 
-[Initial Wireframes](/assets/wireframes/rev1) were then produced showing the [Home](/assets/wireframes/rev1/home-multiplication.png)
-page layout for each game mode: [Multiplication](/assets/wireframes/rev1/home-multiplication.png), 
-[Division](/assets/wireframes/rev1/home-division.png), [Addition](/assets/wireframes/rev1/home-addition.png) 
-and [Subtraction](/assets/wireframes/rev1/home-subtraction.png).  The  home page [Multiplication](/assets/wireframes/rev1/home-multiplication.png)
-layout is also shown below:  
+Setelah itu, dibuat [Wireframe Awal (Initial Wireframes)](/assets/wireframes/rev1) yang menunjukkan tata letak halaman [Beranda (Home)](/assets/wireframes/rev1/home-multiplication.png) untuk setiap mode permainan:  
+[Perkalian (Multiplication)](/assets/wireframes/rev1/home-multiplication.png),  
+[Pembagian (Division)](/assets/wireframes/rev1/home-division.png),  
+[Penjumlahan (Addition)](/assets/wireframes/rev1/home-addition.png),  
+dan [Pengurangan (Subtraction)](/assets/wireframes/rev1/home-subtraction.png).  
 
+Berikut adalah contoh tata letak halaman beranda untuk mode **Perkalian**:  
 <img src="./assets/wireframes/rev1/home-multiplication.png" width="600px" style="margin: 15px;"> 
 
-[Initial Wireframes](/assets/wireframes/rev1) were also produced showing the [Game](/assets/wireframes/rev1/game-multiplication.png) 
-page layout for each game mode: [Multiplication](/assets/wireframes/rev1/game-multiplication.png), 
-[Division](/assets/wireframes/rev1/game-division.png), [Addition](/assets/wireframes/rev1/game-addition.png) 
-and [Subtraction](/assets/wireframes/rev1/game-subtraction.png).  The game page [Multiplication](/assets/wireframes/rev1/game-multiplication.png)
-layout is also shown below:  
+Wireframe awal juga dibuat untuk halaman [Permainan (Game)](/assets/wireframes/rev1/game-multiplication.png) untuk setiap mode, yaitu:  
+[Perkalian](/assets/wireframes/rev1/game-multiplication.png),  
+[Pembagian](/assets/wireframes/rev1/game-division.png),  
+[Penjumlahan](/assets/wireframes/rev1/game-addition.png),  
+dan [Pengurangan](/assets/wireframes/rev1/game-subtraction.png).  
 
+Berikut adalah contoh tata letak halaman permainan untuk mode **Perkalian**:  
 <img src="./assets/wireframes/rev1/game-multiplication.png" width="600px" style="margin: 15px;"> 
 
-[Responsive design wireframes](/assets/wireframes/rev2) were then produced showing the [Home](/assets/wireframes/rev1/home-multiplication.png)
-and [Game](/assets/wireframes/rev1/game-multiplication.png) page layouts on [Tablet](/assets/wireframes/rev2/home-multiplication-tablet.png) and
-[Phone](/assets/wireframes/rev2/home-multiplication-phone.png). The [Responsive design wireframes](/assets/wireframes/rev2) are also shown below:  
+Selanjutnya, dibuat [Wireframe Desain Responsif (Responsive Design Wireframes)](/assets/wireframes/rev2) yang menunjukkan bagaimana tampilan halaman [Beranda](/assets/wireframes/rev1/home-multiplication.png) dan [Permainan](/assets/wireframes/rev1/game-multiplication.png) di berbagai perangkat, seperti [Tablet](/assets/wireframes/rev2/home-multiplication-tablet.png) dan [Ponsel](/assets/wireframes/rev2/home-multiplication-phone.png).  
+
+Berikut tampilan wireframe responsifnya:  
 
 <img src="./assets/wireframes/rev2/home-multiplication-tablet.png" width="300px" align="left" style="margin: 15px;">
 <img src="./assets/wireframes/rev2/game-multiplication-tablet.png" width="300px" style="margin: 15px;">
 <img src="./assets/wireframes/rev2/home-multiplication-phone.png" width="300px" align="left" style="margin: 15px;">
-<img src="./assets/wireframes/rev2/game-multiplication-phone.png" width="300px" style="margin: 15px;">  
+<img src="./assets/wireframes/rev2/game-multiplication-phone.png" width="300px" style="margin: 15px;">
 
+---
 
-### Design Choices ###
+### Pilihan Desain (Design Choices) ###
 
-#### Fonts ####
-[Whale I Tried](https://mistifonts.com/whale-i-tried/) has been chosen as the title font, and is used for the main **Balloon Pop Maths** [heading](./assets/testing/features/title.png). 
-[Whale I Tried](https://mistifonts.com/whale-i-tried/) is a custom outlined cartoon font available from [Misti's Fonts](https://mistifonts.com/), 
-and is free for personal and non-profit use. This font was chosen as it has a balloon like look and a soft, playful feel.
-* font-family: "Whale I Tried", sans-serif;
+Dalam tahap perancangan tampilan, fokus utama adalah menciptakan **antarmuka yang ramah anak**, **berwarna cerah**, dan **mudah dipahami** oleh pengguna usia sekolah dasar.  
+Desain ini bertujuan untuk menjaga perhatian anak-anak agar tetap fokus sekaligus merasa senang saat belajar matematika melalui permainan.
 
-[Nunito](https://fonts.google.com/specimen/Nunito?preview.text_type=custom) has been chosen as the main body font for text content. 
-[Nunito](https://fonts.google.com/specimen/Nunito?preview.text_type=custom) is a clean, rounded and modern sans-serif font 
-which works well with the maths game theme and complements the [Whale I Tried](https://mistifonts.com/whale-i-tried/) title font. 
-[Nunito](https://fonts.google.com/specimen/Nunito?preview.text_type=custom) is available from [Google Fonts](https://fonts.google.com/) 
-and is licensed under the [Open Font License](https://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL).
-* font-family: 'Nunito', sans-serif;
+#### Jenis Huruf (Fonts) ####
 
-#### Colours ####
-The "sky" background colour is a 3 colour gradient generated using [ColorSpace](https://mycolor.space/gradient3). 
-The three colours used (#7CC0FF, #6FD1F4, #9EFBF5) and the colour gradient generated are shown below:  
+Font [Whale I Tried](https://mistifonts.com/whale-i-tried/) dipilih sebagai **font judul utama**, dan digunakan pada bagian **judul utama Balloon Pop Maths** [heading](./assets/testing/features/title.png).  
+[Whale I Tried](https://mistifonts.com/whale-i-tried/) adalah font kartun bergaris tepi (outlined) yang dibuat khusus oleh [Misti’s Fonts](https://mistifonts.com/).  
+Font ini **gratis untuk penggunaan pribadi dan non-komersial**.  
+
+Alasan pemilihan font ini adalah karena tampilannya yang menyerupai **balon** dengan nuansa **lembut dan ceria**, sangat cocok untuk tema permainan anak-anak.  
+
+* font-family: `"Whale I Tried", sans-serif;`
+
+---
+
+Font [Nunito](https://fonts.google.com/specimen/Nunito?preview.text_type=custom) dipilih sebagai **font utama untuk isi teks (body text)**.  
+[Nunito](https://fonts.google.com/specimen/Nunito?preview.text_type=custom) merupakan font sans-serif yang bersih, membulat, dan modern.  
+Gaya font ini sesuai dengan tema permainan matematika serta **melengkapi** tampilan font judul [Whale I Tried](https://mistifonts.com/whale-i-tried/).  
+
+Font [Nunito](https://fonts.google.com/specimen/Nunito?preview.text_type=custom) tersedia di [Google Fonts](https://fonts.google.com/)  
+dan dilisensikan di bawah [Open Font License (OFL)](https://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL).  
+
+* font-family: `'Nunito', sans-serif;`
+
+---
+
+#### Warna (Colours) ####
+
+Latar belakang bertema “langit” (sky background) menggunakan **gradasi tiga warna (3-colour gradient)** yang dibuat menggunakan [ColorSpace](https://mycolor.space/gradient3).  
+Tiga warna yang digunakan adalah **#7CC0FF**, **#6FD1F4**, dan **#9EFBF5**, seperti ditunjukkan pada gambar di bawah:  
 
 <img src="./assets/wireframes/colour-gradient.png" width="800px" style="margin: 15px;"> 
 
-The colour palette was chosen to tie-in with the first colour in the 3 colour gradient (#7CC0FF). 
-Colour ideas were generated using the [ColorSpace](https://mycolor.space/) colour palette generator. 
-The final colour palette selected is shown below:  
+Palet warna ini dipilih agar selaras dengan warna pertama dari gradasi tiga warna tersebut (**#7CC0FF**).  
+Inspirasi warna diperoleh menggunakan generator palet warna dari [ColorSpace](https://mycolor.space/).  
 
-<img src="./assets/wireframes/colour-palette.png" width="800px" style="margin: 15px;">  
+Palet warna akhir yang dipilih ditunjukkan pada gambar berikut:  
+* #908CD9 - **"Blue Bell"** – digunakan untuk tombol, area pertanyaan, garis luar skor, dan skor tertinggi.  
+* #9C70BD - **"Purple Mountain Majesty"** – digunakan untuk efek sorotan tombol, footer, tautan di area informasi, dan kontrol audio.  
+* #A2529A - **"Purpureus"** – digunakan untuk teks dialog modal, teks skor tinggi, teks skor, teks informasi, dan elemen sorotan.  
+* #3E8BC6 - **"Green Blue Crayola"** – digunakan untuk garis tepi tombol dan area pertanyaan.  
+* #EEFBFF - **"Azure X11 Web Color"** – digunakan untuk teks judul, teks tombol, teks pertanyaan, teks jawaban pada balon, dan latar belakang dialog modal.  
+* #DC7774 - **"Candy Pink"** – digunakan untuk batang “Kesehatan” (Health bar).  
+* #A9A9A9 - **"Silver Chalice"** – digunakan untuk bayangan teks pada teks jawaban balon.  
 
-* #908CD9 - "Blue Bell" - used for buttons, question area, score and high score outlines.
-* #9C70BD - "Purple Mountain Majesty" - Used for button highlighting, footer and information area links and audio controls.
-* #A2529A - "Purpureus" - Used for modal dialog text, high score text, score text, information text and highlighting.
-* #3E8BC6 - "Green Blue Crayola" - Used for button and question area borders, 
-* #EEFBFF - "Azure X 11 Web Color" - Used for title, button text, question text, balloon answer text and modal dialog background.
-* #DC7774 - "Candy Pink" - Used for "Health" bar.
-* #A9A9A9 - "Silver Chalice" - Used for text shadow on balloon answer text.
+---
 
-## Technologies ##
-### Languages ###
-* [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML)
-* [CSS](https://www.w3.org/Style/CSS/Overview.en.html)
-* [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+## Teknologi (Technologies) ##
 
-### Frameworks Libraries and Tools ###
-* [Bootstrap](https://getbootstrap.com/docs/4.5/getting-started/introduction/)
-* [jQuery](https://jquery.com/)
-* [Font Awesome](https://fontawesome.com/)
-* [Google Fonts](https://fonts.google.com/)
-* [Email JS](https://www.emailjs.com/)
-* [Jasmine](https://jasmine.github.io/)
+### Bahasa Pemrograman (Languages) ###
+* [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML) – digunakan untuk struktur utama halaman web.  
+* [CSS](https://www.w3.org/Style/CSS/Overview.en.html) – digunakan untuk mendesain tampilan visual situs dan memberikan gaya warna serta tata letak.  
+* [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) – digunakan untuk logika permainan dan interaktivitas antar elemen di situs.
 
-### Browser Support ###
-The following browsers are all supported by **Balloon Pop Maths**.
-* [Google Chrome](https://www.google.com/intl/en_uk/chrome/)
-* [Microsoft Edge](https://www.microsoft.com/en-us/edge)
-* [Safari](https://www.apple.com/uk/safari/)
-* [Firefox](https://www.mozilla.org/en-GB/firefox/new/)
+---
+
+### Framework, Library, dan Alat (Frameworks, Libraries, and Tools) ###
+* [Bootstrap](https://getbootstrap.com/docs/4.5/getting-started/introduction/) – digunakan untuk desain responsif dan tata letak grid.  
+* [jQuery](https://jquery.com/) – digunakan untuk mempermudah manipulasi elemen DOM dan event handling.  
+* [Font Awesome](https://fontawesome.com/) – digunakan untuk ikon visual di dalam game dan antarmuka.  
+* [Google Fonts](https://fonts.google.com/) – digunakan untuk mengimpor dan menerapkan font *Whale I Tried* dan *Nunito*.  
+* [Email JS](https://www.emailjs.com/) – digunakan untuk mengirim email langsung melalui form kontak di situs.  
+* [Jasmine](https://jasmine.github.io/) – digunakan untuk melakukan pengujian (testing) otomatis terhadap kode JavaScript.
+
+---
+
+### Dukungan Peramban (Browser Support) ###
+Semua peramban (browser) berikut didukung oleh **Balloon Pop Maths**:
+* [Google Chrome](https://www.google.com/intl/en_uk/chrome/)  
+* [Microsoft Edge](https://www.microsoft.com/en-us/edge)  
+* [Safari](https://www.apple.com/uk/safari/)  
+* [Firefox](https://www.mozilla.org/en-GB/firefox/new/)  
 * [Opera](https://www.opera.com/)
 
-Please note that **Balloon Pop Maths** does not function correctly in 
-[Microsoft Internet Explorer](https://support.microsoft.com/en-us/topic/internet-explorer-downloads-d49e1f0d-571c-9a7b-d97e-be248806ca70#ID0EBBD=Windows_10).
-For further information please see  the **Browser Compatibility** section in [TESTING.md](TESTING.md).  
-
+> ⚠️ **Catatan:**  
+> Aplikasi **Balloon Pop Maths** **tidak berfungsi dengan benar** pada  
+> [Microsoft Internet Explorer](https://support.microsoft.com/en-us/topic/internet-explorer-downloads-d49e1f0d-571c-9a7b-d97e-be248806ca70#ID0EBBD=Windows_10).  
+> Untuk informasi lebih lanjut, silakan lihat bagian **Browser Compatibility** di [TESTING.md](TESTING.md).  
 ## Structure ##
 
 ### Information Architecture ###
-The game is comprised of a single web page, [index.html](./index.html), divided into the following sections:
-* The **Heading** section, containing the [**Balloon Pop Maths**](./assets/testing/features/title.png) title. 
-* The **Options** section, containing the collapsing **[Game Options](./assets/testing/features/options.png)**.
-* The **Information** section, containing the collapsing **[How To Play](./assets/testing/features/how-to-play.png)** information.
-* The **Game** section, containing the [**In Game Elements**](./assets/testing/responsive/game-ipad.png). The **Heading**, **Options** and **Information** sections
-are hidden when in **Game** mode. The **Game** section is hidden when not in **Game** mode.
-* The **Footer** section, containing the **[Contact Developer](./assets/testing/features/contact-developer-link.png)** 
-and **[GitHub](./assets/testing/features/github-link.png)** links. The footer is visible at all times.
+Game **Balloon Pop Maths** dirancang sebagai permainan edukatif berbasis web yang membantu anak-anak SD memahami konsep dasar operasi matematika (penjumlahan, pengurangan, perkalian, dan pembagian) dengan cara yang menyenangkan.  
+Game ini hanya terdiri dari satu halaman web, [index.html](./index.html), yang terbagi menjadi beberapa bagian utama:
+
+* **Heading Section**  
+  Menampilkan judul **[Balloon Pop Maths](./assets/testing/features/title.png)** yang berfungsi sebagai pengenal utama game dan dapat diklik untuk kembali ke halaman utama.
+
+* **Options Section**  
+  Berisi menu **[Game Options](./assets/testing/features/options.png)** untuk memilih mode permainan seperti perkalian, pembagian, pengurangan, atau penjumlahan.
+
+* **Information Section**  
+  Menyediakan petunjuk **[How To Play](./assets/testing/features/how-to-play.png)** agar anak-anak dapat memahami cara bermain dengan mudah dan mandiri.
+
+* **Game Section**  
+  Bagian utama yang menampilkan elemen permainan seperti balon jawaban, skor, dan efek suara. Saat game dimulai, bagian Heading, Options, dan Information akan disembunyikan untuk fokus penuh pada permainan.
+
+* **Footer Section**  
+  Menampilkan tautan **[Contact Developer](./assets/testing/features/contact-developer-link.png)** dan **[GitHub](https://github.com/richardhenyash)** yang selalu terlihat, sehingga mudah diakses oleh guru atau pengembang.
+
+---
 
 ### Features Implemented ###
-#### Features Implemented in Phase 1 ####
-* **Balloon Pop Maths** title, links to home page if selected:
-<img src="./assets/testing/features/title.png" style="margin: 15px; width:300px;"> 
 
-* **Game Mode Selector** (including hover styling), facilitates switching between multiplication, division, subtraction and addition games:  
-<img src="./assets/testing/features/game-mode.png" style="margin: 15px; width:300px;"> 
+#### Phase 1 (Initial Development) ####
+Game ini telah mengimplementasikan berbagai fitur utama untuk mendukung pengalaman belajar anak SD:
 
-* **High Score Panel**, shows current high score. Updated if the user gets a new high score:
-<img src="./assets/testing/features/high-score.png" style="margin: 15px; width:300px;"> 
+* **Judul Balloon Pop Maths** — Menarik dan mudah diingat oleh anak-anak.  
+  <img src="./assets/testing/features/title.png" style="margin: 15px; width:300px;">
 
-* **Play Button** (including hover styling), launches game:  
-<img src="./assets/testing/features/play.png" style="margin: 15px; width:300px;"> 
+* **Game Mode Selector** — Anak dapat memilih jenis operasi matematika (perkalian, pembagian, penjumlahan, pengurangan).  
+  <img src="./assets/testing/features/game-mode.png" style="margin: 15px; width:300px;">
 
-* **Options Audio Controls** (including hover styling), allows audio to be toggled on and off from the options area:  
-<img src="./assets/testing/features/options-audio.png" style="margin: 15px; width:300px;">
+* **High Score Panel** — Menampilkan skor tertinggi untuk memotivasi anak mencapai hasil lebih baik.  
+  <img src="./assets/testing/features/high-score.png" style="margin: 15px; width:300px;">
 
-* **Options Button** (including hover styling), opens collapsing options panel:  
-<img src="./assets/testing/features/options.png" style="margin: 15px; width:300px;"> 
+* **Play Button** — Memulai permainan dengan cepat dan mudah.  
+  <img src="./assets/testing/features/play.png" style="margin: 15px; width:300px;">
 
-* **How To Play Button** (including hover styling), opens collapsing information panel:  
-<img src="./assets/testing/features/how-to-play.png" style="margin: 15px; width:300px;"> 
+* **Audio Control Options** — Anak-anak dapat mengatur suara sesuai keinginan, membantu suasana belajar yang nyaman.  
+  <img src="./assets/testing/features/options-audio.png" style="margin: 15px; width:300px;">
 
-* **Footer Contact Developer Link** (including hover styling), opens [Contact Modal](./assets/testing/features/contact-modal.png):  
-<img src="./assets/testing/features/contact-developer-link.png" style="margin: 15px; width:150px;"> 
+* **How To Play Section** — Menyediakan petunjuk visual agar anak-anak memahami langkah-langkah permainan tanpa perlu banyak membaca.  
+  <img src="./assets/testing/features/how-to-play.png" style="margin: 15px; width:300px;">
 
-* **Footer GitHub Link** (including hover styling), links to [Developer Page](https://github.com/richardhenyash) on [GitHub](https://github.com):  
-<img src="./assets/testing/features/github-link.png" style="margin: 15px; width:50px;"> 
+* **Game Loader** — Menampilkan animasi saat permainan dimuat, menarik perhatian anak.  
+  <img src="./assets/testing/features/game-loader.png" style="margin: 15px; width:100px;">
 
-* **In Game Home Button** (including hover styling), returns to **Home** panel from game:  
-<img src="./assets/testing/features/game-home.png" style="margin: 15px; width:100px;">
+* **Answer Balloons** — Balon jawaban dengan animasi “pop” dan efek suara ketika anak memilih jawaban benar, serta suara “deflate” jika salah.  
+  <img src="./assets/testing/features/game-balloons.png" style="margin: 15px; width:500px;">
 
-* **Game Loader**, displayed while game window is loading. Note that the **Game Loader** 
-will only be visible the first time the game is played, depending 
-on how quickly the game is initiated, as it is shown only until the [window load event](https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event) is fired:  
-<img src="./assets/testing/features/game-loader.png" style="margin: 15px; width:100px;">  
+* **Custom Cursor** — Pointer berubah menjadi jarum ketika diarahkan ke balon, memberikan pengalaman interaktif.  
+  <img src="./assets/images/pin.svg" style="margin: 15px; width:30px;">
 
-* **In Game Score**, records current score in-game:  
-<img src="./assets/testing/features/game-score.png" style="margin: 15px; width:100px;">
+---
 
-* **Answer Balloons** showing potential answers. Balloons are animated using 
-[JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript), showing a 
-"pop" animation sequence and playing a "pop" sound if the correct answer is selected. 
-If an incorrect answer is selected, a "deflate" sound is played and the balloon and
-answer fades out:
-<img src="./assets/testing/features/game-balloons.png" style="margin: 15px; width:500px;">
+### Educational Strategy for Elementary Students ###
+Game ini dirancang untuk diimplementasikan dalam pembelajaran matematika di Sekolah Dasar dengan strategi berikut:
 
-* **Custom Cursor** - cursor is changed to a drawing pin when hovering over answer balloons:  
-<img src="./assets/images/pin.svg" style="margin: 15px; width:30px;">
+1. **Pendekatan Belajar Sambil Bermain (Game-Based Learning)**  
+   Anak-anak SD cenderung belajar lebih efektif ketika mereka merasa sedang bermain. Game ini menggabungkan kesenangan dengan pembelajaran numerik.
 
-* **In Game Audio Controls**, allows audio to be toggled on and off in-game:  
-<img src="./assets/testing/features/game-audio.png" style="margin: 15px; width:40px;">
+2. **Peningkatan Motivasi dan Fokus**  
+   Sistem skor dan efek suara memberikan dorongan emosional yang positif. Anak akan merasa tertantang untuk mendapatkan nilai yang lebih tinggi sambil tetap belajar.
 
-* **Health Bar**, shows current health. Game finishes when health is fully depleted. 
-If game is played on "Easy" difficulty level (selected in options), health is set to 5 hearts.
-If game is played on "Medium" difficulty level (selected in options), health is set to 3 hearts.
-If game is played on "Hard" difficulty level (selected in options), health is set to 1 heart:
-<img src="./assets/testing/features/game-health.png" style="margin: 15px; width:150px;">
+3. **Integrasi dalam Kegiatan Kelas**  
+   Guru dapat menggunakan game ini sebagai *media interaktif* saat pembelajaran matematika, baik secara individu (di perangkat masing-masing) maupun berkelompok (menggunakan proyektor).
 
-* **Question Panel**, shows current question:
-<img src="./assets/testing/features/game-question.png" style="margin: 15px; width:200px;">
+4. **Pembelajaran Mandiri di Rumah**  
+   Karena berbasis web dan responsif, anak-anak dapat memainkan game ini di rumah dengan perangkat apa pun — laptop, tablet, atau ponsel.
 
-* **Contact Modal**, implemented using [Email JS](https://www.emailjs.com/) and [JavaScript Mail Library](./assets/js/mail.js). 
-If the contact form is succesfully submitted, a [Success Modal](./assets/testing/features/contact-modal-success.png) is displayed. 
-<img src="./assets/testing/features/contact-modal.png" style="margin: 15px; width:300px;">
-<img src="./assets/testing/features/contact-modal-success.png" style="margin: 15px; width:300px;">
+5. **Penguatan Konsep Dasar Matematika**  
+   Melalui pengulangan yang menyenangkan, anak dapat memperkuat pemahaman terhadap operasi dasar seperti penjumlahan, pengurangan, perkalian, dan pembagian tanpa tekanan.
 
-* **Game Feedback Modal**, gives varying feedback to the user at the end of a game:
-<img src="./assets/testing/features/modal-unlucky.png" style="margin: 15px; width:300px;">
-<img src="./assets/testing/features/modal-well-done.png" style="margin: 15px; width:300px;">
-<img src="./assets/testing/features/modal-high-score.png" style="margin: 15px; width:300px;">
+---
 
-#### Features To Be Implemented In Future Development Phases ####
-* Subscribe feature on [Contact Modal](./assets/testing/features/contact-modal.png) - this may be implemented in the future
-if the developer decides to develop further similar games.
+Dengan struktur dan fitur seperti ini, *Balloon Pop Maths* bukan hanya menjadi game hiburan, tetapi juga alat pembelajaran interaktif yang efektif untuk meningkatkan kemampuan berhitung dasar anak-anak sekolah dasar.
+## Additional Features Implemented ##
 
-#### Design Changes During The Phase 1 Development ####
-After initial early user testing and feedback, the following minor design changes were made:
+* **Health Bar (Bilahan Nyawa)**  
+  Menampilkan jumlah nyawa pemain selama permainan. Game akan berakhir jika seluruh nyawa habis.  
+  - Level **Easy**: 5 hati (memberikan lebih banyak kesempatan agar anak tidak cepat frustrasi).  
+  - Level **Medium**: 3 hati.  
+  - Level **Hard**: 1 hati (melatih konsentrasi dan ketelitian).  
+  <img src="./assets/testing/features/game-health.png" style="margin: 15px; width:150px;">
 
-* [In-game score](./assets/testing/features/game-score.png) was moved from underneath the game question to the top right corner.
-* [Options audio controls](./assets/testing/features/options-audio.png) were added to allow audio to be toggled on and off from the options area.
-* [In-game audio controls](./assets/testing/features/game-audio.png) were added to allow audio to be toggled on and off in-game.
-* Collapsing [How To Play](./assets/testing/features/how-to-play.png) section was added underneath 
-[Options](./assets/testing/features/options.png) to explain how to play and to give some further information about the game. 
-* [Game loader](./assets/testing/features/game-loader.png) was added and is now shown until the game window is completeley loaded.
-Note that the [game loader](./assets/testing/features/game-loader.png) will only be visible the first time the game is played, depending 
-on how quickly the game is initiated, as it is shown only until the 
-[window load event](https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event) is fired. 
-The event handler is located in the [JavaScript Event Handler Library](./assets/js/events.js).
-* [In-game home button](./assets/testing/features/game-home.png) renamed from "Options" to "Home".
+  🎯 *Tujuan edukatif:* membantu anak belajar mengelola kesalahan dan meningkatkan ketahanan mental dalam menghadapi tantangan belajar.
 
-### Responsive Styling ###
-* The [**Balloon Pop Maths**](./assets/testing/features/title.png) title is responsively styled, and stacks on screens under 768 pixels wide.
-* The [**Balloon Pop Maths**](./assets/testing/features/title.png) title is re-sized and re-positioned for screen sizes under 680 pixels high.
-* The [**Play Button**](./assets/testing/features/play.png) is responsively styled, and is re-sized for screen sizes under 680 pixels high.
-* The [**Game**](./assets/testing/responsive/game-medium-screen.png) section is responsively styled, showing 2 
-panels of 3 balloons stacked vertically on smaller devices, and side by side on large devices over 992 pixels wide.
-* The [**Game**](./assets/testing/responsive/game-iphone11.png) section is dynamically sized for devices up to 992 pixels wide, 
-so that it takes up the full screen height. A fixed size is implemented on large devices over 992 pixels wide.
+---
 
-See **Responsive Design** section in [TESTING.md](TESTING.md) for further information and [Responsive Testing](./assets/testing/responsive) screen prints.
+* **Question Panel (Panel Pertanyaan)**  
+  Menampilkan soal matematika yang sedang dimainkan, seperti `6 x 3` atau `9 + 5`.  
+  <img src="./assets/testing/features/game-question.png" style="margin: 15px; width:200px;">
+
+  🎯 *Tujuan edukatif:* melatih kecepatan berpikir dan kemampuan berhitung dasar anak secara interaktif.
+
+---
+
+* **Contact Modal (Kotak Hubungi Pengembang)**  
+  Dibuat menggunakan [Email JS](https://www.emailjs.com/) dan [JavaScript Mail Library](./assets/js/mail.js).  
+  Jika formulir dikirim dengan sukses, maka akan muncul tampilan **Success Modal**.  
+  <img src="./assets/testing/features/contact-modal.png" style="margin: 15px; width:300px;">
+  <img src="./assets/testing/features/contact-modal-success.png" style="margin: 15px; width:300px;">
+
+  🎯 *Tujuan edukatif:* memungkinkan guru atau orang tua memberikan umpan balik langsung kepada pengembang tentang pengalaman anak menggunakan game ini.
+
+---
+
+* **Game Feedback Modal (Umpan Balik Permainan)**  
+  Memberikan pesan motivasi kepada anak di akhir permainan, misalnya:
+  - *“Unlucky!”* — jika anak belum berhasil.
+  - *“Well Done!”* — jika performa anak baik.
+  - *“New High Score!”* — jika anak mencetak rekor baru.  
+  <img src="./assets/testing/features/modal-unlucky.png" style="margin: 15px; width:300px;">
+  <img src="./assets/testing/features/modal-well-done.png" style="margin: 15px; width:300px;">
+  <img src="./assets/testing/features/modal-high-score.png" style="margin: 15px; width:300px;">
+
+  🎯 *Tujuan edukatif:* membangun semangat dan rasa percaya diri anak melalui apresiasi positif setiap kali mereka bermain.
+
+---
+
+## Features Planned for Future Phases ##
+* **Subscribe Feature** — Akan ditambahkan pada *Contact Modal* di tahap pengembangan berikutnya.  
+  Fitur ini memungkinkan anak atau guru berlangganan game edukatif baru dari pengembang.
+
+---
+
+## Design Changes During Phase 1 ##
+Setelah dilakukan uji coba oleh pengguna awal (guru dan siswa SD), beberapa perubahan desain dilakukan untuk meningkatkan pengalaman belajar:
+
+* **Posisi skor in-game** dipindahkan ke kanan atas agar lebih mudah terlihat.  
+* **Kontrol audio di opsi** ditambahkan supaya anak dapat menyesuaikan volume sesuai kenyamanan.  
+* **Kontrol audio di dalam game** juga ditambahkan untuk fleksibilitas.  
+* **Bagian “How To Play”** ditambahkan agar anak-anak dapat belajar cara bermain secara mandiri.  
+* **Game loader** ditambahkan agar anak tahu game sedang dimuat — menghindari kebingungan saat menunggu.  
+* **Tombol “Options”** diganti menjadi **“Home”** agar lebih mudah dimengerti anak usia SD.
+
+🎯 *Semua perubahan ini bertujuan untuk memastikan pengalaman bermain lebih ramah anak dan mendukung fokus belajar matematika dasar.*
+
+---
+
+## Responsive Styling ##
+Agar game dapat dimainkan oleh anak-anak di berbagai perangkat (laptop, tablet, atau ponsel), diterapkan desain **responsif**, meliputi:
+
+* **Judul Balloon Pop Maths** otomatis menyesuaikan ukuran dan posisi pada layar di bawah 768 piksel.  
+* **Tombol Play** dan elemen lainnya disesuaikan ukurannya untuk layar kecil (seperti ponsel).  
+* **Game Section** menampilkan 2 panel dengan 3 balon vertikal pada perangkat kecil, dan 6 balon horizontal pada perangkat besar (>992 piksel).  
+* **Game Layout** menyesuaikan tinggi layar secara otomatis agar tetap terlihat penuh pada semua perangkat.
+
+📱 *Dengan desain responsif ini, anak-anak dapat belajar kapan saja dan di mana saja — di rumah, di sekolah, atau saat perjalanan.*
+
+Lihat juga bagian **Responsive Design** pada [TESTING.md](TESTING.md) untuk hasil pengujian tampilan di berbagai ukuran layar.
 
 ## JavaScript Code Library ##
-The [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) code has been broken down into seperate, re-usable 
-functions where possible and is contained within several [JavaScript Code Library](./assets/js) files:
-* [JavaScript Animation Function Library](./assets/js/events.js)
+
+Kode [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) dibagi menjadi beberapa pustaka fungsional yang dapat digunakan kembali, 
+dengan tujuan agar struktur program lebih efisien, mudah dibaca, dan mudah dikembangkan di masa depan.  
+Semua fungsi didokumentasikan menggunakan [JSDoc](https://jsdoc.app/about-getting-started.html).
+
+File pustaka JavaScript yang digunakan:
+* [JavaScript Animation Function Library](./assets/js/animation.js)
 * [JavaScript Audio Function Library](./assets/js/audio.js)
 * [JavaScript Display Interaction Function Library](./assets/js/display.js)
 * [JavaScript Event Handler Library](./assets/js/events.js)
 * [JavaScript Game Logic Function Library](./assets/js/game-logic.js)
 * [JavaScript Initialisation Library](./assets/js/initialisation.js)
 * [JavaScript Mail Library](./assets/js/mail.js)
-* [JavaScript Maths Function Library](./assets/js/maths.js)  
+* [JavaScript Maths Function Library](./assets/js/maths.js)
 
-Each function is fully documented using [JSDoc](https://jsdoc.app/about-getting-started.html) comments.
+🎯 *Tujuan edukatif:* Struktur modular ini mempermudah siswa atau pengembang muda yang belajar pemrograman memahami cara kerja game secara bertahap.
+
+---
 
 ## Game Logic ##
-The game logic was developed using [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript).  
 
-When the user hits the [Play](./assets/testing/features/play.png) button, the heading, options and information
-sections of the [index](index.html) page are hidden and the game section is shown. 
-The selected options are gathered using functions in the [JavaScript Display Interaction Functions Library](./assets/js/display.js) 
-and are stored in global variables. All global variables are initialised in the 
-[JavaScript Initialisation Library](./assets/js/initialisation.js) and are prefixed with "bpm".  
+Logika permainan dikembangkan menggunakan [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript).  
 
-The user is presented with a [maths question](./assets/testing/features/game-question.png). The question type depends on the selected 
-[Game Mode](./assets/testing/features/game-mode.png). 
-6 potential answers are presented in the [answer balloons](./assets/js/game-balloons.js), 1 correct answer and 5 wrong answers. 
-Random maths questions and correct and incorrect answers are generated using functions in the 
-[JavaScript Maths Function Library](./assets/js/maths.js).
+Saat pemain menekan tombol **[Play](./assets/testing/features/play.png)**, bagian **heading**, **options**, dan **information** pada halaman [index](index.html) akan disembunyikan, 
+dan bagian **game** akan ditampilkan.
 
-If the game is played on "Easy" difficulty level (selected in options), [health](./assets/testing/features/game-health.png) is set to 5 hearts.
-If the game is played on "Medium" difficulty level (selected in options), [health](./assets/testing/features/game-health.png) is set to 3 hearts.
-If the game is played on "Hard" difficulty level (selected in options), [health](./assets/testing/features/game-health.png) is set to 1 heart.  
+Opsi permainan yang dipilih (mode, tingkat kesulitan, dan pengaturan suara) diambil melalui fungsi di  
+[JavaScript Display Interaction Functions Library](./assets/js/display.js), lalu disimpan ke dalam variabel global yang diawali dengan prefix `"bpm"`.  
+Semua variabel global diinisialisasi dalam [JavaScript Initialisation Library](./assets/js/initialisation.js).
 
-If the user selects the correct answer, the balloon "popping" animation and sound is played using functions in the 
-[JavaScript Animation Function Library](./assets/js/animation.js), and the score increments by 1. 
-If the user selects the wrong answer, the "deflate" sound is played, the selected balloon and answer text fades out and 
-[health](./assets/testing/features/game-health.png) is depleted by 1 heart. The game continues until the user has either answered 
-all of the questions or their [health](./assets/testing/features/game-health.png) has been fully depleted.  
+Pemain kemudian diberikan **pertanyaan matematika** berdasarkan mode permainan yang dipilih —  
+*perkalian, pembagian, penjumlahan, atau pengurangan*.
 
-When the game is complete, the user is presented with a [Feedback Modal](./assets/testing/features/modal-well-done.png). The feedback message 
-varies depending on how well the user has played the game. If the user has scored less than 4, the [Unlucky](./assets/testing/features/modal-unlucky.png)
-modal is shown. If the user has scored 4 or more but has not achieved a new high score, the [Well Done](./assets/testing/features/modal-well-done.png) modal is shown.
-If the user has achieved a new high score, the [High Score](./assets/testing/features/modal-high-score.png) modal is shown, and the 
-[High Score](./assets/testing/features/high-score.png) panel on the [index](index.html) page is updated.
+Enam balon jawaban akan muncul di layar: 1 jawaban benar dan 5 jawaban salah.  
+Pertanyaan dan pilihan jawaban dihasilkan secara acak oleh fungsi di [JavaScript Maths Function Library](./assets/js/maths.js).
 
-See [Game Logic UML Diagram](./assets/wireframes/game-logic.png) for a visual representation of the **Game Logic**:  
+Tingkat kesulitan memengaruhi jumlah hati (nyawa) pemain:
+- **Easy:** 5 hati 💖  
+- **Medium:** 3 hati 💗  
+- **Hard:** 1 hati 💔  
 
-<img src="./assets/wireframes/game-logic.png" width="100%" style="margin: 15px;"> 
+Jika pemain memilih **jawaban benar**, animasi dan suara *“pop”* akan diputar melalui  
+[JavaScript Animation Function Library](./assets/js/animation.js), dan skor bertambah 1.  
+Jika **jawaban salah**, balon akan mengempis disertai efek suara *“deflate”*, lalu satu nyawa akan berkurang.
+
+Permainan berlanjut hingga semua pertanyaan selesai atau nyawa habis.  
+Setelah permainan berakhir, **Feedback Modal** muncul dengan pesan sesuai performa pemain:
+
+- Skor < 4 → [Unlucky Modal](./assets/testing/features/modal-unlucky.png)  
+- Skor ≥ 4 tanpa rekor baru → [Well Done Modal](./assets/testing/features/modal-well-done.png)  
+- Rekor baru → [High Score Modal](./assets/testing/features/modal-high-score.png), dan panel skor tertinggi diperbarui.
+
+🎯 *Tujuan edukatif:* Sistem ini melatih ketelitian dan kecepatan berhitung siswa SD sambil memberikan pengalaman belajar yang menyenangkan dan tidak menegangkan.
+
+Lihat juga [Game Logic UML Diagram](./assets/wireframes/game-logic.png) untuk representasi visual alur permainan:  
+<img src="./assets/wireframes/game-logic.png" width="100%" style="margin: 15px;">
+
+---
 
 ## Testing ##
 
-Further testing information and screen prints can be found in [TESTING.md](TESTING.md).
+Informasi pengujian tambahan dan hasil tangkapan layar dapat dilihat di [TESTING.md](TESTING.md).  
+Pengujian dilakukan untuk memastikan seluruh fungsi berjalan baik di berbagai perangkat yang umum digunakan siswa SD.
+
+---
 
 ## Deployment ##
-The project has been developed using [Gitpod](https://www.Gitpod.io/) and [GitHub](https://github.com/). 
-The project was regularly commited to [GitHub](https://github.com/) during the initial development phase.
-The website resides as a repository in [GitHub](https://github.com/) and has been been deployed 
-using [GitHub Pages](https://richardhenyash.github.io/balloon-pop-maths/). 
 
-The steps required to deploy the website to [GitHub Pages](https://pages.github.com/) are as follows:
-* Go to the [Project Code Repository Location](https://github.com/richardhenyash/balloon-pop-maths) on [GitHub](https://github.com/).
-* Select "Settings" (the gear icon) in the top right corner.
-* Scroll Down to the [GitHub Pages](https://pages.github.com/) section.
-* Set the desired source branch. For [Balloon Pop Maths](https://richardhenyash.github.io/balloon-pop-maths/), 
-the deployed source branch is the 
-[Master](https://github.com/richardhenyash/balloon-pop-maths/tree/master) branch.
-* Click the "Save" button. A tick should now be shown above the "Source" panel in a 
-green panel which also contains the published site address. 
-For [Balloon Pop Maths](https://richardhenyash.github.io/balloon-pop-maths/) 
-this is https://richardhenyash.github.io/balloon-pop-maths/.
-* For further help and information, see the following links:
-[About GitHub Pages](https://docs.github.com/en/github/working-with-github-pages/about-github-pages#publishing-sources-for-github-pages-sites), and  
-[Creating A GitHub Pages Site](https://docs.github.com/en/github/working-with-github-pages/creating-a-github-pages-site).
+Proyek dikembangkan menggunakan [Gitpod](https://www.gitpod.io/) dan disimpan di [GitHub](https://github.com/).  
+Selama pengembangan, setiap pembaruan dikomit secara berkala untuk menjaga versi kode tetap aman dan terdokumentasi.  
+Website di-*deploy* menggunakan [GitHub Pages](https://pages.github.com/).
 
-In order to make a fork or clone of the project, a [GitHub](https://www.Gitpod.io/) account is required. 
-The [Gitpod Browser Extension](https://www.Gitpod.io/docs/browser-extension/) is also recommended.  
+Langkah-langkah untuk melakukan *deployment* ke GitHub Pages:
+
+1. Buka [Repositori Proyek Balloon Pop Maths](https://github.com/richardhenyash/balloon-pop-maths).  
+2. Klik **Settings** di pojok kanan atas.  
+3. Gulir ke bagian **GitHub Pages**.  
+4. Pilih *source branch* yang diinginkan (untuk proyek ini menggunakan **master**).  
+5. Klik tombol **Save**.  
+6. Setelah berhasil, GitHub akan menampilkan tautan situs aktif seperti berikut:  
+   👉 [https://richardhenyash.github.io/balloon-pop-maths/](https://richardhenyash.github.io/balloon-pop-maths/)
+
+📘 Referensi tambahan:  
+- [About GitHub Pages](https://docs.github.com/en/github/working-with-github-pages/about-github-pages#publishing-sources-for-github-pages-sites)  
+- [Creating A GitHub Pages Site](https://docs.github.com/en/github/working-with-github-pages/creating-a-github-pages-site)
+
+---
+
+## Forking or Cloning the Project ##
+
+Untuk membuat salinan proyek ini, diperlukan akun [GitHub](https://github.com/) dan disarankan menginstal  
+[Gitpod Browser Extension](https://www.gitpod.io/docs/browser-extension/).
+
+Langkah membuat *fork*:
+1. Kunjungi [Repositori Proyek Balloon Pop Maths](https://github.com/richardhenyash/balloon-pop-maths).  
+2. Klik tombol **Fork** di pojok kanan atas.  
+3. Setelah itu, kamu bisa menjalankan proyek secara lokal melalui Gitpod atau Visual Studio Code.
+
+🎯 *Tujuan edukatif:*  
+Bagian ini mendorong siswa yang tertarik pada pemrograman untuk belajar cara berbagi dan mengelola proyek di platform kolaboratif seperti GitHub — sebuah keterampilan penting di dunia teknologi modern.
+## Forking the Project ##
+
+For further information on forking a [GitHub](https://github.com/) repository, 
+see the [GitHub Documentation](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo).
 
 The project may be forked by following these steps:
 * Go to the [Project Code Repository Location](https://github.com/richardhenyash/balloon-pop-maths) on [GitHub](https://github.com/).
 * In the top-right corner of the page, click "Fork".  
 
-For further information on forking a [GitHub](https://github.com/) repository, 
-see the [GitHub Documentation](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo).
+## Cloning the Project ##
 
 The project may be cloned by following these steps:
 * Go to the [Project Code Repository Location](https://github.com/richardhenyash/balloon-pop-maths) on [GitHub](https://github.com/).
 * Select the "Code" dropdown and choose "GitHub CLI" under "Clone". This will give you a URL that may be copied into the clipboard. 
 * Open the Git Bash command line interface in [Gitpod](https://www.Gitpod.io/).
 * Change the current working directory to the location where you would like the cloned directory to reside.
-* Type git clone, and then paste the URL copied earlier, eg:  
-$ git clone https://github.com/richardhenyash/balloon-pop-maths
-* Press Enter to create the local clone.
+* Type git clone, and then paste the URL copied earlier, e.g.:  
+  ```bash
+  $ git clone https://github.com/richardhenyash/balloon-pop-maths
 
-The code may also be downloaded to a local computer by following these steps:
-* Go to the [Project Code Repository Location](https://github.com/richardhenyash/balloon-pop-maths) on [GitHub](https://github.com/).
-* Select the "Code" dropdown and choose the "Download ZIP" option.
-* This will download a copy of the entire project locally as a .zip file.  
+## 👥 Anggota Tim – Kelompok 14 ##
+- 👨‍💻 **Programmer**: Faiz Ilyas Zulkarnaen  
+- 🎨 **UI/UX Designer**: Pandu Winata  
+- 📝 **Dokumentasi**: Salma & Yupia  
+- 📂 **Project Manager**: Noval Kurniawan
+- 🧠 **Brain**: Gilang Prayoga
 
-For further information on cloning a [GitHub](https://github.com/) repository, see the [GitHub Documentation](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository).
 
-## Credits ##
+## 📌 Informasi Tambahan
+- **Universitas**: Universitas Muhammadiyah Metro  
+- **Program Studi**: Ilmu Komputer – @prodi_ilkom_ummet   
+- **Tahun Akademik**: 2025  
 
-Many thanks to the following:
-* [favicon.cc](https://www.favicon.cc/) for the [Balloon Favicon](https://www.favicon.cc/?action=icon&file_id=706495).
-* [Game Developer Studio](http://www.gamedeveloperstudio.com/) for the awesome [balloon Sprite Images](https://www.gamedeveloperstudio.com/graphics/viewgraphic.php?item=134l668d3b3n083827).
-* [SVG repo](https://www.svgrepo.com/) for the [Pin SVG Image](https://www.svgrepo.com/svg/207632/push-pin).
-* [mixkit](https://mixkit.co/) for the brilliant [Sound Effects](https://mixkit.co/free-sound-effects/game/).
-* [Martin Himmel](https://dev.to/martyhimmel/animating-sprite-sheets-with-javascript-ag3) 
-and [Spicy Yoghurt](https://spicyyoghurt.com/tutorials/html5-javascript-game-development/images-and-sprite-animations) 
-for additional help on sprite animations.  
-* [loading.io](https://loading.io/css/) for the attractive [Game loader](./assets/testing/features/game-loader.png).
-* [Laurens Holst](https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array) for the
- JavaScript [shuffleArray function](./assets/js/maths.js) to randomize an array in place using the Durstenfeld shuffle algorithm.
-* [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random) 
-for the JavaScript [getRandomIntInclusive function](./assets/js/maths.js) to 
-return a random integer between the two integers given.
+---
 
-## Acknowledgements ##
-
-Many thanks to the following for help and inspiration during this project:
-* [Neringa Bickmore](https://github.com/neringabickmore) for your valued early review and comments on the game and documentation.
-* My mentor [Reuben Ferrante](https://github.com/arex18) for helping to get me started off on the right footing and for the insightful
-review and comments on the game.
-* [Ben Kavanagh](https://github.com/BAK2K3) for the [Game loader](./assets/testing/features/game-loader.png) inspiration and helpful comments 
-on the game and testing process.
-* The [Code Institute](https://codeinstitute.net/) [slack](https://slack.com/intl/en-gb/) community, for all your encouragement and positive feedback.
+✨ Dengan **Pop Balon Ajaib**, belajar matematika jadi lebih **mudah, seru, dan menyenangkan**!
