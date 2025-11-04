@@ -112,7 +112,7 @@
                         aria-controls="options" class="btn btn-xl w-100 btn-info btn-text">Pilihan</button>
                 </div>
                 <div class="container-button-group d-flex w-100 hover">
-                    <button type="button" class="btn btn-xl w-100 btn-info btn-text">Input Soal</button>
+                    <button type="button" id="btn-input-soal" class="btn btn-xl w-100 btn-info btn-text">Input Soal</button>
                 </div>
             </div>
         </div>
@@ -616,6 +616,74 @@
     <section id="examp-section" class="conta-xl d-none" aria-label="Examp Section">
         
     </section>
+
+    <!-- Input Soal Section -->
+    <section id="input-soal-section" class="container-sm d-none" aria-label="Input Soal Section">
+        <!-- Home Button -->
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div class="container-button-group d-flex w-100">
+                    <button id="btn-input-soal-home" type="button" class="btn btn-xl w-100 btn-info btn-text">
+                        <i class="fas fa-home"></i> Kembali ke Menu
+                    </button>
+                </div>
+                
+                <!-- Button to Add New Question -->
+                <div class="container-button-group d-flex w-100 hover">
+                    <button id="btn-tambah-soal" type="button" class="btn btn-xxl w-100 btn-info btn-text">
+                        <i class="fas fa-plus"></i> Tambah Soal Ujian
+                    </button>
+                </div>
+
+                <!-- Question List -->
+                <div id="question-list-container" class="container-button-group">
+                    <div class="btn-xl-nofill w-100 btn-text-score text-center mb-3">
+                        <h4 style="color: #A2529A;">Daftar Soal Tersimpan</h4>
+                    </div>
+                    <div id="question-list" class="question-list">
+                        <!-- Questions will be dynamically added here -->
+                    </div>
+                    <div id="no-questions-message" class="text-center" style="color: #A2529A; margin-top: 20px;">
+                        <p>Belum ada soal yang tersimpan. Klik "Tambah Soal Ujian" untuk menambahkan soal.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </section>
+
+    <!-- Modal for Adding Questions -->
+    <div class="modal" id="modal-tambah-soal" style="display: none;">
+        <div class="modal-inner" style="max-width: 600px;">
+            <h3 style="color: #A2529A; text-align: center; margin-bottom: 20px;">Tambah Soal Ujian</h3>
+            
+            <form id="form-tambah-soal">
+                <div class="form-group">
+                    <label for="input-pertanyaan" style="color: #A2529A; font-weight: bold;">Pertanyaan:</label>
+                    <textarea id="input-pertanyaan" class="form-control" rows="3" placeholder="Masukkan pertanyaan soal..." required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="input-jawaban" style="color: #A2529A; font-weight: bold;">Jawaban yang Benar:</label>
+                    <input type="text" id="input-jawaban" class="form-control" placeholder="Masukkan jawaban yang benar..." required>
+                </div>
+
+                <div class="form-group">
+                    <label style="color: #A2529A; font-weight: bold;">Pilihan Jawaban (Opsional untuk pilihan ganda):</label>
+                    <input type="text" id="input-pilihan-1" class="form-control mb-2" placeholder="Pilihan A">
+                    <input type="text" id="input-pilihan-2" class="form-control mb-2" placeholder="Pilihan B">
+                    <input type="text" id="input-pilihan-3" class="form-control mb-2" placeholder="Pilihan C">
+                    <input type="text" id="input-pilihan-4" class="form-control mb-2" placeholder="Pilihan D">
+                </div>
+
+                <div class="d-flex justify-content-between" style="margin-top: 20px;">
+                    <button type="button" id="btn-batal-tambah" class="btn btn-lg btn-secondary" style="width: 48%;">Batal</button>
+                    <button type="submit" id="btn-kirim-soal" class="btn btn-lg btn-info" style="width: 48%;">Kirim</button>
+                </div>
+            </form>
+        </div>
+    </div>
     <div id="wrapper" ontouchstart="">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 600" preserveAspectRatio="xMaxYMin meet">
             <defs>
@@ -702,7 +770,7 @@
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
     <script src="assets/js/initialisation.js"></script>
-    <!--<script src="assets/js/audio.js"></script>-->
+    <script src="assets/js/audio.js"></script>
     <script src="assets/js/animation.js"></script>
 
     <script src="assets/js/display.js"></script>
@@ -710,6 +778,7 @@
     <script src="assets/js/mail.js"></script>
     <script src="assets/js/maths.js"></script>
     <script src="assets/js/events.js"></script>
+    <script src="assets/js/input-soal.js"></script>
     <!-- <script src="assets/js/storyMode.js"></script> -->
     <script src="assets/js/background.js"></script>
 </body>
