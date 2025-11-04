@@ -1,0 +1,886 @@
+     @import url('https://fonts.googleapis.com/css2?family=Chewy&display=swap');
+
+     @import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
+
+     /*-- Global Variable Declarations--*/
+     :root {
+         /*-- Fonts--*/
+         --titlefont: "Whale I Tried", sans-serif;
+         --bodyfont: 'Nunito', sans-serif;
+         /*-- Colour Palette--*/
+         --purplelight: #908CD9;
+         --purplemed: #9C70BD;
+         --purpledark: #A2529A;
+         --bluemed: #3E8BC6;
+         --bluevlight: #EEFBFF;
+         --redlight: #DC7774;
+         --medgrey: #a9a9a9;
+         /*-- Canvas Size--*/
+         --canvassize: calc((100vh - 22.6rem) / 4);
+         --balloontextsize: calc((100vh - 22.6rem) / 14);
+         --balloontextlineheight: calc((100vh - 22.6rem) / 4.4);
+     }
+
+     /*-- Custom Fonts--*/
+     @font-face {
+         font-family: 'Whale I Tried';
+         src: url('../fonts/whale-i-tried.eot');
+         src: url('../fonts/whale-i-tried.eot?#iefix') format('embedded-opentype'),
+             url('../fonts/whale-i-tried.woff2') format('woff2'),
+             url('../fonts/whale-i-tried.woff') format('woff'),
+             url('../fonts/whale-i-tried.ttf') format('truetype'),
+             url('../fonts/whale-i-tried.svg#Whale I Tried') format('svg');
+     }
+
+     /*-- HTML--*/
+     html {
+         font-size: 62.5%;
+     }
+
+     /*-- Body--*/
+     body {
+         font-family: var(--bodyfont);
+         font-size: 8.6rem;
+         min-height: 100vh;
+         z-index: 0;
+     }
+
+     /*-- Containers --*/
+     .container-heading-main {
+         padding-top: 1.0rem;
+         padding-bottom: 0.5rem;
+     }
+
+     .container-heading-main-large {
+         padding-top: 3.0rem;
+         padding-bottom: 3.0rem;
+     }
+
+     .container-button {
+         padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+     }
+
+     .container-button-group {
+         padding-top: 0.5rem;
+         padding-bottom: 0.5rem;
+     }
+
+     .container-button-game {
+         padding-top: 1.5rem;
+         padding-bottom: 1.0rem;
+     }
+
+     .container-loader {
+         padding-top: 9.8rem;
+         padding-bottom: 9.8rem;
+     }
+
+     .container-footer {
+         padding-top: 1rem;
+         padding-bottom: 1rem;
+         text-align: center;
+     }
+
+     .container-text-information {
+         padding-top: 0.5rem;
+         padding-bottom: 0.5rem;
+     }
+
+     .container-404 {
+         padding-top: 20rem;
+     }
+
+     /*-- Headings --*/
+     h1 {
+         font-family: "Chewy", system-ui;
+         font-weight: 400;
+         font-style: normal;
+         font-size: 5rem;
+         text-align: center;
+         color: #FFCC33;
+         /* pink cerah */
+         text-shadow: 2px 2px 0 #FFD3E2;
+
+     }
+
+     /*-- Heading Image --*/
+     .container-heading-main img,
+     .container-heading-main-large img {
+         width: 8rem;
+         height: 8rem;
+         position: absolute;
+         z-index: -1;
+         left: 50%;
+         margin-left: -40px;
+     }
+
+     /*-- Buttons --*/
+     .btn-text {
+         color: var(--bluevlight);
+     }
+
+     .btn-text-score {
+         color: var(--purpledark);
+         text-align: center;
+         white-space: nowrap;
+     }
+
+     .btn-xl {
+         padding: 0.7rem 0.7rem;
+         font-size: 1.7rem;
+         font-weight: 600;
+         border-radius: 0.5rem;
+         background-color: var(--purplelight);
+         border-color: var(--bluemed);
+     }
+
+     .btn-xl-nofill {
+         padding: 0.7rem 0.7rem;
+         font-size: 1.7rem;
+         font-weight: 600;
+         border: 2px solid var(--purplelight);
+         border-radius: 0.5rem;
+     }
+
+     .btn-xxl {
+         padding: 3.35rem 5rem;
+         font-size: 5rem;
+         font-weight: 700;
+         border-radius: 1.0rem;
+         background-color: var(--purplelight);
+         border-color: var(--bluemed);
+     }
+
+     /*-- Button Hover Styling --*/
+     .btn-text-score:hover {
+         color: var(--purpledark);
+         cursor: auto;
+     }
+
+     /*-- Button Pseudo Class Styling --*/
+     .btn-xl-focus-none:focus,
+     .btn-xl-focus-none:visited {
+         background-color: var(--purplelight);
+         box-shadow: none;
+         border-color: var(--bluemed);
+     }
+
+     /*-- Information Text --*/
+     .text-information {
+         font-size: 1.7rem;
+         padding: 1.0rem 1.0rem 1.0rem 1.0rem;
+         color: var(--purpledark);
+         border: 2px solid var(--purplelight);
+         border-radius: 0.5rem;
+     }
+
+     /*-- 404 Error Heading Styling --*/
+     .text-404 h4 {
+         font-size: 2.2rem;
+         color: var(--purplemed);
+         font-weight: 700;
+     }
+
+     /*-- 404 Error Signpost Icon Styling --*/
+     .container-404 i {
+         padding-top: 0.5rem;
+         color: var(--purplemed);
+     }
+
+     /*-- Game Elements --*/
+
+     /*-- Game Loader --*/
+     /*-- Many thanks to loading.io https://loading.io/css/ --*/
+     .lds-grid {
+         display: inline-block;
+         position: relative;
+         width: 80px;
+         height: 80px;
+     }
+
+     .lds-grid div {
+         position: absolute;
+         width: 16px;
+         height: 16px;
+         border-radius: 50%;
+         background: #fff;
+         animation: lds-grid 1.2s linear infinite;
+     }
+
+     .lds-grid div:nth-child(1) {
+         top: 8px;
+         left: 8px;
+         animation-delay: 0s;
+     }
+
+     .lds-grid div:nth-child(2) {
+         top: 8px;
+         left: 32px;
+         animation-delay: -0.4s;
+     }
+
+     .lds-grid div:nth-child(3) {
+         top: 8px;
+         left: 56px;
+         animation-delay: -0.8s;
+     }
+
+     .lds-grid div:nth-child(4) {
+         top: 32px;
+         left: 8px;
+         animation-delay: -0.4s;
+     }
+
+     .lds-grid div:nth-child(5) {
+         top: 32px;
+         left: 32px;
+         animation-delay: -0.8s;
+     }
+
+     .lds-grid div:nth-child(6) {
+         top: 32px;
+         left: 56px;
+         animation-delay: -1.2s;
+     }
+
+     .lds-grid div:nth-child(7) {
+         top: 56px;
+         left: 8px;
+         animation-delay: -0.8s;
+     }
+
+     .lds-grid div:nth-child(8) {
+         top: 56px;
+         left: 32px;
+         animation-delay: -1.2s;
+     }
+
+     .lds-grid div:nth-child(9) {
+         top: 56px;
+         left: 56px;
+         animation-delay: -1.6s;
+     }
+
+     @keyframes lds-grid {
+
+         0%,
+         100% {
+             opacity: 1;
+         }
+
+         50% {
+             opacity: 0.5;
+         }
+     }
+
+     /*-- Set row height for balloon canvas elements --*/
+     /*-- Row height calculated using viewport height --*/
+     .canvas-balloon {
+         height: var(--canvassize);
+     }
+
+     /*-- Game Canvas --*/
+     /*-- Width and height calculated using viewport height --*/
+     .canvas-balloon canvas {
+         position: absolute;
+         width: var(--canvassize);
+         height: var(--canvassize);
+         z-index: -1;
+     }
+
+     /*-- Game Answer Balloon Text --*/
+     /*-- Font size, line height, width and height calculated using viewport height --*/
+     .balloon-answer-text {
+         position: absolute;
+         color: var(--bluevlight);
+         text-align: center;
+         font-size: var(--balloontextsize);
+         font-weight: 700;
+         line-height: var(--balloontextlineheight);
+         width: var(--canvassize);
+         height: var(--canvassize);
+         z-index: 1;
+         text-shadow: 1px 1px 2px var(--medgrey);
+     }
+
+     /*-- Game Answer Balloon Text Hover Styling --*/
+     .balloon-answer-text:hover {
+         cursor: url('../images/pin.svg'), crosshair;
+     }
+
+     /* Default untuk HP */
+     .game-section-controls #question {
+         color: var(--bluevlight);
+         text-align: center;
+         font-size: 5rem;
+         font-weight: 700;
+         border-radius: 1.0rem;
+         background-color: var(--purplelight);
+         border: 1px solid var(--bluemed);
+     }
+
+     /* Laptop */
+
+
+
+
+     /*-- Game Audio Controls --*/
+     #audio-controls i {
+         padding: 0.5rem 1.0rem 0.5rem 1.0rem;
+         font-size: 2rem;
+         text-align: center;
+         color: var(--purplemed);
+     }
+
+     #audio-controls i:hover {
+         color: var(--purpledark);
+     }
+
+     /*-- Game Health --*/
+     .game-section-controls #health {
+         color: var(--redlight);
+         text-align: center;
+         padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+     }
+
+     .game-section-controls #health i {
+         font-size: 2rem;
+     }
+
+     /*-- Game Score --*/
+     .score {
+         padding-top: 0.5rem;
+         padding-bottom: 0.5rem;
+         color: var(--purplemed);
+         text-align: right;
+     }
+
+     /*-- Generic Feedback Modal --*/
+     .modal-dialog h2,
+     .modal-dialog span {
+         font-size: 2rem;
+         font-weight: 600;
+         color: var(--purpledark);
+     }
+
+     .modal-dialog p,
+     .modal-dialog input,
+     .modal-dialog textarea {
+         font-size: 1.6rem;
+         font-weight: 400;
+         color: var(--purpledark);
+     }
+
+     /*--Footer--*/
+     .container-footer a {
+         padding-left: 0.5rem;
+         padding-right: 0.5rem;
+         text-align: center;
+         font-size: 1.8rem;
+         font-weight: 700;
+         color: var(--purplemed);
+     }
+
+     .container-footer i {
+         color: var(--purplemed);
+     }
+
+     /*--Navigation Links--*/
+     .container-heading-main a:active,
+     .container-heading-main-large a:active {
+         color: var(--bluevlight);
+         text-decoration: none;
+     }
+
+     .container-heading-main a:hover,
+     .container-heading-main-large a:hover {
+         color: var(--bluevlight);
+         text-decoration: none;
+     }
+
+     .container-heading-main a:visited,
+     .container-heading-main-large a:visited {
+         color: var(--bluevlight);
+         text-decoration: none;
+     }
+
+     .text-information a:link,
+     .container-footer a:link,
+     .container-footer i:link {
+         color: var(--purplemed);
+         text-decoration: none;
+     }
+
+     .container-404 i:visited,
+     .text-information a:visited,
+     .container-footer a:visited,
+     .container-footer i:visited {
+         color: var(--purplemed);
+         text-decoration: none;
+     }
+
+     .container-404 i:hover,
+     .text-information a:hover,
+     .container-footer a:hover,
+     .container-footer i:hover {
+         color: var(--purpledark);
+         text-decoration: none;
+     }
+
+     .container-404 i:active,
+     .text-information a:active,
+     .container-footer a:active,
+     .container-footer i:active {
+         color: var(--purpledark);
+         text-decoration: none;
+     }
+
+     /*-- Bootstrap Class Overrides --*
+
+/*-- Bootstrap Button Class Overrides --*/
+     .btn-lg {
+         font-size: 1.6rem;
+     }
+
+     /*--Bootstrap Button Pseudo Class Overrides--*/
+     .btn-info:active {
+         background-color: var(--purpledark);
+     }
+
+     .btn-info:not(:disabled):not(.disabled).active,
+     .btn-info:not(:disabled):not(.disabled):active {
+         background-color: var(--purpledark);
+     }
+
+     .btn-info:focus {
+         background-color: var(--purplemed);
+     }
+
+     .btn-info:hover {
+         background-color: var(--purplemed);
+     }
+
+     /*-- Bootstrap Modal Class Overrides --*/
+     .modal-content {
+         border: 1px solid var(--purplemed);
+         border-radius: 1.5rem;
+     }
+
+     .modal-header {
+         border-bottom: 1px solid var(--purplemed);
+         background-color: var(--bluevlight);
+         border-top-left-radius: 1.5rem;
+         border-top-right-radius: 1.5rem;
+         padding: 1.5rem 1.5rem 1.5rem 1.5rem;
+     }
+
+     .modal-body {
+         background-color: var(--bluevlight);
+         border-radius: 1.5rem;
+         padding: 1.5rem 1.5rem 1.5rem 1.5rem;
+     }
+
+     .h {
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+         gap: 10px;
+         position: absolute;
+         top: -40rem;
+         left: -10rem;
+         background-color: var(--bluevlight);
+         padding: 1rem -1rem;
+         border-radius: 1.5rem;
+         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+     }
+
+
+     #audio-controls {
+         position: relative;
+         right: 20px;
+     }
+
+     #health {
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+         gap: 6px;
+     }
+
+
+
+     /* === Grid Layout untuk Tombol Mode === */
+     .grid-tem {
+         display: grid !important;
+         grid-template-columns: repeat(3, 1fr);
+         gap: 0.7rem;
+         width: 100%;
+         margin: 0 auto;
+         max-width: 400px;
+         margin: 0 auto;
+     }
+
+
+     /* === Tombol Mode === */
+     .grid-tem .btn {
+         background-color: var(--purplelight);
+         color: var(--bluevlight);
+         font-weight: 700;
+         font-size: 1.6rem;
+         border-radius: 0.8rem;
+         border: 2px solid var(--bluemed);
+         text-align: center;
+         width: 100%;
+         padding: 0.8rem 0;
+         transition: all 0.2s ease-in-out;
+         box-sizing: border-box;
+     }
+
+     .hover button {
+         transition: all 0.2s ease-in-out;
+     }
+
+     .hover button:hover {
+         transition: all 0.2s ease-in-out;
+         transform: scale(1.05);
+         background-color: var(--purpledark);
+     }
+
+     .grid-tem .btn:hover {
+         background-color: var(--purplemed);
+         transform: scale(1.05);
+     }
+
+     /* === Aktif === */
+     .grid-tem .btn.active {
+         background-color: var(--purpledark);
+         color: #fff;
+     }
+
+     /*-- Media Queries --*/
+
+     /*-- Media query to re-size heading, reposition heading image and re-size Play button for screen sizes under 680px high --*/
+     @media (max-height: 680px) {
+         .heading-main {
+             font-size: 5rem;
+         }
+
+         .container-heading-main img,
+         .container-heading-main-large img {
+             margin-top: -0.6rem;
+         }
+
+         .btn-xxl {
+             padding: 0.5rem 0.5rem;
+             font-size: 4.0rem;
+         }
+
+         .grid-tem {
+             grid-template-columns: repeat(3, 1fr);
+             max-width: 95%;
+             gap: 0.6rem;
+         }
+
+
+     }
+
+     /*-- Game Mode Selection Grid for Mobile Devices --*/
+     @media (max-width: 600px) {
+         .game-mode-grid {
+             display: grid;
+             grid-template-columns: repeat(3, 1fr);
+             grid-template-rows: auto auto auto;
+             gap: 1rem;
+             width: 100%;
+             max-width: 400px;
+             margin: 0 auto;
+             padding: 1rem 0;
+         }
+
+         .game-mode-grid .game-mode-btn {
+             font-size: 1.6rem;
+             font-weight: 700;
+             padding: 0.8rem 0.2rem;
+             border-radius: 0.7rem;
+             background: var(--purplelight);
+             color: var(--bluevlight);
+             border: 2px solid var(--bluemed);
+             text-align: center;
+             cursor: pointer;
+             transition: background 0.2s;
+         }
+
+         .game-mode-grid .game-mode-btn:hover {
+             background: var(--purplemed);
+         }
+
+         .grid-tem {
+             display: grid !important;
+             grid-template-columns: repeat(3, 1fr);
+             gap: 0.7rem;
+         }
+
+         .grid-1 {
+             grid-column: 3 / 3;
+             grid-row: 3 / 4;
+         }
+
+         .grid-2 {
+             grid-column: 2 / 3;
+             grid-row: 3 / 4;
+         }
+
+         .grid-3 {
+             grid-column: 1 / 2;
+             grid-row: 3 / 4;
+         }
+
+         #health-section {
+             position: relative;
+             top: 0;
+             left: 8rem;
+             flex-direction: row;
+             /* supaya ikon suara dan hati tetap sejajar */
+             justify-content: center;
+             /* di tengah */
+             align-items: center;
+             background-color: transparent !important;
+             /* sedikit lengkung bawah */
+             /* minimal padding vertikal */
+             margin-bottom: 1rem;
+             /* beri jarak ke pertanyaan */
+             padding: 0 !important;
+             /* hilangkan semua padding */
+             margin: 0 !important;
+         }
+
+         #health-section #health {
+             flex-direction: row;
+             gap: 6px;
+             padding: 0 !important;
+             /* hilangkan semua padding */
+             margin: 0 !important;
+         }
+
+         #audio-controls {
+             position: relative;
+             bottom: 20px;
+         }
+
+     }
+
+     /*-- Media query to fix balloon text height to a maximum of 5rem for devices over 926px high --*/
+     @media (min-height: 926px) and (max-width: 600px) {
+         .balloon-answer-text {
+             font-size: 5rem;
+         }
+
+         .grid-tem {
+             display: grid !important;
+             grid-template-columns: repeat(3, 1fr);
+             gap: 0.7rem;
+         }
+
+         .grid-1 {
+             grid-column: 2 / 3;
+             grid-row: 3 / 4;
+         }
+     }
+
+     /*-- Media query to re-size balloon canvas and text elements for large devices over 992px wide --*/
+     @media (min-width: 992px) {
+         .canvas-balloon {
+             min-height: 22rem;
+         }
+
+         .canvas-balloon canvas {
+             width: 22rem;
+             height: 22rem;
+         }
+
+         .balloon-answer-text {
+             font-size: 5rem;
+             line-height: 20rem;
+             width: 22rem;
+             height: 22rem;
+         }
+
+         /* Remove grid for desktop/laptop */
+         .game-mode-grid {
+             display: block;
+             max-width: none;
+             gap: 0;
+             padding: 0;
+         }
+
+         .game-mode-grid .game-mode-btn {
+             font-size: 2.2rem;
+             padding: 1.2rem 0.5rem;
+         }
+
+         .grid-tem {
+             grid-template-columns: repeat(3, 1fr);
+             /* tetap 3 kolom */
+             gap: 1rem;
+             max-width: 700px;
+         }
+
+         .grid-tem .btn {
+             font-size: 1.8rem;
+             padding: 1rem 0;
+         }
+     }
+
+
+     .balon {
+         position: fixed;
+         bottom: -150px;
+         width: 60px;
+         height: 80px;
+         border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+         animation: naik 10s linear infinite;
+         z-index: -50;
+     }
+
+     /* Tali balon */
+     .balon::after {
+         content: "";
+         position: absolute;
+         bottom: -50px;
+         left: 50%;
+         width: 2px;
+         height: 50px;
+         background: #555;
+         transform: translateX(-30%);
+     }
+
+
+     @keyframes naik {
+         0% {
+             transform: translateY(0) rotate(0deg);
+             opacity: 1;
+         }
+
+         100% {
+             transform: translateY(-90vh) rotate(15deg);
+             opacity: 0;
+         }
+     }
+
+
+
+
+     .text-center {
+         line-height: 24px;
+         margin: 10px 0;
+         font-size: 20px;
+     }
+
+     .information-text {
+         background-color: var(--bluevlight);
+         border-radius: 5px;
+         box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+         padding: 15px 25px;
+         text-align: justify;
+         text-justify: inter-word;
+         width: 450px;
+
+     }
+
+     .information-text p {
+         line-height: 1.6;
+         /* Jarak antar baris biar enak dibaca */
+     }
+
+     /* Overlay */
+     .row_collapse {
+         background-color: rgba(0, 0, 0, 0.3);
+         opacity: 0;
+         position: fixed;
+         top: 0;
+         left: 0;
+         right: 0;
+         bottom: 0;
+         transition: all 0.3s ease-in-out;
+         z-index: -1;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+     }
+
+     .row_collapse.show {
+         opacity: 1 !important;
+         z-index: 999 !important;
+         display: flex !important;
+     }
+
+     .information-text button {
+         background: linear-gradient(to right, #663399, #8853bd);
+         border-radius: 20px;
+         border: 0;
+         box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+         color: #fff;
+         cursor: pointer;
+         padding: 10px 25px;
+         font-size: 20px;
+         display: block;
+         /* biar tombol terpisah dari paragraf */
+         margin: 20px auto;
+     }
+
+     .information-text button:active {
+         opacity: 0.8;
+     }
+
+
+     .modal-inner p {
+         line-height: 24px;
+         margin: 10px 0;
+         font-size: 20px;
+     }
+
+     .modal-inner {
+         background-color: var(--bluevlight);
+         border-radius: 5px;
+         box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+         padding: 15px 25px;
+         text-align: center;
+         width: 380px;
+     }
+
+     .modal.modal_open {
+         opacity: 1 !important;
+         z-index: 999 !important;
+         display: flex !important;
+     }
+
+     .modal {
+         background-color: rgba(0, 0, 0, 0.3);
+         opacity: 0;
+         position: fixed;
+         top: 0;
+         left: 0;
+         right: 0;
+         bottom: 0;
+         transition: all 0.3s ease-in-out;
+         z-index: -1;
+
+         display: flex;
+         align-items: center;
+         justify-content: center;
+     }
+
+     .modal-inner button {
+         background-image: linear-gradient(to right, #663399, #8853bd);
+         border-radius: 20px;
+         border: 0;
+         box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+         color: #fff;
+         cursor: pointer;
+         padding: 10px 25px;
+         font-size: 20px;
+     }
+
+     .modal-inner button:active {
+         opacity: 0.8;
+     }
