@@ -129,7 +129,7 @@
          padding: 0.7rem 0.7rem;
          font-size: 1.7rem;
          font-weight: 600;
-         border-radius: 0.5rem;
+         border-radius: 1.0rem;
          background-color: var(--purplelight);
          border-color: var(--bluemed);
      }
@@ -139,7 +139,7 @@
          font-size: 1.7rem;
          font-weight: 600;
          border: 2px solid var(--purplelight);
-         border-radius: 0.5rem;
+         border-radius: 1.0rem;
      }
 
      .btn-xxl {
@@ -670,8 +670,76 @@
          }
      }
 
-     /*-- Media query untuk Desktop/Laptop --*/
+     /*-- Media query untuk Tablet Portrait (601px - 768px) --*/
+     @media (min-width: 601px) and (max-width: 768px) {
+         :root {
+             --canvassize: 16rem;
+             --balloontextsize: 4rem;
+             --balloontextlineheight: 14.5rem;
+         }
+
+         .canvas-balloon {
+             min-height: 16rem;
+         }
+
+         .canvas-balloon canvas {
+             width: 16rem;
+             height: 16rem;
+         }
+
+         .balloon-answer-text {
+             font-size: 4rem;
+             line-height: 14.5rem;
+             width: 16rem;
+             height: 16rem;
+         }
+     }
+
+     /*-- Media query untuk Tablet Landscape (769px - 991px) --*/
+     @media (min-width: 769px) and (max-width: 991px) {
+         :root {
+             --canvassize: 18rem;
+             --balloontextsize: 4.5rem;
+             --balloontextlineheight: 16.5rem;
+         }
+
+         .canvas-balloon {
+             min-height: 18rem;
+         }
+
+         .canvas-balloon canvas {
+             width: 18rem;
+             height: 18rem;
+         }
+
+         .balloon-answer-text {
+             font-size: 4.5rem;
+             line-height: 16.5rem;
+             width: 18rem;
+             height: 18rem;
+         }
+
+         .game-section-controls #question {
+             font-size: clamp(2.5rem, 4vw, 4rem);
+             padding: 1.5rem 2.5rem;
+             min-height: 8rem;
+             max-width: 90%;
+         }
+
+         .h {
+             padding: 1.3rem 2.5rem;
+             gap: 20px;
+         }
+     }
+
+     /*-- Media query untuk Desktop/Laptop (992px+) --*/
      @media (min-width: 992px) {
+         :root {
+             --canvassize: 22rem;
+             --balloontextsize: 5rem;
+             --balloontextlineheight: 20rem;
+         }
+
          .canvas-balloon {
              min-height: 22rem;
          }
@@ -712,6 +780,31 @@
 
          #audio-controls i {
              font-size: 2.5rem;
+         }
+     }
+
+     /*-- Media query untuk Large Desktop (1400px+) --*/
+     @media (min-width: 1400px) {
+         :root {
+             --canvassize: 24rem;
+             --balloontextsize: 5.5rem;
+             --balloontextlineheight: 22rem;
+         }
+
+         .canvas-balloon {
+             min-height: 24rem;
+         }
+
+         .canvas-balloon canvas {
+             width: 24rem;
+             height: 24rem;
+         }
+
+         .balloon-answer-text {
+             font-size: 5.5rem;
+             line-height: 22rem;
+             width: 24rem;
+             height: 24rem;
          }
      }
 
@@ -969,6 +1062,112 @@
 }
 
 #modal-tambah-soal label {
+    font-size: 1.6rem;
+    margin-bottom: 5px;
+    display: block;
+}
+
+/* Smaller font for question input buttons */
+.btn-tambah-soal-custom {
+    font-size: 1.8rem !important;
+    padding: 1.2rem 2rem !important;
+}
+
+/* Different backgrounds for Essay and Multiple Choice */
+.essay-item {
+    background: linear-gradient(135deg, #FFE5B4, #FFDAB9) !important;
+    border: 3px solid #FFA500 !important;
+}
+
+.essay-item .question-number {
+    color: #8B4513 !important;
+}
+
+.essay-item .question-text,
+.essay-item .question-answer {
+    color: #4A4A4A !important;
+}
+
+.essay-item .question-answer {
+    color: #FF6347 !important;
+}
+
+.pilgan-item {
+    background: linear-gradient(135deg, #E0F7FA, #B2EBF2) !important;
+    border: 3px solid #00BCD4 !important;
+}
+
+.pilgan-item .question-number {
+    color: #006064 !important;
+}
+
+.pilgan-item .question-text,
+.pilgan-item .question-choices {
+    color: #424242 !important;
+}
+
+.pilgan-item .question-answer {
+    color: #00796B !important;
+}
+
+/* Section backgrounds */
+.essay-section {
+    background: rgba(255, 248, 220, 0.3);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.pilgan-section {
+    background: rgba(224, 247, 250, 0.3);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+/* Modal Form Styles for Essay */
+#modal-tambah-essay .form-control {
+    border: 2px solid #FFA500;
+    border-radius: 10px;
+    padding: 10px 15px;
+    font-size: 1.5rem;
+    transition: border-color 0.3s;
+}
+
+#modal-tambah-essay .form-control:focus {
+    border-color: #FF8C00;
+    box-shadow: 0 0 0 0.2rem rgba(255, 165, 0, 0.25);
+    outline: none;
+}
+
+#modal-tambah-essay .form-group {
+    margin-bottom: 15px;
+}
+
+#modal-tambah-essay label {
+    font-size: 1.6rem;
+    margin-bottom: 5px;
+    display: block;
+}
+
+/* Modal Form Styles for Pilgan */
+#modal-tambah-pilgan .form-control {
+    border: 2px solid #00BCD4;
+    border-radius: 10px;
+    padding: 10px 15px;
+    font-size: 1.5rem;
+    transition: border-color 0.3s;
+}
+
+#modal-tambah-pilgan .form-control:focus {
+    border-color: #0097A7;
+    box-shadow: 0 0 0 0.2rem rgba(0, 188, 212, 0.25);
+    outline: none;
+}
+
+#modal-tambah-pilgan .form-group {
+    margin-bottom: 15px;
+}
+
+#modal-tambah-pilgan label {
     font-size: 1.6rem;
     margin-bottom: 5px;
     display: block;

@@ -6,65 +6,112 @@
 /*jshint esversion: 6 */
 /* globals $ */
 
-// LocalStorage key for questions
-const QUESTIONS_STORAGE_KEY = 'balloon_pop_questions';
+// LocalStorage keys for questions
+const ESSAY_STORAGE_KEY = 'balloon_pop_essay_questions';
+const PILGAN_STORAGE_KEY = 'balloon_pop_pilgan_questions';
 
 /**
- * Get all questions from localStorage
- * @return {Array} Array of question objects
+ * Get essay questions from localStorage
+ * @return {Array} Array of essay question objects
  */
-function getQuestions() {
+function getEssayQuestions() {
     try {
-        const questionsJson = localStorage.getItem(QUESTIONS_STORAGE_KEY);
+        const questionsJson = localStorage.getItem(ESSAY_STORAGE_KEY);
         return questionsJson ? JSON.parse(questionsJson) : [];
     } catch (error) {
-        console.error('Error parsing questions from localStorage:', error);
-        // If data is corrupted, reset to empty array
-        localStorage.setItem(QUESTIONS_STORAGE_KEY, '[]');
+        console.error('Error parsing essay questions from localStorage:', error);
+        localStorage.setItem(ESSAY_STORAGE_KEY, '[]');
         return [];
     }
 }
 
 /**
- * Save questions to localStorage
- * @param {Array} questions - Array of question objects
+ * Get multiple choice questions from localStorage
+ * @return {Array} Array of multiple choice question objects
  */
-function saveQuestions(questions) {
-    localStorage.setItem(QUESTIONS_STORAGE_KEY, JSON.stringify(questions));
+function getPilganQuestions() {
+    try {
+        const questionsJson = localStorage.getItem(PILGAN_STORAGE_KEY);
+        return questionsJson ? JSON.parse(questionsJson) : [];
+    } catch (error) {
+        console.error('Error parsing pilgan questions from localStorage:', error);
+        localStorage.setItem(PILGAN_STORAGE_KEY, '[]');
+        return [];
+    }
 }
 
 /**
- * Add a new question
+ * Save essay questions to localStorage
+ * @param {Array} questions - Array of essay question objects
+ */
+function saveEssayQuestions(questions) {
+    localStorage.setItem(ESSAY_STORAGE_KEY, JSON.stringify(questions));
+}
+
+/**
+ * Save multiple choice questions to localStorage
+ * @param {Array} questions - Array of multiple choice question objects
+ */
+function savePilganQuestions(questions) {
+    localStorage.setItem(PILGAN_STORAGE_KEY, JSON.stringify(questions));
+}
+
+/**
+ * Add a new essay question
+ * @param {Object} question - Question object with properties: question, answer
+ */
+function addEssayQuestion(question) {
+    const questions = getEssayQuestions();
+    question.id = Date.now();
+    question.type = 'essay';
+    questions.push(question);
+    saveEssayQuestions(questions);
+    displayEssayQuestions();
+}
+
+/**
+ * Add a new multiple choice question
  * @param {Object} question - Question object with properties: question, answer, choices
  */
-function addQuestion(question) {
-    const questions = getQuestions();
-    question.id = Date.now(); // Unique ID based on timestamp
+function addPilganQuestion(question) {
+    const questions = getPilganQuestions();
+    question.id = Date.now();
+    question.type = 'pilgan';
     questions.push(question);
-    saveQuestions(questions);
-    displayQuestions();
+    savePilganQuestions(questions);
+    displayPilganQuestions();
 }
 
 /**
- * Delete a question by ID
+ * Delete an essay question by ID
  * @param {number} questionId - ID of the question to delete
  */
-function deleteQuestion(questionId) {
-    let questions = getQuestions();
+function deleteEssayQuestion(questionId) {
+    let questions = getEssayQuestions();
     questions = questions.filter(q => q.id !== questionId);
-    saveQuestions(questions);
-    displayQuestions();
+    saveEssayQuestions(questions);
+    displayEssayQuestions();
 }
 
 /**
- * Display all questions in the question list
+ * Delete a multiple choice question by ID
+ * @param {number} questionId - ID of the question to delete
  */
-function displayQuestions() {
-    const questions = getQuestions();
-    const questionList = $('#question-list');
-    const noQuestionsMessage = $('#no-questions-message');
+function deletePilganQuestion(questionId) {
+    let questions = getPilganQuestions();
+    questions = questions.filter(q => q.id !== questionId);
+    savePilganQuestions(questions);
+    displayPilganQuestions();
+}
+
+/**
+ * Display all essay questions in the essay list
+ */
+function displayEssayQuestions() {
+    const questions = getEssayQuestions();
+    const questionList = $('#essay-list');
+    const noQuestionsMessage = $('#no-essay-message');
     
-    // Clear current list
     questionList.empty();
     
     if (questions.length === 0) {
@@ -74,13 +121,12 @@ function displayQuestions() {
     
     noQuestionsMessage.hide();
     
-    // Display each question
     questions.forEach((question, index) => {
         const questionHtml = `
-            <div class="question-item" data-id="${question.id}">
+            <div class="question-item essay-item" data-id="${question.id}">
                 <div class="question-item-header">
-                    <div class="question-number">Soal #${index + 1}</div>
-                    <button class="question-delete-btn" onclick="deleteQuestionById(${question.id})">
+                    <div class="question-number">📝 Essay #${index + 1}</div>
+                    <button class="question-delete-btn" onclick="deleteEssayQuestionById(${question.id})">
                         <i class="fas fa-trash"></i>
                     </button>
                 </div>
@@ -89,6 +135,44 @@ function displayQuestions() {
                 </div>
                 <div class="question-answer">
                     <strong>Jawaban:</strong> ${escapeHtml(question.answer)}
+                </div>
+            </div>
+        `;
+        questionList.append(questionHtml);
+    });
+}
+
+/**
+ * Display all multiple choice questions in the pilgan list
+ */
+function displayPilganQuestions() {
+    const questions = getPilganQuestions();
+    const questionList = $('#pilgan-list');
+    const noQuestionsMessage = $('#no-pilgan-message');
+    
+    questionList.empty();
+    
+    if (questions.length === 0) {
+        noQuestionsMessage.show();
+        return;
+    }
+    
+    noQuestionsMessage.hide();
+    
+    questions.forEach((question, index) => {
+        const questionHtml = `
+            <div class="question-item pilgan-item" data-id="${question.id}">
+                <div class="question-item-header">
+                    <div class="question-number">📋 Pilihan Ganda #${index + 1}</div>
+                    <button class="question-delete-btn" onclick="deletePilganQuestionById(${question.id})">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+                <div class="question-text">
+                    <strong>Pertanyaan:</strong> ${escapeHtml(question.question)}
+                </div>
+                <div class="question-answer">
+                    <strong>Jawaban Benar:</strong> ${escapeHtml(question.answer)}
                 </div>
                 ${question.choices && question.choices.length > 0 ? `
                     <div class="question-choices">
@@ -116,98 +200,147 @@ function escapeHtml(text) {
 }
 
 /**
- * Delete question by ID (called from onclick)
+ * Delete essay question by ID (called from onclick)
  * @param {number} questionId - ID of question to delete
  */
-function deleteQuestionById(questionId) {
-    if (confirm('Apakah Anda yakin ingin menghapus soal ini?')) {
-        deleteQuestion(questionId);
+function deleteEssayQuestionById(questionId) {
+    if (confirm('Apakah Anda yakin ingin menghapus soal essay ini?')) {
+        deleteEssayQuestion(questionId);
     }
 }
 
 /**
- * Show Input Soal section and hide other sections
+ * Delete pilgan question by ID (called from onclick)
+ * @param {number} questionId - ID of question to delete
+ */
+function deletePilganQuestionById(questionId) {
+    if (confirm('Apakah Anda yakin ingin menghapus soal pilihan ganda ini?')) {
+        deletePilganQuestion(questionId);
+    }
+}
+
+/**
+ * Show Input Soal section and hide other sections with fade effect
  */
 function showInputSoalSection() {
-    // Hide other sections
-    $('#heading-section').addClass('d-none');
-    $('#options-section').addClass('d-none');
-    $('#information-section').addClass('d-none');
-    $('#game-section').addClass('d-none');
+    // Hide main sections with fade out effect
+    $('#heading-section').hide(400);
+    $('#options-section').hide(400);
+    $('#information-section').hide(400);
+    $('#game-section').hide(400);
     
-    // Show Input Soal section
+    // Show Input Soal section with fade in effect
+    $('#input-soal-section').hide();
     $('#input-soal-section').removeClass('d-none');
+    $('#input-soal-section').show(1000);
     
-    // Load and display questions
-    displayQuestions();
+    displayEssayQuestions();
+    displayPilganQuestions();
 }
 
 /**
- * Hide Input Soal section and show main menu
+ * Hide Input Soal section and show main menu with fade effect
  */
 function hideInputSoalSection() {
-    // Show main sections
-    $('#heading-section').removeClass('d-none');
-    $('#options-section').removeClass('d-none');
-    $('#information-section').removeClass('d-none');
+    // Hide Input Soal section with fade out effect
+    $('#input-soal-section').hide(400);
     
-    // Hide Input Soal section
-    $('#input-soal-section').addClass('d-none');
+    // Show main sections with fade in effect after delay
+    setTimeout(function() {
+        $('#heading-section').show(400);
+        $('#options-section').show(400);
+        $('#information-section').show(400);
+    }, 200);
 }
 
 /**
- * Show modal for adding question
+ * Show modal for adding essay question
  */
-function showAddQuestionModal() {
-    $('#modal-tambah-soal').addClass('modal_open');
+function showAddEssayModal() {
+    $('#modal-tambah-essay').addClass('modal_open');
 }
 
 /**
- * Hide modal for adding question
+ * Hide modal for adding essay question
  */
-function hideAddQuestionModal() {
-    $('#modal-tambah-soal').removeClass('modal_open');
-    // Reset form
-    $('#form-tambah-soal')[0].reset();
+function hideAddEssayModal() {
+    $('#modal-tambah-essay').removeClass('modal_open');
+    $('#form-tambah-essay')[0].reset();
 }
 
 /**
- * Handle form submission to add new question
+ * Show modal for adding pilgan question
  */
-function handleAddQuestion(event) {
+function showAddPilganModal() {
+    $('#modal-tambah-pilgan').addClass('modal_open');
+}
+
+/**
+ * Hide modal for adding pilgan question
+ */
+function hideAddPilganModal() {
+    $('#modal-tambah-pilgan').removeClass('modal_open');
+    $('#form-tambah-pilgan')[0].reset();
+}
+
+/**
+ * Handle form submission to add new essay question
+ */
+function handleAddEssay(event) {
     event.preventDefault();
     
-    // Get form values
-    const question = $('#input-pertanyaan').val().trim();
-    const answer = $('#input-jawaban').val().trim();
-    const choices = [
-        $('#input-pilihan-1').val().trim(),
-        $('#input-pilihan-2').val().trim(),
-        $('#input-pilihan-3').val().trim(),
-        $('#input-pilihan-4').val().trim()
-    ].filter(choice => choice !== ''); // Remove empty choices
+    const question = $('#input-pertanyaan-essay').val().trim();
+    const answer = $('#input-jawaban-essay').val().trim();
     
-    // Validate
     if (!question || !answer) {
         alert('Pertanyaan dan jawaban harus diisi!');
         return;
     }
     
-    // Create question object
+    const questionObj = {
+        question: question,
+        answer: answer
+    };
+    
+    addEssayQuestion(questionObj);
+    hideAddEssayModal();
+    alert('Soal essay berhasil ditambahkan!');
+}
+
+/**
+ * Handle form submission to add new pilgan question
+ */
+function handleAddPilgan(event) {
+    event.preventDefault();
+    
+    const question = $('#input-pertanyaan-pilgan').val().trim();
+    const answer = $('#input-jawaban-pilgan').val().trim();
+    const choices = [
+        $('#input-pilihan-1').val().trim(),
+        $('#input-pilihan-2').val().trim(),
+        $('#input-pilihan-3').val().trim(),
+        $('#input-pilihan-4').val().trim()
+    ];
+    
+    if (!question || !answer) {
+        alert('Pertanyaan dan jawaban harus diisi!');
+        return;
+    }
+    
+    if (choices.some(choice => choice === '')) {
+        alert('Semua pilihan jawaban harus diisi untuk soal pilihan ganda!');
+        return;
+    }
+    
     const questionObj = {
         question: question,
         answer: answer,
         choices: choices
     };
     
-    // Add question
-    addQuestion(questionObj);
-    
-    // Hide modal
-    hideAddQuestionModal();
-    
-    // Show success message
-    alert('Soal berhasil ditambahkan!');
+    addPilganQuestion(questionObj);
+    hideAddPilganModal();
+    alert('Soal pilihan ganda berhasil ditambahkan!');
 }
 
 // Event Handlers - will be initialized when document is ready
@@ -218,19 +351,28 @@ $(document).ready(function() {
     // Button to return to main menu from Input Soal section
     $('#btn-input-soal-home').on('click', hideInputSoalSection);
     
-    // Button to show add question modal
-    $('#btn-tambah-soal').on('click', showAddQuestionModal);
+    // Buttons to show add question modals
+    $('#btn-tambah-essay').on('click', showAddEssayModal);
+    $('#btn-tambah-pilgan').on('click', showAddPilganModal);
     
-    // Button to cancel/close modal
-    $('#btn-batal-tambah').on('click', hideAddQuestionModal);
+    // Buttons to cancel/close modals
+    $('#btn-batal-essay').on('click', hideAddEssayModal);
+    $('#btn-batal-pilgan').on('click', hideAddPilganModal);
     
-    // Form submission
-    $('#form-tambah-soal').on('submit', handleAddQuestion);
+    // Form submissions
+    $('#form-tambah-essay').on('submit', handleAddEssay);
+    $('#form-tambah-pilgan').on('submit', handleAddPilgan);
     
-    // Close modal when clicking outside
-    $('#modal-tambah-soal').on('click', function(e) {
-        if (e.target.id === 'modal-tambah-soal') {
-            hideAddQuestionModal();
+    // Close modals when clicking outside
+    $('#modal-tambah-essay').on('click', function(e) {
+        if (e.target.id === 'modal-tambah-essay') {
+            hideAddEssayModal();
+        }
+    });
+    
+    $('#modal-tambah-pilgan').on('click', function(e) {
+        if (e.target.id === 'modal-tambah-pilgan') {
+            hideAddPilganModal();
         }
     });
 });

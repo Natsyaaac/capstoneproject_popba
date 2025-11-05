@@ -504,23 +504,39 @@
                     </button>
                 </div>
                 
-                <!-- Button to Add New Question -->
+                <!-- Buttons to Add New Questions -->
                 <div class="container-button-group d-flex w-100 hover">
-                    <button id="btn-tambah-soal" type="button" class="btn btn-xxl w-100 btn-info btn-text">
-                        <i class="fas fa-plus"></i> Tambah Soal Ujian
+                    <button id="btn-tambah-essay" type="button" class="btn btn-xl w-100 btn-info btn-text btn-tambah-soal-custom" style="margin-right: 10px;">
+                        <i class="fas fa-plus"></i> Tambah Soal Essay
+                    </button>
+                    <button id="btn-tambah-pilgan" type="button" class="btn btn-xl w-100 btn-info btn-text btn-tambah-soal-custom">
+                        <i class="fas fa-plus"></i> Tambah Soal Pilihan Ganda
                     </button>
                 </div>
 
-                <!-- Question List -->
-                <div id="question-list-container" class="container-button-group">
+                <!-- Essay Question List -->
+                <div id="essay-list-container" class="container-button-group">
                     <div class="btn-xl-nofill w-100 btn-text-score text-center mb-3">
-                        <h4 style="color: #A2529A;">Daftar Soal Tersimpan</h4>
+                        <h4 style="color: #A2529A;">📝 Daftar Soal Essay</h4>
                     </div>
-                    <div id="question-list" class="question-list">
-                        <!-- Questions will be dynamically added here -->
+                    <div id="essay-list" class="question-list essay-section">
+                        <!-- Essay questions will be dynamically added here -->
                     </div>
-                    <div id="no-questions-message" class="text-center" style="color: #A2529A; margin-top: 20px;">
-                        <p>Belum ada soal yang tersimpan. Klik "Tambah Soal Ujian" untuk menambahkan soal.</p>
+                    <div id="no-essay-message" class="text-center" style="color: #A2529A; margin-top: 20px;">
+                        <p>Belum ada soal essay. Klik "Tambah Soal Essay" untuk menambahkan.</p>
+                    </div>
+                </div>
+
+                <!-- Multiple Choice Question List -->
+                <div id="pilgan-list-container" class="container-button-group">
+                    <div class="btn-xl-nofill w-100 btn-text-score text-center mb-3">
+                        <h4 style="color: #A2529A;">📋 Daftar Soal Pilihan Ganda</h4>
+                    </div>
+                    <div id="pilgan-list" class="question-list pilgan-section">
+                        <!-- Multiple choice questions will be dynamically added here -->
+                    </div>
+                    <div id="no-pilgan-message" class="text-center" style="color: #A2529A; margin-top: 20px;">
+                        <p>Belum ada soal pilihan ganda. Klik "Tambah Soal Pilihan Ganda" untuk menambahkan.</p>
                     </div>
                 </div>
             </div>
@@ -528,33 +544,57 @@
         </div>
     </section>
 
-    <!-- Modal for Adding Questions -->
-    <div class="modal" id="modal-tambah-soal" style="display: none;">
+    <!-- Modal for Adding Essay Questions -->
+    <div class="modal" id="modal-tambah-essay" style="display: none;">
         <div class="modal-inner" style="max-width: 600px;">
-            <h3 style="color: #A2529A; text-align: center; margin-bottom: 20px;">Tambah Soal Ujian</h3>
+            <h3 style="color: #A2529A; text-align: center; margin-bottom: 20px;">📝 Tambah Soal Essay</h3>
             
-            <form id="form-tambah-soal">
+            <form id="form-tambah-essay">
                 <div class="form-group">
-                    <label for="input-pertanyaan" style="color: #A2529A; font-weight: bold;">Pertanyaan:</label>
-                    <textarea id="input-pertanyaan" class="form-control" rows="3" placeholder="Masukkan pertanyaan soal..." required></textarea>
+                    <label for="input-pertanyaan-essay" style="color: #A2529A; font-weight: bold;">Pertanyaan:</label>
+                    <textarea id="input-pertanyaan-essay" class="form-control" rows="3" placeholder="Masukkan pertanyaan essay..." required></textarea>
                 </div>
                 
                 <div class="form-group">
-                    <label for="input-jawaban" style="color: #A2529A; font-weight: bold;">Jawaban yang Benar:</label>
-                    <input type="text" id="input-jawaban" class="form-control" placeholder="Masukkan jawaban yang benar..." required>
-                </div>
-
-                <div class="form-group">
-                    <label style="color: #A2529A; font-weight: bold;">Pilihan Jawaban (Opsional untuk pilihan ganda):</label>
-                    <input type="text" id="input-pilihan-1" class="form-control mb-2" placeholder="Pilihan A">
-                    <input type="text" id="input-pilihan-2" class="form-control mb-2" placeholder="Pilihan B">
-                    <input type="text" id="input-pilihan-3" class="form-control mb-2" placeholder="Pilihan C">
-                    <input type="text" id="input-pilihan-4" class="form-control mb-2" placeholder="Pilihan D">
+                    <label for="input-jawaban-essay" style="color: #A2529A; font-weight: bold;">Jawaban yang Benar:</label>
+                    <textarea id="input-jawaban-essay" class="form-control" rows="3" placeholder="Masukkan jawaban essay yang benar..." required></textarea>
                 </div>
 
                 <div class="d-flex justify-content-between" style="margin-top: 20px;">
-                    <button type="button" id="btn-batal-tambah" class="btn btn-lg btn-secondary" style="width: 48%;">Batal</button>
-                    <button type="submit" id="btn-kirim-soal" class="btn btn-lg btn-info" style="width: 48%;">Kirim</button>
+                    <button type="button" id="btn-batal-essay" class="btn btn-lg btn-secondary" style="width: 48%;">Batal</button>
+                    <button type="submit" class="btn btn-lg btn-info" style="width: 48%;">Kirim</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal for Adding Multiple Choice Questions -->
+    <div class="modal" id="modal-tambah-pilgan" style="display: none;">
+        <div class="modal-inner" style="max-width: 600px;">
+            <h3 style="color: #A2529A; text-align: center; margin-bottom: 20px;">📋 Tambah Soal Pilihan Ganda</h3>
+            
+            <form id="form-tambah-pilgan">
+                <div class="form-group">
+                    <label for="input-pertanyaan-pilgan" style="color: #A2529A; font-weight: bold;">Pertanyaan:</label>
+                    <textarea id="input-pertanyaan-pilgan" class="form-control" rows="3" placeholder="Masukkan pertanyaan pilihan ganda..." required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="input-jawaban-pilgan" style="color: #A2529A; font-weight: bold;">Jawaban yang Benar:</label>
+                    <input type="text" id="input-jawaban-pilgan" class="form-control" placeholder="Masukkan jawaban yang benar (A, B, C, atau D)..." required>
+                </div>
+
+                <div class="form-group">
+                    <label style="color: #A2529A; font-weight: bold;">Pilihan Jawaban:</label>
+                    <input type="text" id="input-pilihan-1" class="form-control mb-2" placeholder="Pilihan A" required>
+                    <input type="text" id="input-pilihan-2" class="form-control mb-2" placeholder="Pilihan B" required>
+                    <input type="text" id="input-pilihan-3" class="form-control mb-2" placeholder="Pilihan C" required>
+                    <input type="text" id="input-pilihan-4" class="form-control mb-2" placeholder="Pilihan D" required>
+                </div>
+
+                <div class="d-flex justify-content-between" style="margin-top: 20px;">
+                    <button type="button" id="btn-batal-pilgan" class="btn btn-lg btn-secondary" style="width: 48%;">Batal</button>
+                    <button type="submit" class="btn btn-lg btn-info" style="width: 48%;">Kirim</button>
                 </div>
             </form>
         </div>
