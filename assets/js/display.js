@@ -572,6 +572,36 @@ function setBalloons(answerArray) {
     return (answerArray);
 }
 
+/**
+* [Function to set multiple choice options for exam mode]
+* @param  {[array]}   choicesArray      [Array of 4 choices for multiple choice]
+* @return {[array]}                     [Array of choices]
+*/
+function setMultipleChoiceOptions(choicesArray) {
+    // Ensure we have exactly 4 choices
+    if (choicesArray.length !== 4) {
+        console.error("Multiple choice needs exactly 4 options, got:", choicesArray.length);
+        return choicesArray;
+    }
+    
+    // Set choice text for A, B, C, D
+    $("#choice-a .choice-text").html(choicesArray[0]);
+    $("#choice-b .choice-text").html(choicesArray[1]);
+    $("#choice-c .choice-text").html(choicesArray[2]);
+    $("#choice-d .choice-text").html(choicesArray[3]);
+    
+    // Remove any previous correct/incorrect classes
+    $(".choice-option").removeClass("correct incorrect");
+    
+    // Show multiple choice container
+    $("#multiple-choice-container").removeClass("d-none");
+    
+    // Hide balloons for multiple choice mode
+    $(".game-section-balloons").hide();
+    
+    return choicesArray;
+}
+
 $("#play").on("click", function () {
     const selected = document.querySelector('input[name="game-mode"]:checked');
 

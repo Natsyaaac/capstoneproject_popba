@@ -16,10 +16,6 @@
 * @return {[array]}                     [Score array - array of 2 numbers, score and number of questions]          
 */
 function playGame() {
-    // Show all balloon canvas elements
-    $("[id^=canvas-balloon]").show();
-    // Show all balloon text elements
-    $("[id^=balloon-answer-text]").show();
     // Set global variables 
     bpmGameMode = returnGameMode();
     bpmQno = returnQuestions();
@@ -31,19 +27,62 @@ function playGame() {
     bpmCQ = 0;
     bpmQCurrent = setQuestion(bpmQArray[bpmCQ]);
     bpmAnswerArray = answerArray(bpmGameMode, bpmQCurrent);
-    bpmAnswerArray = setBalloons(bpmAnswerArray);
+    
+    // Check if this is exam mode with multiple choice
+    const isMultipleChoice = bpmGameMode === "exam" && bpmOptionArray[0] === "Pilihan Ganda";
+    
+    if (isMultipleChoice) {
+        // Multiple choice mode - use balloons for answers
+        // Pad answer array to 6 items for balloon display (4 choices + 2 empty)
+        while (bpmAnswerArray.length < 6) {
+            bpmAnswerArray.push("");
+        }
+        // Show first 4 balloon canvas elements (hide last 2)
+        $("#canvas-balloon-left-1").show();
+        $("#canvas-balloon-left-2").show();
+        $("#canvas-balloon-right-1").show();
+        $("#canvas-balloon-right-2").show();
+        $("#canvas-balloon-left-3").hide();
+        $("#canvas-balloon-right-3").hide();
+        // Show first 4 balloon text elements (hide last 2)
+        $("#balloon-answer-text-left-1").show();
+        $("#balloon-answer-text-left-2").show();
+        $("#balloon-answer-text-right-1").show();
+        $("#balloon-answer-text-right-2").show();
+        $("#balloon-answer-text-left-3").hide();
+        $("#balloon-answer-text-right-3").hide();
+        // Hide multiple choice button container
+        $("#multiple-choice-container").addClass("d-none");
+        // Show balloons
+        $(".game-section-balloons").show();
+        // Set balloons with answers
+        bpmAnswerArray = setBalloons(bpmAnswerArray);
+    } else {
+        // Normal balloon mode
+        // Show all balloon canvas elements
+        $("[id^=canvas-balloon]").show();
+        // Show all balloon text elements
+        $("[id^=balloon-answer-text]").show();
+        // Hide multiple choice container
+        $("#multiple-choice-container").addClass("d-none");
+        // Show balloons
+        $(".game-section-balloons").show();
+        bpmAnswerArray = setBalloons(bpmAnswerArray);
+    }
+    
     bpmScoreArray = setScore([0, bpmQno]);
   
-    console.log(bpmGameMode);
-    console.log(bpmQno);
-    console.log(bpmDifficulty);
-    console.log(bpmActiveButtons);
-    console.log(bpmOptionArray);
-    console.log(bpmQArray);
-    console.log(bpmHealthArray);
-    console.log(bpmQCurrent);
-    console.log(bpmAnswerArray);
-    console.log(bpmScoreArray);
+    console.log("🎮 Game Mode:", bpmGameMode);
+    console.log("📊 Questions:", bpmQno);
+    console.log("⚙️ Difficulty:", bpmDifficulty);
+    console.log("🔘 Active Buttons:", bpmActiveButtons);
+    console.log("📋 Options:", bpmOptionArray);
+    console.log("❓ Questions Array:", bpmQArray);
+    console.log("❤️ Health:", bpmHealthArray);
+    console.log("🎯 Current Question:", bpmQCurrent);
+    console.log("✅ Answers:", bpmAnswerArray);
+    console.log("🏆 Score:", bpmScoreArray);
+    console.log("🎲 Is Multiple Choice:", isMultipleChoice);
    
     $("#heading-section").hide(400);
     $("#options-section").hide(400);
@@ -87,14 +126,39 @@ function checkSelectedAnswer() {
         bpmCQ = bpmCQ + 1;
         // If current question is less than total questions
         if (bpmCQ < bpmQno) {
-            // Show all balloon canvas elements
-            $("[id^=canvas-balloon]").fadeIn("fast");
-            // Show all balloon text elements
-            $("[id^=balloon-answer-text]").fadeIn("fast");
             // Set current question, store in bpmQCurrent global variable
             bpmQCurrent = setQuestion(bpmQArray[bpmCQ]);
             // Get answer array, store in bpmAnswerArray global variable
             bpmAnswerArray = answerArray(bpmGameMode, bpmQCurrent);
+            
+            // Check if next question is multiple choice
+            const isNextMultipleChoice = bpmGameMode === "exam" && bpmOptionArray[0] === "Pilihan Ganda";
+            
+            if (isNextMultipleChoice) {
+                // Multiple choice - pad array and hide last 2 balloons
+                while (bpmAnswerArray.length < 6) {
+                    bpmAnswerArray.push("");
+                }
+                // Show first 4 balloons
+                $("#canvas-balloon-left-1").fadeIn("fast");
+                $("#canvas-balloon-left-2").fadeIn("fast");
+                $("#canvas-balloon-right-1").fadeIn("fast");
+                $("#canvas-balloon-right-2").fadeIn("fast");
+                $("#balloon-answer-text-left-1").fadeIn("fast");
+                $("#balloon-answer-text-left-2").fadeIn("fast");
+                $("#balloon-answer-text-right-1").fadeIn("fast");
+                $("#balloon-answer-text-right-2").fadeIn("fast");
+                // Keep last 2 hidden
+                $("#canvas-balloon-left-3").hide();
+                $("#canvas-balloon-right-3").hide();
+                $("#balloon-answer-text-left-3").hide();
+                $("#balloon-answer-text-right-3").hide();
+            } else {
+                // Normal mode - show all 6 balloons
+                $("[id^=canvas-balloon]").fadeIn("fast");
+                $("[id^=balloon-answer-text]").fadeIn("fast");
+            }
+            
             // Set balloon text using answer array
             bpmAnswerArray = setBalloons(bpmAnswerArray);
         } else {
