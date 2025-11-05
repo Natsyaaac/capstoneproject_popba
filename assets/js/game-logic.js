@@ -37,19 +37,19 @@ function playGame() {
         while (bpmAnswerArray.length < 6) {
             bpmAnswerArray.push("");
         }
-        // Show first 4 balloon canvas elements (hide last 2)
+        // Show 4 balloons for A, B, C, D: left-1 (A), left-2 (B), left-3 (C), right-1 (D)
         $("#canvas-balloon-left-1").show();
         $("#canvas-balloon-left-2").show();
+        $("#canvas-balloon-left-3").show();
         $("#canvas-balloon-right-1").show();
-        $("#canvas-balloon-right-2").show();
-        $("#canvas-balloon-left-3").hide();
+        $("#canvas-balloon-right-2").hide();
         $("#canvas-balloon-right-3").hide();
-        // Show first 4 balloon text elements (hide last 2)
+        // Show balloon text elements for A, B, C, D
         $("#balloon-answer-text-left-1").show();
         $("#balloon-answer-text-left-2").show();
+        $("#balloon-answer-text-left-3").show();
         $("#balloon-answer-text-right-1").show();
-        $("#balloon-answer-text-right-2").show();
-        $("#balloon-answer-text-left-3").hide();
+        $("#balloon-answer-text-right-2").hide();
         $("#balloon-answer-text-right-3").hide();
         // Hide multiple choice button container
         $("#multiple-choice-container").addClass("d-none");
@@ -57,8 +57,28 @@ function playGame() {
         $(".game-section-balloons").show();
         // Set balloons with answers
         bpmAnswerArray = setBalloons(bpmAnswerArray);
+    } else if (bpmGameMode == 'exam') {
+        // Essay mode - show 4 balloons: left-1, left-2, right-1, right-2
+        $("#canvas-balloon-left-1").show();
+        $("#canvas-balloon-left-2").show();
+        $("#canvas-balloon-right-1").show();
+        $("#canvas-balloon-right-2").show();
+        $("#canvas-balloon-left-3").hide();
+        $("#canvas-balloon-right-3").hide();
+        // Show balloon text elements
+        $("#balloon-answer-text-left-1").show();
+        $("#balloon-answer-text-left-2").show();
+        $("#balloon-answer-text-right-1").show();
+        $("#balloon-answer-text-right-2").show();
+        $("#balloon-answer-text-left-3").hide();
+        $("#balloon-answer-text-right-3").hide();
+        // Hide multiple choice container
+        $("#multiple-choice-container").addClass("d-none");
+        // Show balloons
+        $(".game-section-balloons").show();
+        bpmAnswerArray = setBalloons(bpmAnswerArray);
     } else {
-        // Normal balloon mode
+        // Normal balloon mode (6 balloons)
         // Show all balloon canvas elements
         $("[id^=canvas-balloon]").show();
         // Show all balloon text elements
@@ -109,9 +129,22 @@ function checkSelectedAnswer() {
     let highScore = getHighScore();
     // Initialise current score
     let currentScore;
+    
+    // For multiple choice, check if selected letter maps to correct answer
+    let actualAnswer = sAnswer;
+    const isMultipleChoice = bpmGameMode === "exam" && bpmOptionArray[0] === "Pilihan Ganda";
+    
+    if (isMultipleChoice && bpmMultipleChoiceMapping[sAnswer]) {
+        // Get the actual answer text from the letter (A, B, C, D)
+        actualAnswer = bpmMultipleChoiceMapping[sAnswer];
+        console.log("🎯 Selected Letter:", sAnswer);
+        console.log("📝 Actual Answer:", actualAnswer);
+        console.log("✅ Correct Answer:", bpmQCurrent[1]);
+    }
+    
     // Check selected answer against correct answer from current question array
     // If answer is correct
-    if (sAnswer == bpmQCurrent[1]) {
+    if (actualAnswer == bpmQCurrent[1]) {
         // Play balloon popping sound
         soundPop.play();
         // Show balloon popping animation
@@ -131,15 +164,31 @@ function checkSelectedAnswer() {
             // Get answer array, store in bpmAnswerArray global variable
             bpmAnswerArray = answerArray(bpmGameMode, bpmQCurrent);
             
-            // Check if next question is multiple choice
-            const isNextMultipleChoice = bpmGameMode === "exam" && bpmOptionArray[0] === "Pilihan Ganda";
+            // Check if next question is exam mode
+            const isNextExamMode = bpmGameMode === "exam";
+            const isNextMultipleChoice = isNextExamMode && bpmOptionArray[0] === "Pilihan Ganda";
             
             if (isNextMultipleChoice) {
-                // Multiple choice - pad array and hide last 2 balloons
+                // Multiple choice - pad array and show 4 balloons for A, B, C, D
                 while (bpmAnswerArray.length < 6) {
                     bpmAnswerArray.push("");
                 }
-                // Show first 4 balloons
+                // Show 4 balloons: left-1 (A), left-2 (B), left-3 (C), right-1 (D)
+                $("#canvas-balloon-left-1").fadeIn("fast");
+                $("#canvas-balloon-left-2").fadeIn("fast");
+                $("#canvas-balloon-left-3").fadeIn("fast");
+                $("#canvas-balloon-right-1").fadeIn("fast");
+                $("#balloon-answer-text-left-1").fadeIn("fast");
+                $("#balloon-answer-text-left-2").fadeIn("fast");
+                $("#balloon-answer-text-left-3").fadeIn("fast");
+                $("#balloon-answer-text-right-1").fadeIn("fast");
+                // Keep right-2 and right-3 hidden
+                $("#canvas-balloon-right-2").hide();
+                $("#canvas-balloon-right-3").hide();
+                $("#balloon-answer-text-right-2").hide();
+                $("#balloon-answer-text-right-3").hide();
+            } else if (isNextExamMode) {
+                // Essay mode - show 4 balloons: left-1, left-2, right-1, right-2
                 $("#canvas-balloon-left-1").fadeIn("fast");
                 $("#canvas-balloon-left-2").fadeIn("fast");
                 $("#canvas-balloon-right-1").fadeIn("fast");
@@ -148,7 +197,7 @@ function checkSelectedAnswer() {
                 $("#balloon-answer-text-left-2").fadeIn("fast");
                 $("#balloon-answer-text-right-1").fadeIn("fast");
                 $("#balloon-answer-text-right-2").fadeIn("fast");
-                // Keep last 2 hidden
+                // Keep left-3 and right-3 hidden
                 $("#canvas-balloon-left-3").hide();
                 $("#canvas-balloon-right-3").hide();
                 $("#balloon-answer-text-left-3").hide();

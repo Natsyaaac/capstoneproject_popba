@@ -44,3 +44,4 @@ let bpmCQ;
 let bpmQCurrent;
 let bpmAnswerArray;
 let bpmScoreArray;
+let bpmMultipleChoiceMapping = {};

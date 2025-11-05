@@ -213,20 +213,12 @@ $(".btn-up-toggle").click(function () {
 $(".btn-operator-toggle").click(function () {
     // Ambil ID tombol yang diklik
     let btnId = "#" + ($(this)[0].id);
-
-    // Ambil semua ID tombol dalam grup "btn-operator"
     let btnIdArray = returnBtnIdArray("btn-operator");
-
-    // Hapus tombol yang diklik dari daftar agar tidak dimatikan
     let i = btnIdArray.indexOf(btnId);
     if (i > -1) {
         btnIdArray.splice(i, 1);
     }
-
-    // Nonaktifkan semua tombol lain di grup ini
     makeNotActive(btnIdArray);
-
-    // Jika tombol ini aktif, toggle kembali (mati)
     if ($(this).hasClass("active")) {
         $(this).button('toggle');
     }
@@ -239,10 +231,11 @@ $(".btn-exam-toggle").click(function() {
     if (i > -1) {
         btnIdArray.splice(i, 1);
     }
-    makeActive(btnIdArray);
+    makeNotActive(btnIdArray);
     if ($(this).hasClass("active")) {
         $(this).button('toggle');
     }
+    
 });
 
 // Game Event Handlers //

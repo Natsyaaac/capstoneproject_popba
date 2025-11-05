@@ -577,10 +577,24 @@ function answerArray(gameMode, qCurrent) {
             } else if (gameMode == 'exam') {
                 // For exam mode, check if it's multiple choice (has choices) or essay
                 if (qCurrent.length > 2 && qCurrent[2]) {
-                    // Pilihan Ganda - use provided choices
-                    answerArray = qCurrent[2].slice(); // Copy choices array
-                    // Shuffle to randomize order
-                    answerArray = shuffleArray(answerArray);
+                    // Pilihan Ganda - return letters A, B, C, D as balloon answers
+                    // and create mapping from letters to actual answers
+                    let choices = qCurrent[2];
+                    let correctAnswer = qCurrent[1];
+                    
+                    // Create mapping from letter to choice
+                    bpmMultipleChoiceMapping = {};
+                    for (let i = 0; i < choices.length; i++) {
+                        let letter = String.fromCharCode(65 + i); // A, B, C, D
+                        bpmMultipleChoiceMapping[letter] = choices[i];
+                    }
+                    
+                    // Return array of letters A, B, C, D (4 items only for 4 balloons)
+                    answerArray = ["A", "B", "C", "D"];
+                    
+                    console.log("🔤 Multiple Choice Mapping:", bpmMultipleChoiceMapping);
+                    console.log("✅ Correct Answer:", correctAnswer);
+                    
                     return answerArray;
                 } else {
                     // Essay - generate wrong answers based on correct answer

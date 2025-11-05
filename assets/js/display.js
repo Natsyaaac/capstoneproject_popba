@@ -552,8 +552,24 @@ function setScore(scoreArray) {
 function setQuestion(qCurrent) {
     // Set question string from current question array
     let qString = qCurrent[0];
-    // Update current question
-    $("#question").html(qString);
+    
+    // Check if this is multiple choice exam mode (has choices in qCurrent[2])
+    if (qCurrent.length > 2 && qCurrent[2]) {
+        // For multiple choice, display question + choices in the question box
+        let choices = qCurrent[2];
+        let choicesHtml = '<div class="mc-question-text">' + qString + '</div>';
+        choicesHtml += '<div class="mc-choices-list">';
+        for (let i = 0; i < choices.length; i++) {
+            let letter = String.fromCharCode(65 + i); // A, B, C, D
+            choicesHtml += '<div class="mc-choice-item"><strong>' + letter + '.</strong> ' + choices[i] + '</div>';
+        }
+        choicesHtml += '</div>';
+        $("#question").html(choicesHtml);
+    } else {
+        // For regular questions, just show the question
+        $("#question").html(qString);
+    }
+    
     return (qCurrent);
 }
 /**
