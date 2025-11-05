@@ -46,7 +46,7 @@ $("#heavy").on("click", modeHeavy);
 $("#volume").on("click", modeVolume);
 $("#up").on("click", modeUp);
 $("#operator").on("click", modeOperator);
-
+$("#exam").on("click", modeExam);
 // On click event handler added to multiplication and division options buttons with the .btn-mul-div-toggle class in multiplication and division modes //
 // Removes active class on all other multiplication and division buttons to give toggle behaviour to options buttons with the .btn-mul-div-toggle class //
 $(".btn-mul-div-toggle").click(function () {
@@ -232,7 +232,18 @@ $(".btn-operator-toggle").click(function () {
     }
 });
 
-
+$(".btn-exam-toggle").click(function() {
+    let btnId = "#" + ($(this)[0].id);
+    let btnIdArray = returnBtnIdArray("btn-exam");
+    let i = btnIdArray.indexOf(btnId);
+    if (i > -1) {
+        btnIdArray.splice(i, 1);
+    }
+    makeActive(btnIdArray);
+    if ($(this).hasClass("active")) {
+        $(this).button('toggle');
+    }
+});
 
 // Game Event Handlers //
 // On click event added to balloon answer text divs to check the selected answer using checkSelectedAnswer function //

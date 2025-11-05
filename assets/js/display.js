@@ -24,18 +24,21 @@ function modeAljabar() {
     // Sembunyikan semua opsi lain
     $("#options-add-time").hide(400);
     $("#options-add-operator").hide(400);
-
+    $("#options-add-exam").hide(400);
     $("#options-add-subtract").hide(400);
     $("#options-multiply-divide").hide(400);
-
     $("#options-add-heavy").hide(400);
     // Tampilkan opsi untuk Aljabar
     $("#options-add-aljabar").show(400);
     $("#options-add-up").hide(400);
     $("#options-add-volume").hide(400);
-    $("#hard").hide(400);
-    $("#medium").hide(400);
-    $("#easy").hide(400);
+
+    $("#hard").show(400);
+    $("#medium").show(400);
+    $("#easy").show(400);
+    $("#20q").show(400);
+    $("#10q").show(400);
+
     // Aktifkan tombol pertama
     makeActive("#btn-aljabar-1");
 
@@ -49,16 +52,20 @@ function modeAljabar() {
 
 function modeTime() {
     $("#options-add-time").show(400);
-    $("#options-add-subtract").hide(400);
-    $("#options-multiply-divide").hide(400);
     $("#options-add-aljabar").hide(400);
     $("#options-add-up").hide(400);
     $("#options-add-operator").hide(400);
+    $("#options-add-exam").hide(400);
     $("#options-add-volume").hide(400);
     $("#options-add-heavy").hide(400);
-    $("#hard").hide(400);
-    $("#medium").hide(400);
-    $("#easy").hide(400);
+
+    $("#hard").show(400);
+    $("#medium").show(400);
+    $("#easy").show(400);
+    $("#20q").show(400);
+    $("#10q").show(400);
+
+
     makeActive("#btn-time-1");
 
     $("#btn-time-1").html("Baca Jam");
@@ -74,12 +81,16 @@ function modeHeavy() {
     $("#options-add-subtract").hide(400);
     $("#options-multiply-divide").hide(400);
     $("#options-add-up").hide(400);
+    $("#options-add-exam").hide(400);
     $("#options-add-operator").hide(400);
     $("#options-add-heavy").show(400);
     $("#options-add-volume").hide(400);
-    $("#hard").hide(400);
-    $("#medium").hide(400);
-    $("#easy").hide(400);
+
+    $("#hard").show(400);
+    $("#medium").show(400);
+    $("#easy").show(400);
+    $("#20q").show(400);
+    $("#10q").show(400);
 
     makeActive("#btn-heavy-1");
 
@@ -95,12 +106,16 @@ function modeVolume() {
     $("#options-multiply-divide").hide(400);
     $("#options-add-aljabar").hide(400);
     $("#options-add-up").hide(400);
+    $("#options-add-exam").hide(400);
     $("#options-add-heavy").hide(400);
     $("#options-add-operator").hide(400);
     $("#options-add-volume").show(400);
-    $("#hard").hide(400);
-    $("#medium").hide(400);
-    $("#easy").hide(400);
+
+    $("#hard").show(400);
+    $("#medium").show(400);
+    $("#easy").show(400);
+    $("#20q").show(400);
+    $("#10q").show(400);
 
     makeActive("#btn-volume-1");
 
@@ -118,10 +133,15 @@ function modeUp() {
     $("#options-multiply-divide").hide(400);
     $("#options-add-operator").hide(400);
     $("#options-add-volume").hide(400);
+    $("#options-add-exam").hide(400);
     $("#options-add-up").show(400);
-    $("#hard").hide(400);
-    $("#medium").hide(400);
-    $("#easy").hide(400);
+
+
+    $("#hard").show(400);
+    $("#medium").show(400);
+    $("#easy").show(400);
+    $("#20q").show(400);
+    $("#10q").show(400);
 
     makeActive("#btn-up-1");
 
@@ -141,11 +161,15 @@ function modeOperator() {
     $("#options-add-aljabar").hide(400);
     $("#options-add-heavy").hide(400);
     $("#options-add-volume").hide(400);
+    $("#options-add-exam").hide(400);
     $("#options-add-up").hide(400);
     $("#options-add-operator").show(400);
-    $("#hard").hide(400);
-    $("#medium").hide(400);
-    $("#easy").hide(400);
+
+    $("#hard").show(400);
+    $("#medium").show(400);
+    $("#easy").show(400);
+    $("#20q").show(400);
+    $("#10q").show(400);
 
     makeActive("#btn-operator-1");
 
@@ -155,23 +179,24 @@ function modeOperator() {
     $("#btn-operator-4").html("Kali");
 }
 
-// function modeExam() {
-//     $("#options-add-time").hide(400);
-//     $("#options-add-aljabar").hide(400);
-//     $("#options-add-heavy").hide(400);
-//     $("#options-add-volume").hide(400);
-//     $("#options-add-up").hide(400);
-//     $("#options-add-operator").hide(400);
-//     $("#options-add-exam").show(400);
-//     $("#hard").hide(400);
-//     $("#medium").hide(400);
-//     $("#easy").hide(400);
+function modeExam() {
+    $("#options-add-time").hide(400);
+    $("#options-add-aljabar").hide(400);
+    $("#options-add-heavy").hide(400);
+    $("#options-add-volume").hide(400);
+    $("#options-add-up").hide(400);
+    $("#options-add-operator").hide(400);
+    $("#options-add-exam").show(400);
+    $("#hard").hide(400);
+    $("#medium").hide(400);
+    $("#easy").hide(400);
+    $("#20q").hide(400);
+    $("#10q").hide(400);
+    makeActive("#btn-exam-1");
 
-//     makeActive("#btn-operator-1");
-
-//     $("#btn-exam-1").html("Essay");
-//     $("#btn-exam-2").html("Pilihan Ganda");
-// }
+    $("#btn-exam-1").html("Essay");
+    $("#btn-exam-2").html("Pilihan Ganda");
+}
 /**
 * [Function to return an array of button id strings, given button prefix]
 * @param  {[string]}   btnPrefix        [Button Prefix]
@@ -260,7 +285,9 @@ function returnGameMode() {
         gameMode = "up";
     } else if ($("#operator").hasClass("active")) {
         gameMode = "operator";
-    } 
+    } else if ($("exam").hasClass("active")) {
+        gameMode = "exam"
+    }
     return (gameMode);
 }
 
@@ -347,6 +374,12 @@ function returnActiveButtons(gameMode) {
             if (
                 (gameMode == "operator") &&
                 (btnId.substring(1, 13) == "btn-operator")
+            ) {
+                btnActiveArray.push(btnId);
+            }
+            if (
+                (gameMode == "exam") &&
+                (btnId.substring(1, 8) == "btn-exam")
             ) {
                 btnActiveArray.push(btnId);
             }
@@ -583,6 +616,7 @@ document.addEventListener("DOMContentLoaded", () => {
             $("#options-add-volume").hide(400);
             $("#options-add-up").hide(400);
             $("#options-add-operator").hide(400);
+            $("#options-add-exam").hide(400);
             // aktifkan class untuk tampil
         }
     });
