@@ -543,7 +543,7 @@
          color: var(--bluevlight);
          font-weight: 700;
          font-size: 1.6rem;
-         border-radius: 1.5rem !important;
+         border-radius: 0.8rem !important;
          border: 2px solid var(--bluemed);
          text-align: center;
          width: 100%;
