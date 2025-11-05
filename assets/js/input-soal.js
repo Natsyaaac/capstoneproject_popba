@@ -11,6 +11,22 @@ const ESSAY_STORAGE_KEY = 'balloon_pop_essay_questions';
 const PILGAN_STORAGE_KEY = 'balloon_pop_pilgan_questions';
 
 /**
+ * Show notification modal with custom message
+ * @param {string} message - Message to display in the notification
+ */
+function showNotification(message) {
+    $('#notification-message').text(message);
+    $('#notification-modal').addClass('show');
+}
+
+/**
+ * Hide notification modal
+ */
+function hideNotification() {
+    $('#notification-modal').removeClass('show');
+}
+
+/**
  * Get essay questions from localStorage
  * @return {Array} Array of essay question objects
  */
@@ -204,9 +220,7 @@ function escapeHtml(text) {
  * @param {number} questionId - ID of question to delete
  */
 function deleteEssayQuestionById(questionId) {
-    if (confirm('Apakah Anda yakin ingin menghapus soal essay ini?')) {
-        deleteEssayQuestion(questionId);
-    }
+    deleteEssayQuestion(questionId);
 }
 
 /**
@@ -214,9 +228,7 @@ function deleteEssayQuestionById(questionId) {
  * @param {number} questionId - ID of question to delete
  */
 function deletePilganQuestionById(questionId) {
-    if (confirm('Apakah Anda yakin ingin menghapus soal pilihan ganda ini?')) {
-        deletePilganQuestion(questionId);
-    }
+    deletePilganQuestion(questionId);
 }
 
 /**
@@ -293,7 +305,7 @@ function handleAddEssay(event) {
     const answer = $('#input-jawaban-essay').val().trim();
     
     if (!question || !answer) {
-        alert('Pertanyaan dan jawaban harus diisi!');
+        showNotification('Pertanyaan dan jawaban harus diisi!');
         return;
     }
     
@@ -304,7 +316,7 @@ function handleAddEssay(event) {
     
     addEssayQuestion(questionObj);
     hideAddEssayModal();
-    alert('Soal essay berhasil ditambahkan!');
+    showNotification('Soal essay berhasil ditambahkan!');
 }
 
 /**
@@ -323,12 +335,12 @@ function handleAddPilgan(event) {
     ];
     
     if (!question || !answer) {
-        alert('Pertanyaan dan jawaban harus diisi!');
+        showNotification('Pertanyaan dan jawaban harus diisi!');
         return;
     }
     
     if (choices.some(choice => choice === '')) {
-        alert('Semua pilihan jawaban harus diisi untuk soal pilihan ganda!');
+        showNotification('Semua pilihan jawaban harus diisi untuk soal pilihan ganda!');
         return;
     }
     
@@ -340,7 +352,7 @@ function handleAddPilgan(event) {
     
     addPilganQuestion(questionObj);
     hideAddPilganModal();
-    alert('Soal pilihan ganda berhasil ditambahkan!');
+    showNotification('Soal pilihan ganda berhasil ditambahkan!');
 }
 
 // Event Handlers - will be initialized when document is ready
@@ -359,6 +371,9 @@ $(document).ready(function() {
     $('#btn-batal-essay').on('click', hideAddEssayModal);
     $('#btn-batal-pilgan').on('click', hideAddPilganModal);
     
+    // Button to close notification modal
+    $('#btn-close-notification').on('click', hideNotification);
+    
     // Form submissions
     $('#form-tambah-essay').on('submit', handleAddEssay);
     $('#form-tambah-pilgan').on('submit', handleAddPilgan);
@@ -373,6 +388,13 @@ $(document).ready(function() {
     $('#modal-tambah-pilgan').on('click', function(e) {
         if (e.target.id === 'modal-tambah-pilgan') {
             hideAddPilganModal();
+        }
+    });
+    
+    // Close notification modal when clicking outside
+    $('#notification-modal').on('click', function(e) {
+        if (e.target.id === 'notification-modal') {
+            hideNotification();
         }
     });
 });
