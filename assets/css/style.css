@@ -308,15 +308,25 @@
          cursor: url('../images/pin.svg'), crosshair;
      }
 
-     /* Default untuk HP */
+     /* Kotak soal - responsive untuk semua panjang soal */
      .game-section-controls #question {
          color: var(--bluevlight);
          text-align: center;
-         font-size: 5rem;
+         font-size: clamp(2.5rem, 5vw, 5rem);
          font-weight: 700;
          border-radius: 1.0rem;
          background-color: var(--purplelight);
-         border: 1px solid var(--bluemed);
+         border: 2px solid var(--bluemed);
+         padding: 1.5rem 2rem;
+         min-height: 8rem;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         word-wrap: break-word;
+         overflow-wrap: break-word;
+         line-height: 1.3;
+         max-width: 100%;
+         margin: 0 auto;
      }
 
      /* Laptop */
@@ -482,29 +492,32 @@
 
      .h {
          display: flex;
-         flex-direction: column;
+         flex-direction: row;
          align-items: center;
-         gap: 10px;
-         position: absolute;
-         top: -40rem;
-         left: -10rem;
+         justify-content: center;
+         gap: 15px;
          background-color: var(--bluevlight);
-         padding: 1rem -1rem;
+         padding: 1rem 2rem;
          border-radius: 1.5rem;
          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+         margin-bottom: 1rem;
+         width: fit-content;
+         margin-left: auto;
+         margin-right: auto;
      }
 
-
      #audio-controls {
-         position: relative;
-         right: 20px;
+         display: flex;
+         align-items: center;
+         justify-content: center;
      }
 
      #health {
          display: flex;
-         flex-direction: column;
+         flex-direction: row;
          align-items: center;
-         gap: 6px;
+         justify-content: center;
+         gap: 8px;
      }
 
 
@@ -515,11 +528,15 @@
          grid-template-columns: repeat(3, 1fr);
          gap: 0.7rem;
          width: 100%;
-         margin: 0 auto;
-         max-width: 400px;
+         max-width: 700px;
          margin: 0 auto;
      }
 
+     /* Posisi khusus untuk tombol Ujian agar di tengah - row 3 sendiri */
+     .grid-tem .grid-7 {
+         grid-column: 2 / 3;
+         grid-row: 3 / 4;
+     }
 
      /* === Tombol Mode === */
      .grid-tem .btn {
@@ -581,7 +598,53 @@
              gap: 0.6rem;
          }
 
+         .grid-tem .grid-7 {
+             grid-column: 2 / 3;
+             grid-row: 3 / 4;
+         }
 
+         .game-section-controls #question {
+             font-size: clamp(1.8rem, 4vw, 3rem);
+             padding: 1rem;
+             min-height: 5rem;
+         }
+     }
+
+     /*-- Media query untuk Tablet (601px - 991px) --*/
+     @media (min-width: 601px) and (max-width: 991px) {
+         .grid-tem {
+             max-width: 600px;
+             gap: 0.8rem;
+         }
+
+         .grid-tem .btn {
+             font-size: 1.7rem;
+             padding: 0.9rem 0;
+         }
+
+         .grid-tem .grid-7 {
+             grid-column: 2 / 3;
+             grid-row: 3 / 4;
+         }
+
+         .game-section-controls #question {
+             font-size: clamp(2.5rem, 4.5vw, 4rem);
+             padding: 1.5rem 2rem;
+             min-height: 7rem;
+         }
+
+         .h {
+             padding: 1.2rem 2.5rem;
+             gap: 18px;
+         }
+
+         #health i {
+             font-size: 2.2rem;
+         }
+
+         #audio-controls i {
+             font-size: 2.2rem;
+         }
      }
 
      /*-- Game Mode Selection Grid for Mobile Devices --*/
@@ -620,51 +683,36 @@
              gap: 0.7rem;
          }
 
-         .grid-1 {
-             grid-column: 3 / 3;
-             grid-row: 3 / 4;
-         }
-
-         .grid-2 {
+         .grid-tem .grid-7 {
              grid-column: 2 / 3;
-             grid-row: 3 / 4;
-         }
-
-         .grid-3 {
-             grid-column: 1 / 2;
              grid-row: 3 / 4;
          }
 
          #health-section {
              position: relative;
-             top: 0;
-             left: 8rem;
              flex-direction: row;
-             /* supaya ikon suara dan hati tetap sejajar */
              justify-content: center;
-             /* di tengah */
              align-items: center;
              background-color: transparent !important;
-             /* sedikit lengkung bawah */
-             /* minimal padding vertikal */
              margin-bottom: 1rem;
-             /* beri jarak ke pertanyaan */
-             padding: 0 !important;
-             /* hilangkan semua padding */
-             margin: 0 !important;
+             padding: 0.5rem 1rem !important;
+             gap: 10px;
          }
 
          #health-section #health {
              flex-direction: row;
              gap: 6px;
-             padding: 0 !important;
-             /* hilangkan semua padding */
-             margin: 0 !important;
          }
 
          #audio-controls {
-             position: relative;
-             bottom: 20px;
+             display: flex;
+             align-items: center;
+         }
+
+         .game-section-controls #question {
+             font-size: clamp(2rem, 4vw, 3.5rem);
+             padding: 1rem 1.5rem;
+             min-height: 6rem;
          }
 
      }
@@ -681,7 +729,7 @@
              gap: 0.7rem;
          }
 
-         .grid-1 {
+         .grid-tem .grid-7 {
              grid-column: 2 / 3;
              grid-row: 3 / 4;
          }
@@ -720,14 +768,37 @@
 
          .grid-tem {
              grid-template-columns: repeat(3, 1fr);
-             /* tetap 3 kolom */
              gap: 1rem;
-             max-width: 700px;
+             max-width: 800px;
          }
 
          .grid-tem .btn {
              font-size: 1.8rem;
              padding: 1rem 0;
+         }
+
+         .grid-tem .grid-7 {
+             grid-column: 2 / 3;
+             grid-row: 3 / 4;
+         }
+
+         .game-section-controls #question {
+             font-size: clamp(3rem, 5vw, 5rem);
+             padding: 2rem 3rem;
+             min-height: 10rem;
+         }
+
+         .h {
+             padding: 1.5rem 3rem;
+             gap: 20px;
+         }
+
+         #health i {
+             font-size: 2.5rem;
+         }
+
+         #audio-controls i {
+             font-size: 2.5rem;
          }
      }
 
