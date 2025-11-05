@@ -285,8 +285,8 @@ function returnGameMode() {
         gameMode = "up";
     } else if ($("#operator").hasClass("active")) {
         gameMode = "operator";
-    } else if ($("exam").hasClass("active")) {
-        gameMode = "exam"
+    } else if ($("#exam").hasClass("active")) {
+        gameMode = "exam";
     }
     return (gameMode);
 }
@@ -379,7 +379,7 @@ function returnActiveButtons(gameMode) {
             }
             if (
                 (gameMode == "exam") &&
-                (btnId.substring(1, 8) == "btn-exam")
+                (btnId.substring(1, 9) == "btn-exam")
             ) {
                 btnActiveArray.push(btnId);
             }

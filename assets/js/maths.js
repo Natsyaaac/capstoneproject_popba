@@ -26,7 +26,9 @@ function returnQuestionArray(gameMode, optionArray, qno) {
         questionArray = returnUpQuestionArray(optionArray, qno)
     } else if (gameMode == 'operator') {
         questionArray = returnOperatorQuestionArray(optionArray, qno)
-    } 
+    } else if (gameMode == 'exam') {
+        questionArray = returnExamQuestionArray(optionArray, qno)
+    }
     return (questionArray);
 }
 
@@ -477,6 +479,61 @@ function returnOperatorQuestionArray(optionArray, qno) {
     return opqArray;
 }
 
+/**
+ * Function to return exam questions from localStorage
+ * @param  {[string]}    optionArray     [Array with exam type - "Essay" or "Pilihan Ganda"]
+ * @param  {[number]}    qno             [Number of questions requested]
+ * @return {[array]}                     [Question and answer array]
+ */
+function returnExamQuestionArray(optionArray, qno) {
+    let examType = optionArray[0]; // "Essay" atau "Pilihan Ganda"
+    let examArray = [];
+    let sourceQuestions = [];
+
+    console.log("🎯 Mode Exam - optionArray:", optionArray);
+    console.log("🎯 examType:", examType);
+
+    // Load questions from localStorage based on exam type
+    if (examType === "Essay") {
+        sourceQuestions = getEssayQuestions();
+        console.log("📝 Essay questions loaded:", sourceQuestions);
+    } else if (examType === "Pilihan Ganda") {
+        sourceQuestions = getPilganQuestions();
+        console.log("📋 Pilgan questions loaded:", sourceQuestions);
+    }
+
+    // Check if there are questions available
+    if (sourceQuestions.length === 0) {
+        console.warn(`⚠️ Tidak ada soal ${examType} yang tersimpan di localStorage`);
+        console.log("💾 localStorage keys:", Object.keys(localStorage));
+        console.log("💾 Essay key:", localStorage.getItem('balloon_pop_essay_questions'));
+        console.log("💾 Pilgan key:", localStorage.getItem('balloon_pop_pilgan_questions'));
+        // Return empty array or default questions
+        return [];
+    }
+
+    // Shuffle questions to randomize
+    sourceQuestions = shuffleArray(sourceQuestions.slice());
+
+    // Take only the number of questions requested (or all if less than requested)
+    let numQuestions = Math.min(qno, sourceQuestions.length);
+
+    for (let i = 0; i < numQuestions; i++) {
+        let q = sourceQuestions[i];
+        
+        // For multiple choice, store choices in question object for later use
+        if (examType === "Pilihan Ganda" && q.choices) {
+            // Format: [question, answer, choices]
+            examArray.push([q.question, q.answer, q.choices]);
+        } else {
+            // For essay: [question, answer]
+            examArray.push([q.question, q.answer]);
+        }
+    }
+
+    return examArray;
+}
+
 
 /**
 * [Function to check if a new question is already contained in the question array]
@@ -517,6 +574,18 @@ function answerArray(gameMode, qCurrent) {
                 answerArray = wrongAnswerUpQuestion(qCurrent);
             } else if (gameMode == 'operator') {
                 answerArray = wrongAnswerOperatorQuestion(qCurrent);
+            } else if (gameMode == 'exam') {
+                // For exam mode, check if it's multiple choice (has choices) or essay
+                if (qCurrent.length > 2 && qCurrent[2]) {
+                    // Pilihan Ganda - use provided choices
+                    answerArray = qCurrent[2].slice(); // Copy choices array
+                    // Shuffle to randomize order
+                    answerArray = shuffleArray(answerArray);
+                    return answerArray;
+                } else {
+                    // Essay - generate wrong answers based on correct answer
+                    answerArray = wrongAnswerExamQuestion(qCurrent);
+                }
             }
             // Add correct answer to answer array
             answerArray.push(qCurrent[1]);
@@ -705,6 +774,55 @@ function answerArray(gameMode, qCurrent) {
             wrongAnswerArray = wrongAnswerArray.sort(() => Math.random() - 0.5);
 
             // Pastikan jumlah tetap 5
+            return wrongAnswerArray.slice(0, 5);
+        }
+
+        /**
+         * [Function to generate array of 5 wrong answers for exam essay questions]
+         * @param  {[array]} qCurrent [Current question array: [question, correctAnswer]]
+         * @return {[array]}          [Array of 5 wrong answers]
+         */
+        function wrongAnswerExamQuestion(qCurrent) {
+            let cA = qCurrent[1]; // Correct answer
+            let wrongAnswerArray = [];
+
+            // Check if answer is numeric
+            if (!isNaN(cA) && cA !== null && cA !== '') {
+                // Generate wrong answers for numeric answers
+                let numAnswer = Number(cA);
+                let offsets = [1, 2, -1, -2];
+                
+                offsets.forEach(offset => {
+                    let wrong = numAnswer + offset;
+                    if (wrong >= 0) { // Avoid negative numbers unless meaningful
+                        wrongAnswerArray.push(wrong);
+                    }
+                });
+
+                // Add one more random number if needed
+                while (wrongAnswerArray.length < 5) {
+                    let rand = Math.floor(Math.random() * 100);
+                    if (!wrongAnswerArray.includes(rand) && rand !== numAnswer) {
+                        wrongAnswerArray.push(rand);
+                    }
+                }
+            } else {
+                // For text answers, generate variations
+                // This is tricky - for now, add some placeholder wrong answers
+                // Teachers should use multiple choice for text-based questions
+                wrongAnswerArray = [
+                    "Jawaban A",
+                    "Jawaban B", 
+                    "Jawaban C",
+                    "Jawaban D",
+                    "Jawaban E"
+                ];
+            }
+
+            // Shuffle wrong answers
+            wrongAnswerArray = wrongAnswerArray.sort(() => Math.random() - 0.5);
+
+            // Return exactly 5 wrong answers
             return wrongAnswerArray.slice(0, 5);
         }
 
