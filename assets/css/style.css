@@ -329,11 +329,6 @@
          margin: 0 auto;
      }
 
-     /* Laptop */
-
-
-
-
      /*-- Game Audio Controls --*/
      #audio-controls i {
          padding: 0.5rem 1.0rem 0.5rem 1.0rem;
@@ -445,9 +440,8 @@
          text-decoration: none;
      }
 
-     /*-- Bootstrap Class Overrides --*
-
-/*-- Bootstrap Button Class Overrides --*/
+     /*-- Bootstrap Class Overrides --*/
+     /*-- Bootstrap Button Class Overrides --*/
      .btn-lg {
          font-size: 1.6rem;
      }
@@ -490,20 +484,20 @@
          padding: 1.5rem 1.5rem 1.5rem 1.5rem;
      }
 
+     /* Container untuk health dan audio - centered */
      .h {
          display: flex;
          flex-direction: row;
          align-items: center;
          justify-content: center;
-         gap: 15px;
+         gap: 20px;
          background-color: var(--bluevlight);
          padding: 1rem 2rem;
          border-radius: 1.5rem;
          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-         margin-bottom: 1rem;
+         margin-bottom: 1.5rem;
          width: fit-content;
-         margin-left: auto;
-         margin-right: auto;
+         max-width: 90%;
      }
 
      #audio-controls {
@@ -517,7 +511,12 @@
          flex-direction: row;
          align-items: center;
          justify-content: center;
-         gap: 8px;
+         gap: 10px;
+     }
+
+     /* Game Section Controls */
+     .game-section-controls {
+         padding-top: 1rem;
      }
 
 
@@ -592,17 +591,6 @@
              font-size: 4.0rem;
          }
 
-         .grid-tem {
-             grid-template-columns: repeat(3, 1fr);
-             max-width: 95%;
-             gap: 0.6rem;
-         }
-
-         .grid-tem .grid-7 {
-             grid-column: 2 / 3;
-             grid-row: 3 / 4;
-         }
-
          .game-section-controls #question {
              font-size: clamp(1.8rem, 4vw, 3rem);
              padding: 1rem;
@@ -612,30 +600,22 @@
 
      /*-- Media query untuk Tablet (601px - 991px) --*/
      @media (min-width: 601px) and (max-width: 991px) {
-         .grid-tem {
-             max-width: 600px;
-             gap: 0.8rem;
-         }
-
-         .grid-tem .btn {
-             font-size: 1.7rem;
-             padding: 0.9rem 0;
-         }
-
-         .grid-tem .grid-7 {
-             grid-column: 2 / 3;
-             grid-row: 3 / 4;
-         }
-
          .game-section-controls #question {
              font-size: clamp(2.5rem, 4.5vw, 4rem);
              padding: 1.5rem 2rem;
              min-height: 7rem;
+             max-width: 95%;
+             margin: 0 auto;
          }
 
          .h {
              padding: 1.2rem 2.5rem;
-             gap: 18px;
+             gap: 20px;
+             max-width: 95%;
+         }
+
+         #health {
+             gap: 10px;
          }
 
          #health i {
@@ -647,61 +627,21 @@
          }
      }
 
-     /*-- Game Mode Selection Grid for Mobile Devices --*/
+     /*-- Media query untuk Mobile --*/
      @media (max-width: 600px) {
-         .game-mode-grid {
-             display: grid;
-             grid-template-columns: repeat(3, 1fr);
-             grid-template-rows: auto auto auto;
-             gap: 1rem;
-             width: 100%;
-             max-width: 400px;
-             margin: 0 auto;
-             padding: 1rem 0;
+         .h {
+             padding: 0.8rem 1.5rem;
+             gap: 15px;
+             max-width: 95%;
+             margin-bottom: 1.2rem;
          }
 
-         .game-mode-grid .game-mode-btn {
-             font-size: 1.6rem;
-             font-weight: 700;
-             padding: 0.8rem 0.2rem;
-             border-radius: 0.7rem;
-             background: var(--purplelight);
-             color: var(--bluevlight);
-             border: 2px solid var(--bluemed);
-             text-align: center;
-             cursor: pointer;
-             transition: background 0.2s;
+         #health {
+             gap: 8px;
          }
 
-         .game-mode-grid .game-mode-btn:hover {
-             background: var(--purplemed);
-         }
-
-         .grid-tem {
-             display: grid !important;
-             grid-template-columns: repeat(3, 1fr);
-             gap: 0.7rem;
-         }
-
-         .grid-tem .grid-7 {
-             grid-column: 2 / 3;
-             grid-row: 3 / 4;
-         }
-
-         #health-section {
-             position: relative;
-             flex-direction: row;
-             justify-content: center;
-             align-items: center;
-             background-color: transparent !important;
-             margin-bottom: 1rem;
-             padding: 0.5rem 1rem !important;
-             gap: 10px;
-         }
-
-         #health-section #health {
-             flex-direction: row;
-             gap: 6px;
+         #health i {
+             font-size: 1.8rem;
          }
 
          #audio-controls {
@@ -709,33 +649,28 @@
              align-items: center;
          }
 
+         #audio-controls i {
+             font-size: 1.8rem;
+         }
+
          .game-section-controls #question {
-             font-size: clamp(2rem, 4vw, 3.5rem);
-             padding: 1rem 1.5rem;
+             font-size: clamp(2rem, 4.5vw, 3.5rem);
+             padding: 1.2rem 1.5rem;
              min-height: 6rem;
+             max-width: 95%;
+             margin: 0 auto;
          }
 
      }
 
-     /*-- Media query to fix balloon text height to a maximum of 5rem for devices over 926px high --*/
+     /*-- Media query untuk Mobile dengan tinggi layar besar --*/
      @media (min-height: 926px) and (max-width: 600px) {
          .balloon-answer-text {
              font-size: 5rem;
          }
-
-         .grid-tem {
-             display: grid !important;
-             grid-template-columns: repeat(3, 1fr);
-             gap: 0.7rem;
-         }
-
-         .grid-tem .grid-7 {
-             grid-column: 2 / 3;
-             grid-row: 3 / 4;
-         }
      }
 
-     /*-- Media query to re-size balloon canvas and text elements for large devices over 992px wide --*/
+     /*-- Media query untuk Desktop/Laptop --*/
      @media (min-width: 992px) {
          .canvas-balloon {
              min-height: 22rem;
@@ -753,44 +688,22 @@
              height: 22rem;
          }
 
-         /* Remove grid for desktop/laptop */
-         .game-mode-grid {
-             display: block;
-             max-width: none;
-             gap: 0;
-             padding: 0;
-         }
-
-         .game-mode-grid .game-mode-btn {
-             font-size: 2.2rem;
-             padding: 1.2rem 0.5rem;
-         }
-
-         .grid-tem {
-             grid-template-columns: repeat(3, 1fr);
-             gap: 1rem;
-             max-width: 800px;
-         }
-
-         .grid-tem .btn {
-             font-size: 1.8rem;
-             padding: 1rem 0;
-         }
-
-         .grid-tem .grid-7 {
-             grid-column: 2 / 3;
-             grid-row: 3 / 4;
-         }
-
          .game-section-controls #question {
              font-size: clamp(3rem, 5vw, 5rem);
              padding: 2rem 3rem;
              min-height: 10rem;
+             max-width: 90%;
+             margin: 0 auto;
          }
 
          .h {
              padding: 1.5rem 3rem;
-             gap: 20px;
+             gap: 25px;
+             max-width: 600px;
+         }
+
+         #health {
+             gap: 12px;
          }
 
          #health i {
