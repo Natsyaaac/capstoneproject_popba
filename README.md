@@ -615,19 +615,3 @@ The project may be cloned by following these steps:
   ```bash
   $ git clone https://github.com/richardhenyash/balloon-pop-maths
 
-## 👥 Anggota Tim – Kelompok 14 ##
-- 👨‍💻 **Programmer**: Faiz Ilyas Zulkarnaen  
-- 🎨 **UI/UX Designer**: Pandu Winata  
-- 📝 **Dokumentasi**: Salma & Yupia  
-- 📂 **Project Manager**: Noval Kurniawan
-- 🧠 **Brain**: Gilang Prayoga
-
-
-## 📌 Informasi Tambahan
-- **Universitas**: Universitas Muhammadiyah Metro  
-- **Program Studi**: Ilmu Komputer – @prodi_ilkom_ummet   
-- **Tahun Akademik**: 2025  
-
----
-
-✨ Dengan **Pop Balon Ajaib**, belajar matematika jadi lebih **mudah, seru, dan menyenangkan**!
