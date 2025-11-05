@@ -33,23 +33,31 @@ function playGame() {
     
     if (isMultipleChoice) {
         // Multiple choice mode - use balloons for answers
-        // Pad answer array to 6 items for balloon display (4 choices + 2 empty)
-        while (bpmAnswerArray.length < 6) {
-            bpmAnswerArray.push("");
-        }
-        // Show 4 balloons for A, B, C, D: left-1 (A), left-2 (B), left-3 (C), right-1 (D)
+        // Rearrange array for proper balloon positions: A, B, empty, C, D, empty
+        // This maps to: left-1, left-2, left-3(hidden), right-1, right-2, right-3(hidden)
+        let rearrangedArray = [
+            bpmAnswerArray[0],  // A -> left-1
+            bpmAnswerArray[1],  // B -> left-2
+            "",                 // empty -> left-3 (hidden)
+            bpmAnswerArray[2],  // C -> right-1
+            bpmAnswerArray[3],  // D -> right-2
+            ""                  // empty -> right-3 (hidden)
+        ];
+        bpmAnswerArray = rearrangedArray;
+        
+        // Show 4 balloons for A, B, C, D with balanced layout: left-1 (A), left-2 (B), right-1 (C), right-2 (D)
         $("#canvas-balloon-left-1").show();
         $("#canvas-balloon-left-2").show();
-        $("#canvas-balloon-left-3").show();
+        $("#canvas-balloon-left-3").hide();
         $("#canvas-balloon-right-1").show();
-        $("#canvas-balloon-right-2").hide();
+        $("#canvas-balloon-right-2").show();
         $("#canvas-balloon-right-3").hide();
         // Show balloon text elements for A, B, C, D
         $("#balloon-answer-text-left-1").show();
         $("#balloon-answer-text-left-2").show();
-        $("#balloon-answer-text-left-3").show();
+        $("#balloon-answer-text-left-3").hide();
         $("#balloon-answer-text-right-1").show();
-        $("#balloon-answer-text-right-2").hide();
+        $("#balloon-answer-text-right-2").show();
         $("#balloon-answer-text-right-3").hide();
         // Hide multiple choice button container
         $("#multiple-choice-container").addClass("d-none");
@@ -58,20 +66,20 @@ function playGame() {
         // Set balloons with answers
         bpmAnswerArray = setBalloons(bpmAnswerArray);
     } else if (bpmGameMode == 'exam') {
-        // Essay mode - show 4 balloons: left-1, left-2, right-1, right-2
+        // Essay mode - show all 6 balloons
         $("#canvas-balloon-left-1").show();
         $("#canvas-balloon-left-2").show();
+        $("#canvas-balloon-left-3").show();
         $("#canvas-balloon-right-1").show();
         $("#canvas-balloon-right-2").show();
-        $("#canvas-balloon-left-3").hide();
-        $("#canvas-balloon-right-3").hide();
+        $("#canvas-balloon-right-3").show();
         // Show balloon text elements
         $("#balloon-answer-text-left-1").show();
         $("#balloon-answer-text-left-2").show();
+        $("#balloon-answer-text-left-3").show();
         $("#balloon-answer-text-right-1").show();
         $("#balloon-answer-text-right-2").show();
-        $("#balloon-answer-text-left-3").hide();
-        $("#balloon-answer-text-right-3").hide();
+        $("#balloon-answer-text-right-3").show();
         // Hide multiple choice container
         $("#multiple-choice-container").addClass("d-none");
         // Show balloons
@@ -169,39 +177,44 @@ function checkSelectedAnswer() {
             const isNextMultipleChoice = isNextExamMode && bpmOptionArray[0] === "Pilihan Ganda";
             
             if (isNextMultipleChoice) {
-                // Multiple choice - pad array and show 4 balloons for A, B, C, D
-                while (bpmAnswerArray.length < 6) {
-                    bpmAnswerArray.push("");
-                }
-                // Show 4 balloons: left-1 (A), left-2 (B), left-3 (C), right-1 (D)
+                // Multiple choice - rearrange array for proper balloon positions
+                let rearrangedArray = [
+                    bpmAnswerArray[0],  // A -> left-1
+                    bpmAnswerArray[1],  // B -> left-2
+                    "",                 // empty -> left-3 (hidden)
+                    bpmAnswerArray[2],  // C -> right-1
+                    bpmAnswerArray[3],  // D -> right-2
+                    ""                  // empty -> right-3 (hidden)
+                ];
+                bpmAnswerArray = rearrangedArray;
+                
+                // Show 4 balloons: left-1 (A), left-2 (B), right-1 (C), right-2 (D)
+                $("#canvas-balloon-left-1").fadeIn("fast");
+                $("#canvas-balloon-left-2").fadeIn("fast");
+                $("#canvas-balloon-left-3").hide();
+                $("#canvas-balloon-right-1").fadeIn("fast");
+                $("#canvas-balloon-right-2").fadeIn("fast");
+                $("#canvas-balloon-right-3").hide();
+                $("#balloon-answer-text-left-1").fadeIn("fast");
+                $("#balloon-answer-text-left-2").fadeIn("fast");
+                $("#balloon-answer-text-left-3").hide();
+                $("#balloon-answer-text-right-1").fadeIn("fast");
+                $("#balloon-answer-text-right-2").fadeIn("fast");
+                $("#balloon-answer-text-right-3").hide();
+            } else if (isNextExamMode) {
+                // Essay mode - show all 6 balloons
                 $("#canvas-balloon-left-1").fadeIn("fast");
                 $("#canvas-balloon-left-2").fadeIn("fast");
                 $("#canvas-balloon-left-3").fadeIn("fast");
                 $("#canvas-balloon-right-1").fadeIn("fast");
+                $("#canvas-balloon-right-2").fadeIn("fast");
+                $("#canvas-balloon-right-3").fadeIn("fast");
                 $("#balloon-answer-text-left-1").fadeIn("fast");
                 $("#balloon-answer-text-left-2").fadeIn("fast");
                 $("#balloon-answer-text-left-3").fadeIn("fast");
                 $("#balloon-answer-text-right-1").fadeIn("fast");
-                // Keep right-2 and right-3 hidden
-                $("#canvas-balloon-right-2").hide();
-                $("#canvas-balloon-right-3").hide();
-                $("#balloon-answer-text-right-2").hide();
-                $("#balloon-answer-text-right-3").hide();
-            } else if (isNextExamMode) {
-                // Essay mode - show 4 balloons: left-1, left-2, right-1, right-2
-                $("#canvas-balloon-left-1").fadeIn("fast");
-                $("#canvas-balloon-left-2").fadeIn("fast");
-                $("#canvas-balloon-right-1").fadeIn("fast");
-                $("#canvas-balloon-right-2").fadeIn("fast");
-                $("#balloon-answer-text-left-1").fadeIn("fast");
-                $("#balloon-answer-text-left-2").fadeIn("fast");
-                $("#balloon-answer-text-right-1").fadeIn("fast");
                 $("#balloon-answer-text-right-2").fadeIn("fast");
-                // Keep left-3 and right-3 hidden
-                $("#canvas-balloon-left-3").hide();
-                $("#canvas-balloon-right-3").hide();
-                $("#balloon-answer-text-left-3").hide();
-                $("#balloon-answer-text-right-3").hide();
+                $("#balloon-answer-text-right-3").fadeIn("fast");
             } else {
                 // Normal mode - show all 6 balloons
                 $("[id^=canvas-balloon]").fadeIn("fast");

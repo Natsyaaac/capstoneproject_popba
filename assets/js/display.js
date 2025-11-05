@@ -627,6 +627,39 @@ $("#play").on("click", function () {
         return;
     }
 
+    // Cek apakah mode yang dipilih adalah Ujian
+    const selectedMode = selected.parentElement.id;
+    if (selectedMode === 'exam') {
+        // Ambil sub mode yang aktif (Essay atau Pilihan Ganda)
+        const examSubMode = document.querySelector('.btn-exam-toggle.active');
+        
+        if (examSubMode) {
+            const subModeText = examSubMode.textContent.trim();
+            let hasQuestions = false;
+            
+            // Cek apakah ada soal di localStorage
+            if (subModeText === 'Essay') {
+                const essayQuestions = getEssayQuestions();
+                hasQuestions = essayQuestions && essayQuestions.length > 0;
+                
+                if (!hasQuestions) {
+                    // Tampilkan notifikasi
+                    showNotification('Silakan input soal Essay terlebih dahulu sebelum memulai ujian! 📝');
+                    return;
+                }
+            } else if (subModeText === 'Pilihan Ganda') {
+                const pilganQuestions = getPilganQuestions();
+                hasQuestions = pilganQuestions && pilganQuestions.length > 0;
+                
+                if (!hasQuestions) {
+                    // Tampilkan notifikasi
+                    showNotification('Silakan input soal Pilihan Ganda terlebih dahulu sebelum memulai ujian! 📋');
+                    return;
+                }
+            }
+        }
+    }
+
     playGame(); // lanjut game
 });
 
