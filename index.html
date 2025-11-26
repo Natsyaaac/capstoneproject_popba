@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -123,7 +123,8 @@
                         aria-controls="options" class="btn btn-xl w-100 btn-info btn-text">Pilihan</button>
                 </div>
                 <div class="container-button-group d-flex w-100 hover">
-                    <button type="button" id="btn-input-soal" class="btn btn-xl w-100 btn-info btn-text">Input Soal</button>
+                    <button type="button" id="btn-input-soal" class="btn btn-xl w-100 btn-info btn-text">Input
+                        Soal</button>
                 </div>
             </div>
         </div>
@@ -365,7 +366,8 @@
                                 class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-exam-toggle active">Essay</button>
                             <span class="container-button"></span>
                             <button id="btn-exam-2" type="button" data-toggle="button"
-                                class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-exam-toggle">Pilihan Ganda</button>
+                                class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-exam-toggle">Pilihan
+                                Ganda</button>
                             <span class="container-button"></span>
                         </div>
                     </div>
@@ -535,13 +537,15 @@
                         <i class="fas fa-home"></i> Kembali ke Menu
                     </button>
                 </div>
-                
+
                 <!-- Buttons to Add New Questions -->
                 <div class="container-button-group d-flex w-100 hover">
-                    <button id="btn-tambah-essay" type="button" class="btn btn-xl w-100 btn-info btn-text btn-tambah-soal-custom" style="margin-right: 10px;">
+                    <button id="btn-tambah-essay" type="button"
+                        class="btn btn-xl w-100 btn-info btn-text btn-tambah-soal-custom" style="margin-right: 10px;">
                         <i class="fas fa-plus"></i> Tambah Soal Essay
                     </button>
-                    <button id="btn-tambah-pilgan" type="button" class="btn btn-xl w-100 btn-info btn-text btn-tambah-soal-custom">
+                    <button id="btn-tambah-pilgan" type="button"
+                        class="btn btn-xl w-100 btn-info btn-text btn-tambah-soal-custom">
                         <i class="fas fa-plus"></i> Tambah Soal Pilihan Ganda
                     </button>
                 </div>
@@ -580,20 +584,24 @@
     <div class="modal" id="modal-tambah-essay" style="display: none;">
         <div class="modal-inner" style="max-width: 600px;">
             <h3 style="color: #A2529A; text-align: center; margin-bottom: 20px;">📝 Tambah Soal Essay</h3>
-            
+
             <form id="form-tambah-essay">
                 <div class="form-group">
                     <label for="input-pertanyaan-essay" style="color: #A2529A; font-weight: bold;">Pertanyaan:</label>
-                    <textarea id="input-pertanyaan-essay" class="form-control" rows="3" placeholder="Masukkan pertanyaan essay..." required></textarea>
+                    <textarea id="input-pertanyaan-essay" class="form-control" rows="3"
+                        placeholder="Masukkan pertanyaan essay..." required></textarea>
                 </div>
-                
+
                 <div class="form-group">
-                    <label for="input-jawaban-essay" style="color: #A2529A; font-weight: bold;">Jawaban yang Benar:</label>
-                    <textarea id="input-jawaban-essay" class="form-control" rows="3" placeholder="Masukkan jawaban essay yang benar..." required></textarea>
+                    <label for="input-jawaban-essay" style="color: #A2529A; font-weight: bold;">Jawaban yang
+                        Benar:</label>
+                    <textarea id="input-jawaban-essay" class="form-control" rows="3"
+                        placeholder="Masukkan jawaban essay yang benar..." required></textarea>
                 </div>
 
                 <div class="d-flex justify-content-between" style="margin-top: 20px;">
-                    <button type="button" id="btn-batal-essay" class="btn btn-lg btn-secondary" style="width: 48%;">Batal</button>
+                    <button type="button" id="btn-batal-essay" class="btn btn-lg btn-secondary"
+                        style="width: 48%;">Batal</button>
                     <button type="submit" class="btn btn-lg btn-info" style="width: 48%;">Kirim</button>
                 </div>
             </form>
@@ -604,16 +612,19 @@
     <div class="modal" id="modal-tambah-pilgan" style="display: none;">
         <div class="modal-inner" style="max-width: 600px;">
             <h3 style="color: #A2529A; text-align: center; margin-bottom: 20px;">📋 Tambah Soal Pilihan Ganda</h3>
-            
+
             <form id="form-tambah-pilgan">
                 <div class="form-group">
                     <label for="input-pertanyaan-pilgan" style="color: #A2529A; font-weight: bold;">Pertanyaan:</label>
-                    <textarea id="input-pertanyaan-pilgan" class="form-control" rows="3" placeholder="Masukkan pertanyaan pilihan ganda..." required></textarea>
+                    <textarea id="input-pertanyaan-pilgan" class="form-control" rows="3"
+                        placeholder="Masukkan pertanyaan pilihan ganda..." required></textarea>
                 </div>
-                
+
                 <div class="form-group">
-                    <label for="input-jawaban-pilgan" style="color: #A2529A; font-weight: bold;">Jawaban yang Benar:</label>
-                    <input type="text" id="input-jawaban-pilgan" class="form-control" placeholder="Masukkan jawaban yang benar (A, B, C, atau D)..." required>
+                    <label for="input-jawaban-pilgan" style="color: #A2529A; font-weight: bold;">Jawaban yang
+                        Benar:</label>
+                    <input type="text" id="input-jawaban-pilgan" class="form-control"
+                        placeholder="Masukkan jawaban yang benar (A, B, C, atau D)..." required>
                 </div>
 
                 <div class="form-group">
@@ -625,7 +636,8 @@
                 </div>
 
                 <div class="d-flex justify-content-between" style="margin-top: 20px;">
-                    <button type="button" id="btn-batal-pilgan" class="btn btn-lg btn-secondary" style="width: 48%;">Batal</button>
+                    <button type="button" id="btn-batal-pilgan" class="btn btn-lg btn-secondary"
+                        style="width: 48%;">Batal</button>
                     <button type="submit" class="btn btn-lg btn-info" style="width: 48%;">Kirim</button>
                 </div>
             </form>
@@ -643,11 +655,6 @@
     <div id="wrapper" ontouchstart="">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 600" preserveAspectRatio="xMaxYMin meet">
             <defs>
-                <linearGradient id="gradient_melt2" x1="50%" y1="0%" x2="50%" y2="100%">
-                    <stop offset="0%" style="stop-color:rgb(255, 255, 255);stop-opacity:0" />
-                    <stop offset="20%" style="stop-color:rgb(255, 255, 255);stop-opacity:0.3" />
-                    <stop offset="40%" style="stop-color:rgb(255, 255, 255);stop-opacity:1" />
-                </linearGradient>
 
                 <filter id="filter_sunBlur" x="-20%" y="-20%" width="140%" height="140%">
                     <feGaussianBlur in="SourceGraphic" stdDeviation="15" />
@@ -695,7 +702,8 @@
             </g>
 
             <g id="moon" transform="translate(-90, 110)" style="display: none;">
-                <circle id="moon-glow" filter="url(#filter_sunBlur)" fill="rgba(200,220,255,0.4)" cx="332" cy="32" r="160" />
+                <circle id="moon-glow" filter="url(#filter_sunBlur)" fill="rgba(200,220,255,0.4)" cx="332" cy="32"
+                    r="160" />
                 <circle id="moon-main" fill="#f5f5dc" cx="332" cy="32" r="100" />
                 <circle id="moon-crater1" fill="#e8e8c8" cx="300" cy="10" r="20" />
                 <circle id="moon-crater2" fill="#e8e8c8" cx="360" cy="50" r="15" />
@@ -751,6 +759,7 @@
 
             <animateTransform xlink:href="#cloud3" attributeName="transform" type="translate" dur="5s" begin="0.6"
                 repeatCount="indefinite" values="0 0 ; -15 -5 ; 0 0" />
+            
         </svg>
 
     </div>
