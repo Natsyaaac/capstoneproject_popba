@@ -1,9 +1,13 @@
 /**
 * @fileOverview JavaScript Maths Function Library.
 * @author <a href="https://github.com/richardhenyash">Richard Ash</a>
-* @version 1.1.1
+* @version 2.0.0
+* @description Includes Story Mode integration for professional grade 1-6 questions
 */
 /*jshint esversion: 6 */
+/* globals getStoryQuestionArray, bpmDifficulty */
+
+let useStoryMode = true;
 
 /**
 * [Function to return random question and answer array, given game mode, options and number of questions]
@@ -14,6 +18,25 @@
 */
 function returnQuestionArray(gameMode, optionArray, qno) {
     let questionArray = [];
+    
+    const storyModes = ['aljabar', 'time', 'heavy', 'volume', 'up', 'operator'];
+    
+    if (useStoryMode && storyModes.includes(gameMode) && typeof getStoryQuestionArray === 'function') {
+        const difficulty = typeof bpmDifficulty !== 'undefined' ? bpmDifficulty : 'medium';
+        const questionType = optionArray.length > 0 ? optionArray[0] : null;
+        
+        try {
+            questionArray = getStoryQuestionArray(gameMode, difficulty, questionType, qno);
+            
+            if (questionArray && questionArray.length >= qno) {
+                console.log(`📚 Story Mode: Generated ${questionArray.length} questions for ${gameMode}`);
+                return questionArray;
+            }
+        } catch (error) {
+            console.warn('Story Mode error, falling back to standard questions:', error);
+        }
+    }
+    
     if (gameMode == 'aljabar') {
         questionArray = returnAljabarQuestionArray(optionArray, qno)
     } else if (gameMode == 'time') {
@@ -615,180 +638,75 @@ function answerArray(gameMode, qCurrent) {
          * @return {[array]}          [Array of 5 wrong answers]
          */
         function wrongAnswerAljabarQuestion(qCurrent) {
-            let question = qCurrent[0];
             let cA = qCurrent[1];
+            return generateSmartWrongAnswers(cA, 5);
+        }
+
+        function generateSmartWrongAnswers(correctAnswer, count) {
+            let cA = Number(correctAnswer);
+            if (isNaN(cA)) cA = 0;
+            
             let wrongAnswerArray = [];
-
-            // 1️⃣ Isi Kotak Kosong → biasanya bentuknya a + □ = b
-            if (question.includes("□")) {
-                // Jawaban salah dibuat dari selisih mirip, tapi bukan tepat b - a
-                wrongAnswerArray = [cA + 1, cA - 1, cA + 2, cA - 2];
+            let magnitude = Math.max(1, Math.abs(cA));
+            
+            let offsets;
+            if (magnitude <= 10) {
+                offsets = [1, 2, 3, -1, -2, -3];
+            } else if (magnitude <= 100) {
+                offsets = [1, 2, 5, 10, -1, -2, -5, -10];
+            } else if (magnitude <= 1000) {
+                offsets = [1, 5, 10, 50, 100, -1, -5, -10, -50, -100];
+            } else {
+                let step = Math.pow(10, Math.floor(Math.log10(magnitude)) - 1);
+                offsets = [step, step*2, step*5, -step, -step*2, -step*5];
             }
-
-            // 2️⃣ Nilai Variabel → "Jika x = ..., maka x + b = ?" atau "x - b = ?"
-            else if (question.includes("Jika x =")) {
-                // Jawaban salah dibuat di sekitar hasil operasi x ± b
-                wrongAnswerArray = [cA + 1, cA - 1, cA + 2, cA - 2];
-            }
-
-            // 3️⃣ Persamaan Sederhana → "x + a = b. Nilai x = ?"
-            else if (question.includes("Nilai x")) {
-                // Biasanya bentuk a dan b kecil, jadi pakai ±1 sampai ±3
-                wrongAnswerArray = [cA + 1, cA - 1, cA + 2, cA - 2, cA + 3];
-            }
-
-            // 4️⃣ Pola Bilangan → "Tentukan bilangan berikutnya dari pola: ..."
-            else if (question.includes("pola") || question.includes("berikutnya")) {
-                // Jawaban salah dibuat dengan beda langkah dari step aslinya
-                wrongAnswerArray = [cA + 1, cA - 1, cA + 2, cA - 2, cA + 3];
-            }
-
-            // 🔄 Tambahan keamanan – isi sampai 5 kalau belum cukup
-            while (wrongAnswerArray.length < 5) {
-                let randOffset = Math.floor(Math.random() * 5) + 1;
-                let wrong = Math.random() < 0.5 ? cA + randOffset : cA - randOffset;
-                if (!wrongAnswerArray.includes(wrong) && wrong !== cA) {
+            
+            for (let offset of offsets) {
+                let wrong = cA + offset;
+                if (wrong >= 0 && wrong !== cA && !wrongAnswerArray.includes(wrong)) {
                     wrongAnswerArray.push(wrong);
+                    if (wrongAnswerArray.length >= count) break;
                 }
             }
-
-            // Pastikan jumlah tetap 5
-            return wrongAnswerArray.slice(0, 5);
+            
+            let maxAttempts = 50;
+            let attempts = 0;
+            while (wrongAnswerArray.length < count && attempts < maxAttempts) {
+                attempts++;
+                let variance = Math.max(5, Math.floor(magnitude * 0.3));
+                let rand = cA + Math.floor(Math.random() * variance * 2) - variance;
+                if (rand >= 0 && rand !== cA && !wrongAnswerArray.includes(rand)) {
+                    wrongAnswerArray.push(rand);
+                }
+            }
+            
+            wrongAnswerArray = wrongAnswerArray.sort(() => Math.random() - 0.5);
+            return wrongAnswerArray.slice(0, count);
         }
 
         function wrongAnswerTimeQuestion(qCurrent) {
-            let cA = qCurrent[1]; // jawaban benar (integer)
-            let wrongAnswerArray = [];
-
-            // Tambahkan jawaban salah ±1 atau ±2 dari jawaban benar
-            let offsets = [1, 2, -1, -2];
-            offsets.forEach(offset => {
-                let wrong = cA + offset;
-                if (wrong < 1) wrong += 12;
-                if (wrong > 12) wrong -= 12;
-                wrongAnswerArray.push(wrong);
-            });
-
-            // Tambahkan satu angka acak lain jika kurang dari 5
-            while (wrongAnswerArray.length < 5) {
-                let rand = Math.floor(Math.random() * 12) + 1;
-                if (!wrongAnswerArray.includes(rand) && rand !== cA) {
-                    wrongAnswerArray.push(rand);
-                }
-            }
-
-            // Acak urutan jawaban salah
-            wrongAnswerArray = wrongAnswerArray.sort(() => Math.random() - 0.5);
-
-            // Pastikan jumlah tetap 5
-            return wrongAnswerArray.slice(0, 5);
+            let cA = qCurrent[1];
+            return generateSmartWrongAnswers(cA, 5);
         }
 
         function wrongAnswerHeavyQuestion(qCurrent) {
-            let cA = qCurrent[1]; // jawaban benar (integer)
-            let wrongAnswerArray = [];
-
-            // Tambahkan jawaban salah ±1 atau ±2 dari jawaban benar
-            let offsets = [1, 2, -1, -2];
-            offsets.forEach(offset => {
-                let wrong = cA + offset;
-                if (wrong < 0) wrong = 0;
-                wrongAnswerArray.push(wrong);
-            });
-
-            // Tambahkan satu angka acak lain jika kurang dari 5
-            while (wrongAnswerArray.length < 5) {
-                let rand = Math.floor(Math.random() * 20); // misal sampai 20 kg
-                if (!wrongAnswerArray.includes(rand) && rand !== cA) {
-                    wrongAnswerArray.push(rand);
-                }
-            }
-
-            // Acak urutan jawaban salah
-            wrongAnswerArray = wrongAnswerArray.sort(() => Math.random() - 0.5);
-
-            // Pastikan jumlah tetap 5
-            return wrongAnswerArray.slice(0, 5);
+            let cA = qCurrent[1];
+            return generateSmartWrongAnswers(cA, 5);
         }
 
         function wrongAnswerVolumeQuestion(qCurrent) {
-            let cA = qCurrent[1]; // jawaban benar (integer)
-            let wrongAnswerArray = [];
-
-            // Tambahkan jawaban salah ±1 atau ±2 dari jawaban benar
-            let offsets = [1, 2, -1, -2];
-            offsets.forEach(offset => {
-                let wrong = cA + offset;
-                if (wrong < 0) wrong = 0;
-                wrongAnswerArray.push(wrong);
-            });
-
-            // Tambahkan satu angka acak lain jika kurang dari 5
-            while (wrongAnswerArray.length < 5) {
-                let rand = Math.floor(Math.random() * 20); // misal sampai 20 liter
-                if (!wrongAnswerArray.includes(rand) && rand !== cA) {
-                    wrongAnswerArray.push(rand);
-                }
-            }
-
-            // Acak urutan jawaban salah
-            wrongAnswerArray = wrongAnswerArray.sort(() => Math.random() - 0.5);
-
-            // Pastikan jumlah tetap 5
-            return wrongAnswerArray.slice(0, 5);
+            let cA = qCurrent[1];
+            return generateSmartWrongAnswers(cA, 5);
         }
 
         function wrongAnswerUpQuestion(qCurrent) {
-            let cA = qCurrent[1]; // jawaban benar (integer)
-            let wrongAnswerArray = [];
-
-            // Tambahkan jawaban salah ±1 atau ±2 dari jawaban benar
-            let offsets = [1, 2, -1, -2];
-            offsets.forEach(offset => {
-                let wrong = cA + offset;
-                if (wrong < 0) wrong = 0;
-                wrongAnswerArray.push(wrong);
-            });
-
-            // Tambahkan satu angka acak lain jika kurang dari 5
-            while (wrongAnswerArray.length < 5) {
-                let rand = Math.floor(Math.random() * 50); // misal sampai 50
-                if (!wrongAnswerArray.includes(rand) && rand !== cA) {
-                    wrongAnswerArray.push(rand);
-                }
-            }
-
-            // Acak urutan jawaban salah
-            wrongAnswerArray = wrongAnswerArray.sort(() => Math.random() - 0.5);
-
-            // Pastikan jumlah tetap 5
-            return wrongAnswerArray.slice(0, 5);
+            let cA = qCurrent[1];
+            return generateSmartWrongAnswers(cA, 5);
         }
 
         function wrongAnswerOperatorQuestion(qCurrent) {
-            let cA = qCurrent[1]; // jawaban benar (integer)
-            let wrongAnswerArray = [];
-
-            // Tambahkan jawaban salah ±1 atau ±2 dari jawaban benar
-            let offsets = [1, 2, -1, -2];
-            offsets.forEach(offset => {
-                let wrong = cA + offset;
-                wrongAnswerArray.push(wrong);
-            });
-
-            // Tambahkan satu angka acak lain jika kurang dari 5
-            while (wrongAnswerArray.length < 5) {
-                let rand = Math.floor(Math.random() * 50); // misal sampai 50
-                if (!wrongAnswerArray.includes(rand) && rand !== cA) {
-                    wrongAnswerArray.push(rand);
-                }
-            }
-
-            // Acak urutan jawaban salah
-            wrongAnswerArray = wrongAnswerArray.sort(() => Math.random() - 0.5);
-
-            // Pastikan jumlah tetap 5
-            return wrongAnswerArray.slice(0, 5);
+            let cA = qCurrent[1];
+            return generateSmartWrongAnswers(cA, 5);
         }
 
         /**

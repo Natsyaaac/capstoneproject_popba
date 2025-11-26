@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -72,7 +72,7 @@
                         <input type="radio" aria-label="Time" name="game-mode"> Waktu
                     </label>
                     <label id="heavy" class="btn btn-xl w-100 btn-info btn-text">
-                        <input type="radio" aria-label="Fraction" name="game-mode"> massa
+                        <input type="radio" aria-label="Fraction" name="game-mode"> Massa
                     </label>
                     <label id="volume" class="btn btn-xl w-100 btn-info btn-text">
                         <input type="radio" aria-label="Fraction" name="game-mode"> Volume
@@ -81,7 +81,7 @@
                         <input type="radio" aria-label="Fraction" name="game-mode"> Bangunan
                     </label>
                     <label id="operator" class="btn btn-xl w-100 btn-info btn-text">
-                        <input type="radio" aria-label="Fraction" name="game-mode"> operasi
+                        <input type="radio" aria-label="Fraction" name="game-mode"> Operasi
                     </label>
                     <label id="exam" class="btn btn-xl w-100 btn-info btn-text grid-7">
                         <input type="radio" aria-label="Fraction" name="game-mode"> Ujian
@@ -104,6 +104,17 @@
                     <label id="audio-off" class="btn btn-xl w-100 btn-info btn-text ">
                         <input type="radio" aria-label="Audio Off" name="audio-off">
                         <i class="fas fa-volume-mute"></i>
+                    </label>
+                </div>
+                <!-- Night Mode Toggle -->
+                <div class="btn-group btn-group-toggle d-flex w-100 container-button-group" data-toggle="buttons">
+                    <label id="day-mode" class="btn btn-xl w-100 btn-info btn-text active">
+                        <input type="radio" aria-label="Day Mode" name="theme-mode" id="theme-day" checked>
+                        <i class="fas fa-sun"></i>
+                    </label>
+                    <label id="night-mode" class="btn btn-xl w-100 btn-info btn-text">
+                        <input type="radio" aria-label="Night Mode" name="theme-mode" id="theme-night">
+                        <i class="fas fa-moon"></i>
                     </label>
                 </div>
                 <!-- Options Button -->
@@ -683,6 +694,44 @@
                     d="M375.3,23.5c-5.1,16.7-28,24.5-51,17.4s-37.7-26.3-32.5-43,27.9-24.6,51-17.5S380.4,6.7,375.3,23.5Z" />
             </g>
 
+            <g id="moon" transform="translate(-90, 110)" style="display: none;">
+                <circle id="moon-glow" filter="url(#filter_sunBlur)" fill="rgba(200,220,255,0.4)" cx="332" cy="32" r="160" />
+                <circle id="moon-main" fill="#f5f5dc" cx="332" cy="32" r="100" />
+                <circle id="moon-crater1" fill="#e8e8c8" cx="300" cy="10" r="20" />
+                <circle id="moon-crater2" fill="#e8e8c8" cx="360" cy="50" r="15" />
+                <circle id="moon-crater3" fill="#e8e8c8" cx="320" cy="70" r="12" />
+                <circle id="moon-crater4" fill="#ddddc0" cx="350" cy="0" r="10" />
+                <circle id="moon-crater5" fill="#ddddc0" cx="290" cy="55" r="8" />
+            </g>
+
+            <g id="stars" style="display: none;">
+                <circle class="star star-twinkle" cx="100" cy="50" r="2" fill="#fff" />
+                <circle class="star star-twinkle-delay1" cx="200" cy="80" r="1.5" fill="#fff" />
+                <circle class="star star-twinkle-delay2" cx="350" cy="30" r="2" fill="#fff" />
+                <circle class="star star-twinkle" cx="500" cy="70" r="1.5" fill="#fff" />
+                <circle class="star star-twinkle-delay1" cx="600" cy="40" r="2" fill="#fff" />
+                <circle class="star star-twinkle-delay2" cx="750" cy="90" r="1.5" fill="#fff" />
+                <circle class="star star-twinkle" cx="850" cy="35" r="2" fill="#fff" />
+                <circle class="star star-twinkle-delay1" cx="950" cy="65" r="1.5" fill="#fff" />
+                <circle class="star star-twinkle-delay2" cx="1050" cy="25" r="2" fill="#fff" />
+                <circle class="star star-twinkle" cx="1150" cy="55" r="1.5" fill="#fff" />
+                <circle class="star star-twinkle-delay1" cx="150" cy="120" r="1" fill="#fff" />
+                <circle class="star star-twinkle-delay2" cx="280" cy="140" r="1.5" fill="#fff" />
+                <circle class="star star-twinkle" cx="420" cy="110" r="1" fill="#fff" />
+                <circle class="star star-twinkle-delay1" cx="550" cy="130" r="2" fill="#fff" />
+                <circle class="star star-twinkle-delay2" cx="680" cy="100" r="1" fill="#fff" />
+                <circle class="star star-twinkle" cx="800" cy="145" r="1.5" fill="#fff" />
+                <circle class="star star-twinkle-delay1" cx="920" cy="115" r="1" fill="#fff" />
+                <circle class="star star-twinkle-delay2" cx="1080" cy="135" r="2" fill="#fff" />
+                <circle class="star star-twinkle" cx="1200" cy="95" r="1" fill="#fff" />
+                <circle class="star star-twinkle-delay1" cx="70" cy="160" r="1.5" fill="#fff" />
+                <circle class="star star-twinkle-delay2" cx="230" cy="180" r="1" fill="#fff" />
+                <circle class="star star-twinkle" cx="380" cy="170" r="2" fill="#fff" />
+                <circle class="star star-twinkle-delay1" cx="520" cy="185" r="1" fill="#fff" />
+                <circle class="star star-twinkle-delay2" cx="660" cy="165" r="1.5" fill="#fff" />
+                <circle class="star star-twinkle" cx="790" cy="195" r="1" fill="#fff" />
+            </g>
+
 
             <animateTransform xlink:href="#s4" attributeName="transform" type="translate" dur="4s" begin="0"
                 repeatCount="indefinite" values="0 0 ; 0 -15 ; 0 0" />
@@ -722,9 +771,10 @@
     <script src="assets/js/input-soal.js"></script>
     <script src="assets/js/game-logic.js"></script>
     <script src="assets/js/mail.js"></script>
+    <script src="assets/js/storyMode.js"></script>
     <script src="assets/js/maths.js"></script>
     <script src="assets/js/events.js"></script>
-    <!-- <script src="assets/js/storyMode.js"></script> -->
+    <script src="assets/js/nightMode.js"></script>
     <script src="assets/js/background.js"></script>
 </body>
 
