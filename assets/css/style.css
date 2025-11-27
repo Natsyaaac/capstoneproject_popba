@@ -1203,7 +1203,6 @@
     margin-bottom: 5px;
     display: block;
 }
-
 /* Scrollbar Styles for Question List */
 .question-list::-webkit-scrollbar {
     width: 10px;
