@@ -196,6 +196,7 @@ function modeExam() {
 
     $("#btn-exam-1").html("Essay");
     $("#btn-exam-2").html("Pilihan Ganda");
+    $("#btn-exam-3").html("Visual");
 }
 /**
 * [Function to return an array of button id strings, given button prefix]
@@ -553,8 +554,18 @@ function setQuestion(qCurrent) {
     // Set question string from current question array
     let qString = qCurrent[0];
     
-    // Check if this is multiple choice exam mode (has choices in qCurrent[2])
-    if (qCurrent.length > 2 && qCurrent[2]) {
+    // Check if this is visual mode (has imageData in qCurrent[3])
+    if (qCurrent.length > 3 && qCurrent[3]) {
+        // Visual mode - display image as the question
+        let imageData = qCurrent[3];
+        let visualHtml = '<div id="question-image-container">';
+        visualHtml += '<img src="' + imageData + '" alt="Soal Visual" style="max-width: 100%; max-height: 180px; border-radius: 10px; border: 3px solid #A2529A;">';
+        visualHtml += '</div>';
+        if (qString && qString !== 'Soal Visual') {
+            visualHtml += '<div class="visual-question-desc" style="font-size: 1.4rem; margin-top: 8px; color: #A2529A;">' + qString + '</div>';
+        }
+        $("#question").html(visualHtml);
+    } else if (qCurrent.length > 2 && qCurrent[2]) {
         // For multiple choice, display question + choices in the question box
         let choices = qCurrent[2];
         let choicesHtml = '<div class="mc-question-text">' + qString + '</div>';

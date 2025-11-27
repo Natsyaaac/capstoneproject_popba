@@ -408,6 +408,7 @@ function hideAddPilganModal() {
  */
 function showAddVisualModal() {
     $('#modal-tambah-visual').addClass('modal_open');
+    resetVisualUploadState();
 }
 
 /**
@@ -416,8 +417,79 @@ function showAddVisualModal() {
 function hideAddVisualModal() {
     $('#modal-tambah-visual').removeClass('modal_open');
     $('#form-tambah-visual')[0].reset();
-    $('#img-preview-visual').hide();
+    resetVisualUploadState();
+}
+
+/**
+ * Reset visual upload state
+ */
+function resetVisualUploadState() {
+    currentVisualFile = null;
+    currentVisualBase64 = null;
+    $('#dropzone-content').show();
+    $('#dropzone-preview').hide();
     $('#img-preview-visual').attr('src', '');
+    $('#upload-progress').hide();
+    $('#progress-bar-fill').css('width', '0%');
+    $('#submit-text').show();
+    $('#submit-loading').hide();
+    $('input[name="jawaban-benar-visual"]').prop('checked', false);
+}
+
+let currentVisualFile = null;
+let currentVisualBase64 = null;
+
+/**
+ * Handle file selection for visual upload
+ */
+function handleVisualFileSelect(file) {
+    if (!file) return;
+    
+    const validation = window.firebaseUtils.validateImageFile(file);
+    if (!validation.valid) {
+        showNotification(validation.error);
+        return;
+    }
+    
+    currentVisualFile = file;
+    
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        currentVisualBase64 = e.target.result;
+        $('#img-preview-visual').attr('src', e.target.result);
+        $('#dropzone-content').hide();
+        $('#dropzone-preview').show();
+    };
+    reader.readAsDataURL(file);
+}
+
+/**
+ * Remove selected image
+ */
+function removeVisualImage() {
+    currentVisualFile = null;
+    currentVisualBase64 = null;
+    $('#dropzone-content').show();
+    $('#dropzone-preview').hide();
+    $('#img-preview-visual').attr('src', '');
+    $('#input-gambar-visual').val('');
+}
+
+/**
+ * Show upload progress
+ */
+function showUploadProgress(percent, text) {
+    $('#upload-progress').show();
+    $('#progress-bar-fill').css('width', percent + '%');
+    $('#progress-text').text(text || 'Uploading...');
+}
+
+/**
+ * Hide upload progress
+ */
+function hideUploadProgress() {
+    $('#upload-progress').hide();
+    $('#progress-bar-fill').css('width', '0%');
 }
 
 /**
@@ -483,12 +555,11 @@ function handleAddPilgan(event) {
 /**
  * Handle form submission to add new visual question
  */
-function handleAddVisual(event) {
+async function handleAddVisual(event) {
     event.preventDefault();
     
-    const question = $('#input-pertanyaan-visual').val().trim();
-    const answer = $('#input-jawaban-visual').val().trim();
-    const imageData = $('#img-preview-visual').attr('src');
+    const question = $('#input-pertanyaan-visual').val().trim() || 'Soal Visual';
+    const selectedAnswer = $('input[name="jawaban-benar-visual"]:checked').val();
     const choices = [
         $('#input-pilihan-visual-1').val().trim(),
         $('#input-pilihan-visual-2').val().trim(),
@@ -496,40 +567,84 @@ function handleAddVisual(event) {
         $('#input-pilihan-visual-4').val().trim()
     ];
     
-    if (!question || !answer) {
-        showNotification('Pertanyaan dan jawaban harus diisi!');
-        return;
-    }
-    
-    if (!imageData) {
+    if (!currentVisualBase64) {
         showNotification('Gambar harus di-upload untuk soal visual!');
         return;
     }
     
+    if (choices.some(choice => choice === '')) {
+        showNotification('Semua pilihan jawaban (A, B, C, D) harus diisi!');
+        return;
+    }
+    
+    if (!selectedAnswer) {
+        showNotification('Pilih jawaban yang benar (A, B, C, atau D)!');
+        return;
+    }
+    
+    $('#submit-text').hide();
+    $('#submit-loading').show();
+    $('#btn-submit-visual').prop('disabled', true);
+    
+    let imageUrl = currentVisualBase64;
+    const questionId = Date.now();
+    
+    if (currentVisualFile && window.firebaseUtils.isFirebaseConfigured()) {
+        showUploadProgress(30, 'Mengunggah ke Firebase...');
+        
+        try {
+            const uploadedUrl = await window.firebaseUtils.uploadImageToFirebase(currentVisualFile, questionId);
+            if (uploadedUrl) {
+                imageUrl = uploadedUrl;
+                showUploadProgress(100, 'Upload selesai!');
+            } else {
+                showUploadProgress(100, 'Menggunakan penyimpanan lokal...');
+            }
+        } catch (error) {
+            console.error('Firebase upload error:', error);
+            showUploadProgress(100, 'Menggunakan penyimpanan lokal...');
+        }
+    } else {
+        showUploadProgress(100, 'Menyimpan...');
+    }
+    
+    await new Promise(resolve => setTimeout(resolve, 500));
+    
+    const answerIndex = selectedAnswer.charCodeAt(0) - 65;
+    const correctAnswerText = choices[answerIndex];
+    
     const questionObj = {
+        id: questionId,
         question: question,
-        answer: answer,
-        imageData: imageData,
-        choices: choices
+        answer: selectedAnswer,
+        answerText: correctAnswerText,
+        imageData: imageUrl,
+        choices: choices,
+        isFirebaseImage: imageUrl.includes('firebase')
     };
     
-    addVisualQuestion(questionObj);
+    const questions = getVisualQuestions();
+    questionObj.type = 'visual';
+    questions.push(questionObj);
+    saveVisualQuestions(questions);
+    displayVisualQuestions();
+    
+    hideUploadProgress();
+    $('#submit-text').show();
+    $('#submit-loading').hide();
+    $('#btn-submit-visual').prop('disabled', false);
+    
     hideAddVisualModal();
     showNotification('Soal visual berhasil ditambahkan!');
 }
 
 /**
- * Handle image preview for visual question
+ * Handle image preview for visual question (legacy - kept for compatibility)
  */
 function handleImagePreview(event) {
     const file = event.target.files[0];
     if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            $('#img-preview-visual').attr('src', e.target.result);
-            $('#img-preview-visual').show();
-        };
-        reader.readAsDataURL(file);
+        handleVisualFileSelect(file);
     }
 }
 
@@ -559,8 +674,49 @@ $(document).ready(function() {
     $('#form-tambah-pilgan').on('submit', handleAddPilgan);
     $('#form-tambah-visual').on('submit', handleAddVisual);
     
-    // Image preview for visual question
+    // Image preview for visual question (file input)
     $('#input-gambar-visual').on('change', handleImagePreview);
+    
+    // Visual Dropzone - Click to select file
+    $('#visual-dropzone').on('click', function(e) {
+        if (e.target.id !== 'btn-remove-image' && !$(e.target).closest('#btn-remove-image').length) {
+            $('#input-gambar-visual').trigger('click');
+        }
+    });
+    
+    // Visual Dropzone - Drag and Drop
+    const dropzone = document.getElementById('visual-dropzone');
+    
+    if (dropzone) {
+        dropzone.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            $(this).addClass('dragover');
+        });
+        
+        dropzone.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            $(this).removeClass('dragover');
+        });
+        
+        dropzone.addEventListener('drop', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            $(this).removeClass('dragover');
+            
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleVisualFileSelect(files[0]);
+            }
+        });
+    }
+    
+    // Remove image button
+    $('#btn-remove-image').on('click', function(e) {
+        e.stopPropagation();
+        removeVisualImage();
+    });
     
     // Close modals when clicking outside
     $('#modal-tambah-essay').on('click', function(e) {
@@ -587,4 +743,13 @@ $(document).ready(function() {
             hideNotification();
         }
     });
+    
+    // Initialize Firebase when page loads
+    if (window.firebaseUtils && window.firebaseUtils.isFirebaseConfigured()) {
+        window.firebaseUtils.initializeFirebase().then(function(success) {
+            if (success) {
+                console.log('🔥 Firebase ready for visual uploads');
+            }
+        });
+    }
 });

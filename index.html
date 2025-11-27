@@ -668,45 +668,108 @@
         </div>
     </div>
 
-    <!-- Modal for Adding Visual Questions -->
+    <!-- Modal for Adding Visual Questions (Improved with Drag & Drop) -->
     <div class="modal" id="modal-tambah-visual" style="display: none;">
-        <div class="modal-inner" style="max-width: 600px;">
-            <h3 style="color: #A2529A; text-align: center; margin-bottom: 20px;">🖼️ Tambah Soal Visual</h3>
+        <div class="modal-inner modal-visual-upload" style="max-width: 700px;">
+            <h3 style="color: #A2529A; text-align: center; margin-bottom: 15px;">🖼️ Tambah Soal Visual</h3>
+            
+            <!-- Important Note -->
+            <div class="visual-upload-note">
+                <i class="fas fa-info-circle"></i>
+                <span><strong>Penting:</strong> Gambar harus berisi soal pilihan ganda yang sudah di-crop dengan rapi. Format yang diterima: JPG, JPEG, PNG (maks 5MB)</span>
+            </div>
 
             <form id="form-tambah-visual">
+                <!-- Drag & Drop Upload Area -->
                 <div class="form-group">
-                    <label for="input-gambar-visual" style="color: #A2529A; font-weight: bold;">Upload Gambar:</label>
-                    <input type="file" id="input-gambar-visual" class="form-control" accept="image/*" required>
-                    <div id="preview-gambar-visual" style="margin-top: 10px; text-align: center;">
-                        <img id="img-preview-visual" src="" alt="Preview" style="max-width: 100%; max-height: 200px; display: none; border-radius: 8px; border: 2px solid #A2529A;">
+                    <label style="color: #A2529A; font-weight: bold;">Upload Gambar Soal:</label>
+                    <div id="visual-dropzone" class="visual-dropzone">
+                        <input type="file" id="input-gambar-visual" accept=".jpg,.jpeg,.png" style="display: none;">
+                        <div class="dropzone-content" id="dropzone-content">
+                            <i class="fas fa-cloud-upload-alt dropzone-icon"></i>
+                            <p class="dropzone-text">Drag & drop gambar di sini</p>
+                            <p class="dropzone-subtext">atau klik untuk memilih file</p>
+                            <p class="dropzone-formats">JPG, JPEG, PNG (maks 5MB)</p>
+                        </div>
+                        <div class="dropzone-preview" id="dropzone-preview" style="display: none;">
+                            <img id="img-preview-visual" src="" alt="Preview">
+                            <button type="button" class="btn-remove-image" id="btn-remove-image">
+                                <i class="fas fa-times"></i> Hapus
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Upload Progress -->
+                    <div id="upload-progress" class="upload-progress" style="display: none;">
+                        <div class="progress-bar-container">
+                            <div class="progress-bar-fill" id="progress-bar-fill"></div>
+                        </div>
+                        <span class="progress-text" id="progress-text">Uploading...</span>
                     </div>
                 </div>
 
+                <!-- Deskripsi Soal (Opsional) -->
                 <div class="form-group">
-                    <label for="input-pertanyaan-visual" style="color: #A2529A; font-weight: bold;">Pertanyaan:</label>
-                    <textarea id="input-pertanyaan-visual" class="form-control" rows="3"
-                        placeholder="Masukkan pertanyaan tentang gambar..." required></textarea>
+                    <label for="input-pertanyaan-visual" style="color: #A2529A; font-weight: bold;">Deskripsi Soal (Opsional):</label>
+                    <textarea id="input-pertanyaan-visual" class="form-control" rows="2"
+                        placeholder="Tambahkan deskripsi atau catatan untuk soal ini..."></textarea>
                 </div>
 
+                <!-- Pilihan Jawaban -->
                 <div class="form-group">
-                    <label for="input-jawaban-visual" style="color: #A2529A; font-weight: bold;">Jawaban yang
-                        Benar:</label>
-                    <input type="text" id="input-jawaban-visual" class="form-control"
-                        placeholder="Masukkan jawaban yang benar..." required>
+                    <label style="color: #A2529A; font-weight: bold;">Pilihan Jawaban (untuk ditampilkan di balon):</label>
+                    <div class="visual-choices-grid">
+                        <div class="visual-choice-input">
+                            <span class="choice-label">A</span>
+                            <input type="text" id="input-pilihan-visual-1" class="form-control" placeholder="Jawaban A" required>
+                        </div>
+                        <div class="visual-choice-input">
+                            <span class="choice-label">B</span>
+                            <input type="text" id="input-pilihan-visual-2" class="form-control" placeholder="Jawaban B" required>
+                        </div>
+                        <div class="visual-choice-input">
+                            <span class="choice-label">C</span>
+                            <input type="text" id="input-pilihan-visual-3" class="form-control" placeholder="Jawaban C" required>
+                        </div>
+                        <div class="visual-choice-input">
+                            <span class="choice-label">D</span>
+                            <input type="text" id="input-pilihan-visual-4" class="form-control" placeholder="Jawaban D" required>
+                        </div>
+                    </div>
                 </div>
 
+                <!-- Jawaban Benar Selector -->
                 <div class="form-group">
-                    <label style="color: #A2529A; font-weight: bold;">Pilihan Jawaban (Opsional):</label>
-                    <input type="text" id="input-pilihan-visual-1" class="form-control mb-2" placeholder="Pilihan A (opsional)">
-                    <input type="text" id="input-pilihan-visual-2" class="form-control mb-2" placeholder="Pilihan B (opsional)">
-                    <input type="text" id="input-pilihan-visual-3" class="form-control mb-2" placeholder="Pilihan C (opsional)">
-                    <input type="text" id="input-pilihan-visual-4" class="form-control mb-2" placeholder="Pilihan D (opsional)">
+                    <label style="color: #A2529A; font-weight: bold;">Jawaban yang Benar:</label>
+                    <div class="correct-answer-selector">
+                        <label class="answer-option">
+                            <input type="radio" name="jawaban-benar-visual" value="A" required>
+                            <span class="answer-btn">A</span>
+                        </label>
+                        <label class="answer-option">
+                            <input type="radio" name="jawaban-benar-visual" value="B">
+                            <span class="answer-btn">B</span>
+                        </label>
+                        <label class="answer-option">
+                            <input type="radio" name="jawaban-benar-visual" value="C">
+                            <span class="answer-btn">C</span>
+                        </label>
+                        <label class="answer-option">
+                            <input type="radio" name="jawaban-benar-visual" value="D">
+                            <span class="answer-btn">D</span>
+                        </label>
+                    </div>
                 </div>
+
+                <!-- Hidden field for storing answer -->
+                <input type="hidden" id="input-jawaban-visual" value="">
 
                 <div class="d-flex justify-content-between" style="margin-top: 20px;">
                     <button type="button" id="btn-batal-visual" class="btn btn-lg btn-secondary"
                         style="width: 48%;">Batal</button>
-                    <button type="submit" class="btn btn-lg btn-info" style="width: 48%;">Kirim</button>
+                    <button type="submit" id="btn-submit-visual" class="btn btn-lg btn-info" style="width: 48%;">
+                        <span id="submit-text">Simpan Soal</span>
+                        <span id="submit-loading" style="display: none;"><i class="fas fa-spinner fa-spin"></i> Menyimpan...</span>
+                    </button>
                 </div>
             </form>
         </div>
@@ -840,6 +903,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
+    <script src="assets/js/firebase-config.js"></script>
     <script src="assets/js/initialisation.js"></script>
     <script src="assets/js/audio.js"></script>
     <script src="assets/js/animation.js"></script>

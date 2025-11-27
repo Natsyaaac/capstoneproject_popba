@@ -516,7 +516,7 @@ function returnOperatorQuestionArray(optionArray, qno) {
  * @return {[array]}                     [Question and answer array]
  */
 function returnExamQuestionArray(optionArray, qno) {
-    let examType = optionArray[0]; // "Essay" atau "Pilihan Ganda"
+    let examType = optionArray[0]; // "Essay", "Pilihan Ganda", atau "Visual"
     let examArray = [];
     let sourceQuestions = [];
 
@@ -530,6 +530,9 @@ function returnExamQuestionArray(optionArray, qno) {
     } else if (examType === "Pilihan Ganda") {
         sourceQuestions = getPilganQuestions();
         console.log("📋 Pilgan questions loaded:", sourceQuestions);
+    } else if (examType === "Visual") {
+        sourceQuestions = getVisualQuestions();
+        console.log("🖼️ Visual questions loaded:", sourceQuestions);
     }
 
     // Check if there are questions available
@@ -538,6 +541,7 @@ function returnExamQuestionArray(optionArray, qno) {
         console.log("💾 localStorage keys:", Object.keys(localStorage));
         console.log("💾 Essay key:", localStorage.getItem('balloon_pop_essay_questions'));
         console.log("💾 Pilgan key:", localStorage.getItem('balloon_pop_pilgan_questions'));
+        console.log("💾 Visual key:", localStorage.getItem('balloon_pop_visual_questions'));
         // Return empty array or default questions
         return [];
     }
@@ -555,6 +559,10 @@ function returnExamQuestionArray(optionArray, qno) {
         if (examType === "Pilihan Ganda" && q.choices) {
             // Format: [question, answer, choices]
             examArray.push([q.question, q.answer, q.choices]);
+        } else if (examType === "Visual" && q.imageData) {
+            // For visual: [question, answer, choices, imageData]
+            // answer is the letter (A, B, C, D)
+            examArray.push([q.question, q.answer, q.choices, q.imageData]);
         } else {
             // For essay: [question, answer]
             examArray.push([q.question, q.answer]);
