@@ -145,17 +145,27 @@ function checkSelectedAnswer() {
     const isMultipleChoice = bpmGameMode === "exam" && bpmOptionArray[0] === "Pilihan Ganda";
     const isVisualMode = bpmGameMode === "exam" && bpmOptionArray[0] === "Visual";
     
-    if ((isMultipleChoice || isVisualMode) && bpmMultipleChoiceMapping[sAnswer]) {
-        // Get the actual answer text from the letter (A, B, C, D)
+    // Determine correct answer for comparison
+    let correctAnswer = bpmQCurrent[1];
+    
+    if (isVisualMode) {
+        // For Visual mode: correct answer is stored as letter (A, B, C, D)
+        // User clicks balloon with letter (A, B, C, D)
+        // Compare letter to letter directly
+        console.log("🎯 Selected Letter:", sAnswer);
+        console.log("✅ Correct Answer Letter:", correctAnswer);
+        actualAnswer = sAnswer; // Keep as letter for comparison
+    } else if (isMultipleChoice && bpmMultipleChoiceMapping[sAnswer]) {
+        // For Pilihan Ganda: correct answer is the text, mapping letter to text
         actualAnswer = bpmMultipleChoiceMapping[sAnswer];
         console.log("🎯 Selected Letter:", sAnswer);
         console.log("📝 Actual Answer:", actualAnswer);
-        console.log("✅ Correct Answer:", bpmQCurrent[1]);
+        console.log("✅ Correct Answer:", correctAnswer);
     }
     
     // Check selected answer against correct answer from current question array
     // If answer is correct
-    if (actualAnswer == bpmQCurrent[1]) {
+    if (actualAnswer == correctAnswer) {
         // Play balloon popping sound
         soundPop.play();
         // Show balloon popping animation
