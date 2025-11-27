@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <!-- X-UA-Compatible meta tag, to render web pages in older versions of Internet Explorer-->
@@ -371,6 +370,14 @@
                             <span class="container-button"></span>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col d-flex w-100 container-button">
+                            <span class="container-button"></span>
+                            <button id="btn-exam-3" type="button" data-toggle="button"
+                                class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-exam-toggle">Visual</button>
+                            <span class="container-button"></span>
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -545,8 +552,12 @@
                         <i class="fas fa-plus"></i> Tambah Soal Essay
                     </button>
                     <button id="btn-tambah-pilgan" type="button"
-                        class="btn btn-xl w-100 btn-info btn-text btn-tambah-soal-custom">
+                        class="btn btn-xl w-100 btn-info btn-text btn-tambah-soal-custom" style="margin-right: 10px;">
                         <i class="fas fa-plus"></i> Tambah Soal Pilihan Ganda
+                    </button>
+                    <button id="btn-tambah-visual" type="button"
+                        class="btn btn-xl w-100 btn-info btn-text btn-tambah-soal-custom">
+                        <i class="fas fa-plus"></i> Tambah Soal Visual
                     </button>
                 </div>
 
@@ -573,6 +584,19 @@
                     </div>
                     <div id="no-pilgan-message" class="text-center" style="color: #A2529A; margin-top: 20px;">
                         <p>Belum ada soal pilihan ganda. Klik "Tambah Soal Pilihan Ganda" untuk menambahkan.</p>
+                    </div>
+                </div>
+
+                <!-- Visual Question List -->
+                <div id="visual-list-container" class="container-button-group">
+                    <div class="btn-xl-nofill w-100 btn-text-score text-center mb-3">
+                        <h4 style="color: #A2529A;">🖼️ Daftar Soal Visual</h4>
+                    </div>
+                    <div id="visual-list" class="question-list visual-section">
+                        <!-- Visual questions will be dynamically added here -->
+                    </div>
+                    <div id="no-visual-message" class="text-center" style="color: #A2529A; margin-top: 20px;">
+                        <p>Belum ada soal visual. Klik "Tambah Soal Visual" untuk menambahkan.</p>
                     </div>
                 </div>
             </div>
@@ -637,6 +661,50 @@
 
                 <div class="d-flex justify-content-between" style="margin-top: 20px;">
                     <button type="button" id="btn-batal-pilgan" class="btn btn-lg btn-secondary"
+                        style="width: 48%;">Batal</button>
+                    <button type="submit" class="btn btn-lg btn-info" style="width: 48%;">Kirim</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal for Adding Visual Questions -->
+    <div class="modal" id="modal-tambah-visual" style="display: none;">
+        <div class="modal-inner" style="max-width: 600px;">
+            <h3 style="color: #A2529A; text-align: center; margin-bottom: 20px;">🖼️ Tambah Soal Visual</h3>
+
+            <form id="form-tambah-visual">
+                <div class="form-group">
+                    <label for="input-gambar-visual" style="color: #A2529A; font-weight: bold;">Upload Gambar:</label>
+                    <input type="file" id="input-gambar-visual" class="form-control" accept="image/*" required>
+                    <div id="preview-gambar-visual" style="margin-top: 10px; text-align: center;">
+                        <img id="img-preview-visual" src="" alt="Preview" style="max-width: 100%; max-height: 200px; display: none; border-radius: 8px; border: 2px solid #A2529A;">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="input-pertanyaan-visual" style="color: #A2529A; font-weight: bold;">Pertanyaan:</label>
+                    <textarea id="input-pertanyaan-visual" class="form-control" rows="3"
+                        placeholder="Masukkan pertanyaan tentang gambar..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="input-jawaban-visual" style="color: #A2529A; font-weight: bold;">Jawaban yang
+                        Benar:</label>
+                    <input type="text" id="input-jawaban-visual" class="form-control"
+                        placeholder="Masukkan jawaban yang benar..." required>
+                </div>
+
+                <div class="form-group">
+                    <label style="color: #A2529A; font-weight: bold;">Pilihan Jawaban (Opsional):</label>
+                    <input type="text" id="input-pilihan-visual-1" class="form-control mb-2" placeholder="Pilihan A (opsional)">
+                    <input type="text" id="input-pilihan-visual-2" class="form-control mb-2" placeholder="Pilihan B (opsional)">
+                    <input type="text" id="input-pilihan-visual-3" class="form-control mb-2" placeholder="Pilihan C (opsional)">
+                    <input type="text" id="input-pilihan-visual-4" class="form-control mb-2" placeholder="Pilihan D (opsional)">
+                </div>
+
+                <div class="d-flex justify-content-between" style="margin-top: 20px;">
+                    <button type="button" id="btn-batal-visual" class="btn btn-lg btn-secondary"
                         style="width: 48%;">Batal</button>
                     <button type="submit" class="btn btn-lg btn-info" style="width: 48%;">Kirim</button>
                 </div>

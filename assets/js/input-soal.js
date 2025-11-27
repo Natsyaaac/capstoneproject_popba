@@ -9,6 +9,7 @@
 // LocalStorage keys for questions
 const ESSAY_STORAGE_KEY = 'balloon_pop_essay_questions';
 const PILGAN_STORAGE_KEY = 'balloon_pop_pilgan_questions';
+const VISUAL_STORAGE_KEY = 'balloon_pop_visual_questions';
 
 /**
  * Show notification modal with custom message
@@ -57,6 +58,21 @@ function getPilganQuestions() {
 }
 
 /**
+ * Get visual questions from localStorage
+ * @return {Array} Array of visual question objects
+ */
+function getVisualQuestions() {
+    try {
+        const questionsJson = localStorage.getItem(VISUAL_STORAGE_KEY);
+        return questionsJson ? JSON.parse(questionsJson) : [];
+    } catch (error) {
+        console.error('Error parsing visual questions from localStorage:', error);
+        localStorage.setItem(VISUAL_STORAGE_KEY, '[]');
+        return [];
+    }
+}
+
+/**
  * Save essay questions to localStorage
  * @param {Array} questions - Array of essay question objects
  */
@@ -70,6 +86,14 @@ function saveEssayQuestions(questions) {
  */
 function savePilganQuestions(questions) {
     localStorage.setItem(PILGAN_STORAGE_KEY, JSON.stringify(questions));
+}
+
+/**
+ * Save visual questions to localStorage
+ * @param {Array} questions - Array of visual question objects
+ */
+function saveVisualQuestions(questions) {
+    localStorage.setItem(VISUAL_STORAGE_KEY, JSON.stringify(questions));
 }
 
 /**
@@ -99,6 +123,19 @@ function addPilganQuestion(question) {
 }
 
 /**
+ * Add a new visual question
+ * @param {Object} question - Question object with properties: question, answer, imageData, choices (optional)
+ */
+function addVisualQuestion(question) {
+    const questions = getVisualQuestions();
+    question.id = Date.now();
+    question.type = 'visual';
+    questions.push(question);
+    saveVisualQuestions(questions);
+    displayVisualQuestions();
+}
+
+/**
  * Delete an essay question by ID
  * @param {number} questionId - ID of the question to delete
  */
@@ -118,6 +155,17 @@ function deletePilganQuestion(questionId) {
     questions = questions.filter(q => q.id !== questionId);
     savePilganQuestions(questions);
     displayPilganQuestions();
+}
+
+/**
+ * Delete a visual question by ID
+ * @param {number} questionId - ID of the question to delete
+ */
+function deleteVisualQuestion(questionId) {
+    let questions = getVisualQuestions();
+    questions = questions.filter(q => q.id !== questionId);
+    saveVisualQuestions(questions);
+    displayVisualQuestions();
 }
 
 /**
@@ -205,6 +253,57 @@ function displayPilganQuestions() {
 }
 
 /**
+ * Display all visual questions in the visual list
+ */
+function displayVisualQuestions() {
+    const questions = getVisualQuestions();
+    const questionList = $('#visual-list');
+    const noQuestionsMessage = $('#no-visual-message');
+    
+    questionList.empty();
+    
+    if (questions.length === 0) {
+        noQuestionsMessage.show();
+        return;
+    }
+    
+    noQuestionsMessage.hide();
+    
+    questions.forEach((question, index) => {
+        const questionHtml = `
+            <div class="question-item visual-item" data-id="${question.id}">
+                <div class="question-item-header">
+                    <div class="question-number">🖼️ Visual #${index + 1}</div>
+                    <button class="question-delete-btn" onclick="deleteVisualQuestionById(${question.id})">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+                ${question.imageData ? `
+                    <div class="question-image" style="text-align: center; margin: 10px 0;">
+                        <img src="${question.imageData}" alt="Gambar Soal" style="max-width: 100%; max-height: 150px; border-radius: 8px; border: 2px solid #A2529A;">
+                    </div>
+                ` : ''}
+                <div class="question-text">
+                    <strong>Pertanyaan:</strong> ${escapeHtml(question.question)}
+                </div>
+                <div class="question-answer">
+                    <strong>Jawaban Benar:</strong> ${escapeHtml(question.answer)}
+                </div>
+                ${question.choices && question.choices.length > 0 && question.choices.some(c => c.trim() !== '') ? `
+                    <div class="question-choices">
+                        <strong>Pilihan Jawaban:</strong>
+                        ${question.choices.filter(c => c.trim() !== '').map((choice, i) => `
+                            <div>${String.fromCharCode(65 + i)}. ${escapeHtml(choice)}</div>
+                        `).join('')}
+                    </div>
+                ` : ''}
+            </div>
+        `;
+        questionList.append(questionHtml);
+    });
+}
+
+/**
  * Helper function to escape HTML to prevent XSS
  * @param {string} text - Text to escape
  * @return {string} Escaped text
@@ -232,6 +331,14 @@ function deletePilganQuestionById(questionId) {
 }
 
 /**
+ * Delete visual question by ID (called from onclick)
+ * @param {number} questionId - ID of question to delete
+ */
+function deleteVisualQuestionById(questionId) {
+    deleteVisualQuestion(questionId);
+}
+
+/**
  * Show Input Soal section and hide other sections with fade effect
  */
 function showInputSoalSection() {
@@ -248,6 +355,7 @@ function showInputSoalSection() {
     
     displayEssayQuestions();
     displayPilganQuestions();
+    displayVisualQuestions();
 }
 
 /**
@@ -293,6 +401,23 @@ function showAddPilganModal() {
 function hideAddPilganModal() {
     $('#modal-tambah-pilgan').removeClass('modal_open');
     $('#form-tambah-pilgan')[0].reset();
+}
+
+/**
+ * Show modal for adding visual question
+ */
+function showAddVisualModal() {
+    $('#modal-tambah-visual').addClass('modal_open');
+}
+
+/**
+ * Hide modal for adding visual question
+ */
+function hideAddVisualModal() {
+    $('#modal-tambah-visual').removeClass('modal_open');
+    $('#form-tambah-visual')[0].reset();
+    $('#img-preview-visual').hide();
+    $('#img-preview-visual').attr('src', '');
 }
 
 /**
@@ -355,6 +480,59 @@ function handleAddPilgan(event) {
     showNotification('Soal pilihan ganda berhasil ditambahkan!');
 }
 
+/**
+ * Handle form submission to add new visual question
+ */
+function handleAddVisual(event) {
+    event.preventDefault();
+    
+    const question = $('#input-pertanyaan-visual').val().trim();
+    const answer = $('#input-jawaban-visual').val().trim();
+    const imageData = $('#img-preview-visual').attr('src');
+    const choices = [
+        $('#input-pilihan-visual-1').val().trim(),
+        $('#input-pilihan-visual-2').val().trim(),
+        $('#input-pilihan-visual-3').val().trim(),
+        $('#input-pilihan-visual-4').val().trim()
+    ];
+    
+    if (!question || !answer) {
+        showNotification('Pertanyaan dan jawaban harus diisi!');
+        return;
+    }
+    
+    if (!imageData) {
+        showNotification('Gambar harus di-upload untuk soal visual!');
+        return;
+    }
+    
+    const questionObj = {
+        question: question,
+        answer: answer,
+        imageData: imageData,
+        choices: choices
+    };
+    
+    addVisualQuestion(questionObj);
+    hideAddVisualModal();
+    showNotification('Soal visual berhasil ditambahkan!');
+}
+
+/**
+ * Handle image preview for visual question
+ */
+function handleImagePreview(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            $('#img-preview-visual').attr('src', e.target.result);
+            $('#img-preview-visual').show();
+        };
+        reader.readAsDataURL(file);
+    }
+}
+
 // Event Handlers - will be initialized when document is ready
 $(document).ready(function() {
     // Button to show Input Soal section
@@ -366,10 +544,12 @@ $(document).ready(function() {
     // Buttons to show add question modals
     $('#btn-tambah-essay').on('click', showAddEssayModal);
     $('#btn-tambah-pilgan').on('click', showAddPilganModal);
+    $('#btn-tambah-visual').on('click', showAddVisualModal);
     
     // Buttons to cancel/close modals
     $('#btn-batal-essay').on('click', hideAddEssayModal);
     $('#btn-batal-pilgan').on('click', hideAddPilganModal);
+    $('#btn-batal-visual').on('click', hideAddVisualModal);
     
     // Button to close notification modal
     $('#btn-close-notification').on('click', hideNotification);
@@ -377,6 +557,10 @@ $(document).ready(function() {
     // Form submissions
     $('#form-tambah-essay').on('submit', handleAddEssay);
     $('#form-tambah-pilgan').on('submit', handleAddPilgan);
+    $('#form-tambah-visual').on('submit', handleAddVisual);
+    
+    // Image preview for visual question
+    $('#input-gambar-visual').on('change', handleImagePreview);
     
     // Close modals when clicking outside
     $('#modal-tambah-essay').on('click', function(e) {
@@ -388,6 +572,12 @@ $(document).ready(function() {
     $('#modal-tambah-pilgan').on('click', function(e) {
         if (e.target.id === 'modal-tambah-pilgan') {
             hideAddPilganModal();
+        }
+    });
+    
+    $('#modal-tambah-visual').on('click', function(e) {
+        if (e.target.id === 'modal-tambah-visual') {
+            hideAddVisualModal();
         }
     });
     

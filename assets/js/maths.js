@@ -1,8 +1,9 @@
 /**
 * @fileOverview JavaScript Maths Function Library.
 * @author <a href="https://github.com/richardhenyash">Richard Ash</a>
-* @version 2.0.0
+* @version 3.0.0
 * @description Includes Story Mode integration for professional grade 1-6 questions
+*              with proper sub-mode filtering for consistent question types
 */
 /*jshint esversion: 6 */
 /* globals getStoryQuestionArray, bpmDifficulty */
@@ -23,34 +24,40 @@ function returnQuestionArray(gameMode, optionArray, qno) {
     
     if (useStoryMode && storyModes.includes(gameMode) && typeof getStoryQuestionArray === 'function') {
         const difficulty = typeof bpmDifficulty !== 'undefined' ? bpmDifficulty : 'medium';
-        const questionType = optionArray.length > 0 ? optionArray[0] : null;
+        const subMode = optionArray.length > 0 ? optionArray[0] : null;
+        
+        console.log(`🎮 Story Mode Request: gameMode=${gameMode}, subMode=${subMode}, difficulty=${difficulty}, qno=${qno}`);
         
         try {
-            questionArray = getStoryQuestionArray(gameMode, difficulty, questionType, qno);
+            questionArray = getStoryQuestionArray(gameMode, difficulty, subMode, qno);
             
             if (questionArray && questionArray.length >= qno) {
-                console.log(`📚 Story Mode: Generated ${questionArray.length} questions for ${gameMode}`);
+                console.log(`✅ Story Mode: Generated ${questionArray.length} questions for ${gameMode} - ${subMode}`);
                 return questionArray;
+            } else {
+                console.log(`⚠️ Story Mode: Only got ${questionArray ? questionArray.length : 0} questions, falling back to standard mode`);
             }
         } catch (error) {
             console.warn('Story Mode error, falling back to standard questions:', error);
         }
     }
     
+    console.log(`📝 Using standard question generator for ${gameMode}`);
+    
     if (gameMode == 'aljabar') {
-        questionArray = returnAljabarQuestionArray(optionArray, qno)
+        questionArray = returnAljabarQuestionArray(optionArray, qno);
     } else if (gameMode == 'time') {
-        questionArray = returnTimeQuestionArray(optionArray, qno)
+        questionArray = returnTimeQuestionArray(optionArray, qno);
     } else if (gameMode == 'heavy') {
-        questionArray = returnHeavyQuestionArray(optionArray, qno)
+        questionArray = returnHeavyQuestionArray(optionArray, qno);
     } else if (gameMode == 'volume') {
-        questionArray = returnVolumeQuestionArray(optionArray, qno)
+        questionArray = returnVolumeQuestionArray(optionArray, qno);
     } else if (gameMode == 'up') {
-        questionArray = returnUpQuestionArray(optionArray, qno)
+        questionArray = returnUpQuestionArray(optionArray, qno);
     } else if (gameMode == 'operator') {
-        questionArray = returnOperatorQuestionArray(optionArray, qno)
+        questionArray = returnOperatorQuestionArray(optionArray, qno);
     } else if (gameMode == 'exam') {
-        questionArray = returnExamQuestionArray(optionArray, qno)
+        questionArray = returnExamQuestionArray(optionArray, qno);
     }
     return (questionArray);
 }
