@@ -677,10 +677,25 @@ $(document).ready(function() {
     // Image preview for visual question (file input)
     $('#input-gambar-visual').on('change', handleImagePreview);
     
-    // Visual Dropzone - Click to select file
+    // Visual Dropzone - Click to select file (using native click for better mobile support)
     $('#visual-dropzone').on('click', function(e) {
         if (e.target.id !== 'btn-remove-image' && !$(e.target).closest('#btn-remove-image').length) {
-            $('#input-gambar-visual').trigger('click');
+            // Use native click() for better mobile/cross-browser support
+            var fileInput = document.getElementById('input-gambar-visual');
+            if (fileInput) {
+                fileInput.click();
+            }
+        }
+    });
+    
+    // Also add touchend for mobile devices
+    $('#visual-dropzone').on('touchend', function(e) {
+        if (e.target.id !== 'btn-remove-image' && !$(e.target).closest('#btn-remove-image').length) {
+            e.preventDefault();
+            var fileInput = document.getElementById('input-gambar-visual');
+            if (fileInput) {
+                fileInput.click();
+            }
         }
     });
     
