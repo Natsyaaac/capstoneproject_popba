@@ -771,6 +771,6 @@ Proyek ini dikonfigurasi untuk deployment di Replit:
 
 ---
 
-[Dokumentasi](https://www.instagram.com/p/DP0JtvKkT_-/) | [Demo](https://replit.com) | [Source Code](https://github.com)
+[Dokumentasi](https://www.instagram.com/capstoneproject_popba?igsh=ZHhzaXAwODkycGJ1) | [Demo](https://natsyaaac.github.io/capstoneproject_popba/) | [Source Code](https://github.com)
 
 </div>
