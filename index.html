@@ -25,6 +25,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani&display=swap" rel="stylesheet">
     <!-- Link to Email JS -->
     <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#7CC0FF">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Balloon Pop Maths">
+    <link rel="apple-touch-icon" href="assets/images/icon.png">
     <title>Balloon Pop Maths</title>
 </head>
 
@@ -903,11 +910,14 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
+    <!-- Platform and Offline Services (load first) -->
+    <script src="assets/js/platform-service.js"></script>
+    <script src="assets/js/offline-service.js"></script>
+    <!-- Core Application Scripts -->
     <script src="assets/js/firebase-config.js"></script>
     <script src="assets/js/initialisation.js"></script>
     <script src="assets/js/audio.js"></script>
     <script src="assets/js/animation.js"></script>
-
     <script src="assets/js/display.js"></script>
     <script src="assets/js/input-soal.js"></script>
     <script src="assets/js/game-logic.js"></script>
@@ -917,6 +927,29 @@
     <script src="assets/js/events.js"></script>
     <script src="assets/js/nightMode.js"></script>
     <script src="assets/js/background.js"></script>
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(function(registration) {
+                        console.log('ServiceWorker registered:', registration.scope);
+                    })
+                    .catch(function(error) {
+                        console.log('ServiceWorker registration failed:', error);
+                    });
+            });
+        }
+        
+        if (window.cordova) {
+            document.addEventListener('deviceready', function() {
+                console.log('Cordova is ready');
+                if (window.PlatformService) {
+                    window.PlatformService.init();
+                }
+            }, false);
+        }
+    </script>
 </body>
 
 </html>

@@ -159,10 +159,34 @@ function deletePilganQuestion(questionId) {
 
 /**
  * Delete a visual question by ID
+ * Also deletes the image from Firebase Storage if applicable
  * @param {number} questionId - ID of the question to delete
  */
-function deleteVisualQuestion(questionId) {
+async function deleteVisualQuestion(questionId) {
     let questions = getVisualQuestions();
+    
+    const questionToDelete = questions.find(q => q.id === questionId);
+    
+    if (questionToDelete && questionToDelete.imageData) {
+        if (window.firebaseUtils && window.firebaseUtils.isFirebaseUrl) {
+            const isFirebaseImage = window.firebaseUtils.isFirebaseUrl(questionToDelete.imageData);
+            
+            if (isFirebaseImage) {
+                try {
+                    console.log('Deleting image from Firebase Storage...');
+                    const deleted = await window.firebaseUtils.deleteImageFromFirebase(questionToDelete.imageData);
+                    if (deleted) {
+                        console.log('Image successfully deleted from Firebase Storage');
+                    } else {
+                        console.warn('Failed to delete image from Firebase, but continuing with local deletion');
+                    }
+                } catch (error) {
+                    console.error('Error deleting from Firebase:', error);
+                }
+            }
+        }
+    }
+    
     questions = questions.filter(q => q.id !== questionId);
     saveVisualQuestions(questions);
     displayVisualQuestions();
@@ -332,10 +356,21 @@ function deletePilganQuestionById(questionId) {
 
 /**
  * Delete visual question by ID (called from onclick)
+ * Handles async deletion including Firebase Storage cleanup
  * @param {number} questionId - ID of question to delete
  */
-function deleteVisualQuestionById(questionId) {
-    deleteVisualQuestion(questionId);
+async function deleteVisualQuestionById(questionId) {
+    try {
+        await deleteVisualQuestion(questionId);
+        if (typeof showNotification === 'function') {
+            showNotification('Soal visual berhasil dihapus!');
+        }
+    } catch (error) {
+        console.error('Error deleting visual question:', error);
+        if (typeof showNotification === 'function') {
+            showNotification('Gagal menghapus soal. Silakan coba lagi.');
+        }
+    }
 }
 
 /**
