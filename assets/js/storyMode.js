@@ -20,12 +20,12 @@
 
 const StoryMode = {
     names: {
-        boys: ["Budi", "Andi", "Riko", "Deni", "Fajar", "Hasan", "Gilang", "Rizki", "Tono", "Wahyu", 
-               "Bagus", "Dimas", "Eko", "Faisal", "Galih", "Irfan", "Joko", "Kevin", "Lukman", "Mahmud",
-               "Naufal", "Omar", "Putra", "Qori", "Raka", "Satria", "Taufik", "Umar", "Vino", "Wawan"],
-        girls: ["Ani", "Siti", "Dewi", "Rani", "Putri", "Maya", "Lina", "Nisa", "Tika", "Wulan", 
-                "Bunga", "Citra", "Dina", "Eka", "Fitri", "Gita", "Hana", "Indah", "Julia", "Kartika",
-                "Laras", "Mila", "Nadya", "Ola", "Puspita", "Qisya", "Ratna", "Sarah", "Tiara", "Umi"],
+        boys: ["Budi", "Andi", "Riko", "Deni", "Fajar", "Hasan", "Gilang", "Rizki", "Tono", "Wahyu",
+            "Bagus", "Dimas", "Eko", "Faisal", "Galih", "Irfan", "Joko", "Kevin", "Lukman", "Mahmud",
+            "Naufal", "Omar", "Putra", "Qori", "Raka", "Satria", "Taufik", "Umar", "Vino", "Wawan"],
+        girls: ["Ani", "Siti", "Dewi", "Rani", "Putri", "Maya", "Lina", "Nisa", "Tika", "Wulan",
+            "Bunga", "Citra", "Dina", "Eka", "Fitri", "Gita", "Hana", "Indah", "Julia", "Kartika",
+            "Laras", "Mila", "Nadya", "Ola", "Puspita", "Qisya", "Ratna", "Sarah", "Tiara", "Umi"],
         teachers: ["Bu Guru", "Pak Guru", "Bu Ani", "Pak Budi", "Bu Sari", "Pak Hendra", "Bu Ratna", "Pak Ahmad"],
         families: ["Ayah", "Ibu", "Kakak", "Adik", "Nenek", "Kakek", "Paman", "Bibi", "Sepupu"]
     },
@@ -48,49 +48,49 @@ const StoryMode = {
         nature: ["sawah", "kebun", "hutan", "sungai", "pantai", "gunung", "danau", "taman bunga", "ladang"]
     },
 
-    rand: function(arr) {
+    rand: function (arr) {
         return arr[Math.floor(Math.random() * arr.length)];
     },
 
-    randInt: function(min, max) {
+    randInt: function (min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     },
 
-    randName: function() {
+    randName: function () {
         const allNames = [...this.names.boys, ...this.names.girls];
         return this.rand(allNames);
     },
 
-    randBoyName: function() {
+    randBoyName: function () {
         return this.rand(this.names.boys);
     },
 
-    randGirlName: function() {
+    randGirlName: function () {
         return this.rand(this.names.girls);
     },
 
-    randItem: function() {
+    randItem: function () {
         const allItems = [...this.items.fruits, ...this.items.snacks, ...this.items.stationery];
         return this.rand(allItems);
     },
 
-    randFruit: function() {
+    randFruit: function () {
         return this.rand(this.items.fruits);
     },
 
-    randSnack: function() {
+    randSnack: function () {
         return this.rand(this.items.snacks);
     },
 
-    randToy: function() {
+    randToy: function () {
         return this.rand(this.items.toys);
     },
 
-    randAnimal: function() {
+    randAnimal: function () {
         return this.rand(this.items.animals);
     },
 
-    randPlace: function() {
+    randPlace: function () {
         const allPlaces = [...this.places.school, ...this.places.public];
         return this.rand(allPlaces);
     }
@@ -115,25 +115,75 @@ function generateOperatorQuestions(grade, subMode) {
     let questions = [];
 
     if (subMode === "Kurang" || subMode === "pengurangan") {
-        switch(grade) {
+        switch (grade) {
             case 1:
                 questions = [
-                    () => { const a = S.randInt(3, 9); const b = S.randInt(1, a-1); return [`${S.randName()} punya ${a} ${S.randFruit()}. Dimakan ${b}. Sisa berapa?`, a - b]; },
-                    () => { const a = S.randInt(5, 10); const b = S.randInt(1, a-2); return [`Ada ${a} ${S.randSnack()} di meja. Diambil ${b}. Sisa berapa?`, a - b]; },
-                    () => { const a = S.randInt(4, 8); const b = S.randInt(1, a-1); return [`${S.randName()} mempunyai ${a} ${S.randToy()}. Diberikan ke teman ${b}. Berapa yang tersisa?`, a - b]; },
-                    () => { const a = S.randInt(6, 10); const b = S.randInt(2, a-1); return [`Di keranjang ada ${a} ${S.randFruit()}. ${S.rand(S.names.families)} mengambil ${b}. Sisa berapa?`, a - b]; },
-                    () => { const a = S.randInt(5, 9); const b = S.randInt(1, a-2); return [`${S.randName()} punya ${a} ${S.rand(S.items.stationery)}. Hilang ${b}. Sekarang punya berapa?`, a - b]; },
+                    () => {
+                        const a = S.randInt(4, 9); const b = S.randInt(1, a - 1);
+                        return [`${S.randName()} membawa ${a} ${S.randFruit()} ke sekolah. Dimakan ${b}. Sisa berapa?`, a - b];
+                    },
+
+                    () => {
+                        const a = S.randInt(6, 10); const b = S.randInt(1, a - 2);
+                        return [`Di piring ada ${a} ${S.randSnack()}. ${b} dimakan. Tinggal berapa?`, a - b];
+                    },
+
+                    () => {
+                        const a = S.randInt(5, 8); const b = S.randInt(1, a - 1);
+                        return [`${S.randName()} mengoleksi ${a} ${S.randToy()}. ${b} rusak. Sisa berapa?`, a - b];
+                    },
+
+                    () => {
+                        const a = S.randInt(7, 10); const b = S.randInt(2, a - 1);
+                        return [`Ada ${a} ${S.randFruit()} di tas. Dibagikan ${b}. Berapa yang tersisa?`, a - b];
+                    },
+
+                    () => {
+                        const a = S.randInt(5, 9); const b = S.randInt(1, a - 2);
+                        return [`${S.randName()} memiliki ${a} buku tulis. Hilang ${b}. Sekarang ada berapa?`, a - b];
+                    },
+
+                    () => {
+                        const a = S.randInt(6, 10); const b = S.randInt(1, 4);
+                        return [`Ada ${a} kucing di halaman. ${b} pergi. Sisa kucing berapa?`, a - b];
+                    },
+
+                    () => {
+                        const a = S.randInt(5, 9); const b = S.randInt(1, 3);
+                        return [`${S.randName()} menyimpan ${a} permen. Diberikan ${b} ke teman. Sisa berapa?`, a - b];
+                    },
+
+                    () => {
+                        const a = S.randInt(8, 10); const b = S.randInt(2, 5);
+                        return [`Di kolam ada ${a} ikan. ${b} ikan diambil. Tinggal berapa?`, a - b];
+                    },
+
+                    () => {
+                        const a = S.randInt(4, 8); const b = S.randInt(1, a - 1);
+                        return [`${S.randName()} punya ${a} pensil warna. ${b} patah. Sisa berapa?`, a - b];
+                    },
+
+                    () => {
+                        const a = S.randInt(6, 10); const b = S.randInt(1, a - 1);
+                        return [`Ada ${a} balon. ${b} balon pecah. Berapa balon yang masih ada?`, a - b];
+                    },
+                    () => { const a = S.randInt(3, 9); const b = S.randInt(1, a - 1); return [`${S.randName()} punya ${a} ${S.randFruit()}. Dimakan ${b}. Sisa berapa?`, a - b]; },
+                    () => { const a = S.randInt(5, 10); const b = S.randInt(1, a - 2); return [`Ada ${a} ${S.randSnack()} di meja. Diambil ${b}. Sisa berapa?`, a - b]; },
+                    () => { const a = S.randInt(4, 8); const b = S.randInt(1, a - 1); return [`${S.randName()} mempunyai ${a} ${S.randToy()}. Diberikan ke teman ${b}. Berapa yang tersisa?`, a - b]; },
+                    () => { const a = S.randInt(6, 10); const b = S.randInt(2, a - 1); return [`Di keranjang ada ${a} ${S.randFruit()}. ${S.rand(S.names.families)} mengambil ${b}. Sisa berapa?`, a - b]; },
+                    () => { const a = S.randInt(5, 9); const b = S.randInt(1, a - 2); return [`${S.randName()} punya ${a} ${S.rand(S.items.stationery)}. Hilang ${b}. Sekarang punya berapa?`, a - b]; },
                     () => { const a = S.randInt(7, 10); const b = S.randInt(2, 4); return [`Ada ${a} burung di pohon. ${b} burung terbang. Berapa burung yang masih di pohon?`, a - b]; },
                     () => { const a = S.randInt(5, 9); const b = S.randInt(1, 3); return [`${S.randName()} memiliki ${a} kelereng. Diberikan ${b} ke adik. Sisa kelereng berapa?`, a - b]; },
                     () => { const a = S.randInt(8, 10); const b = S.randInt(2, 5); return [`Di akuarium ada ${a} ikan. ${b} ikan dipindahkan. Berapa ikan yang tersisa?`, a - b]; },
+
                 ];
                 break;
             case 2:
                 questions = [
-                    () => { const a = S.randInt(10, 20); const b = S.randInt(3, a-3); return [`${S.randName()} membeli ${a} ${S.randSnack()}. Dimakan ${b}. Berapa sisanya?`, a - b]; },
-                    () => { const a = S.randInt(15, 25); const b = S.randInt(5, a-5); return [`Di kelas ada ${a} siswa. ${b} siswa pulang. Berapa siswa yang masih di kelas?`, a - b]; },
-                    () => { const a = S.randInt(12, 20); const b = S.randInt(4, a-3); return [`${S.randName()} punya ${a} ${S.rand(S.items.stationery)}. Dipinjamkan ${b}. Sisa berapa?`, a - b]; },
-                    () => { const a = S.randInt(20, 30); const b = S.randInt(8, a-5); return [`Perpustakaan punya ${a} buku. Dipinjam ${b} buku. Sisa buku di perpustakaan berapa?`, a - b]; },
+                    () => { const a = S.randInt(10, 20); const b = S.randInt(3, a - 3); return [`${S.randName()} membeli ${a} ${S.randSnack()}. Dimakan ${b}. Berapa sisanya?`, a - b]; },
+                    () => { const a = S.randInt(15, 25); const b = S.randInt(5, a - 5); return [`Di kelas ada ${a} siswa. ${b} siswa pulang. Berapa siswa yang masih di kelas?`, a - b]; },
+                    () => { const a = S.randInt(12, 20); const b = S.randInt(4, a - 3); return [`${S.randName()} punya ${a} ${S.rand(S.items.stationery)}. Dipinjamkan ${b}. Sisa berapa?`, a - b]; },
+                    () => { const a = S.randInt(20, 30); const b = S.randInt(8, a - 5); return [`Perpustakaan punya ${a} buku. Dipinjam ${b} buku. Sisa buku di perpustakaan berapa?`, a - b]; },
                     () => { const a = S.randInt(15, 25); const b = S.randInt(5, 10); return [`Di taman ada ${a} ${S.randAnimal()}. ${b} pergi. Berapa yang masih ada?`, a - b]; },
                     () => { const a = S.randInt(18, 28); const b = S.randInt(6, 12); return [`${S.randName()} mengumpulkan ${a} ${S.randFruit()}. Dijual ${b}. Berapa yang tersisa?`, a - b]; },
                     () => { const a = S.randInt(25, 35); const b = S.randInt(10, 15); return [`Sekolah memiliki ${a} komputer. ${b} komputer rusak. Berapa komputer yang bisa dipakai?`, a - b]; },
@@ -141,26 +191,26 @@ function generateOperatorQuestions(grade, subMode) {
                 break;
             case 3:
                 questions = [
-                    () => { const a = S.randInt(50, 100); const b = S.randInt(15, a-20); return [`${S.randName()} mempunyai Rp${a}.000. Dibelikan buku Rp${b}.000. Sisa uang berapa ribu rupiah?`, a - b]; },
-                    () => { const a = S.randInt(100, 200); const b = S.randInt(30, a-30); return [`Toko punya ${a} ${S.randSnack()}. Terjual ${b}. Sisa berapa?`, a - b]; },
-                    () => { const a = S.randInt(80, 150); const b = S.randInt(25, a-20); return [`Di peternakan ada ${a} ayam. Dijual ${b} ekor. Berapa ayam yang tersisa?`, a - b]; },
-                    () => { const a = S.randInt(150, 250); const b = S.randInt(50, a-40); return [`Pabrik memproduksi ${a} roti. ${b} roti terjual. Berapa roti yang tersisa?`, a - b]; },
+                    () => { const a = S.randInt(50, 100); const b = S.randInt(15, a - 20); return [`${S.randName()} mempunyai Rp${a}.000. Dibelikan buku Rp${b}.000. Sisa uang berapa ribu rupiah?`, a - b]; },
+                    () => { const a = S.randInt(100, 200); const b = S.randInt(30, a - 30); return [`Toko punya ${a} ${S.randSnack()}. Terjual ${b}. Sisa berapa?`, a - b]; },
+                    () => { const a = S.randInt(80, 150); const b = S.randInt(25, a - 20); return [`Di peternakan ada ${a} ayam. Dijual ${b} ekor. Berapa ayam yang tersisa?`, a - b]; },
+                    () => { const a = S.randInt(150, 250); const b = S.randInt(50, a - 40); return [`Pabrik memproduksi ${a} roti. ${b} roti terjual. Berapa roti yang tersisa?`, a - b]; },
                     () => { const a = S.randInt(200, 300); const b = S.randInt(80, 120); return [`Sekolah mempunyai ${a} buku. Dipinjamkan ${b} buku ke siswa. Sisa buku berapa?`, a - b]; },
                     () => { const a = S.randInt(75, 125); const b = S.randInt(20, 40); return [`${S.randName()} mengumpulkan ${a} stiker. Diberikan ${b} ke teman. Berapa stiker yang dimiliki sekarang?`, a - b]; },
                 ];
                 break;
             case 4:
                 questions = [
-                    () => { const a = S.randInt(500, 1000); const b = S.randInt(150, a-200); return [`Toko buku memiliki ${a} buku. Terjual ${b} buku. Berapa buku yang tersisa?`, a - b]; },
-                    () => { const a = S.randInt(1000, 2000); const b = S.randInt(300, a-400); return [`${S.randName()} menabung Rp${a.toLocaleString()}. Diambil Rp${b.toLocaleString()}. Sisa tabungan berapa rupiah?`, a - b]; },
-                    () => { const a = S.randInt(800, 1500); const b = S.randInt(250, a-300); return [`Gudang menyimpan ${a} karung beras. Dijual ${b} karung. Berapa karung yang tersisa?`, a - b]; },
+                    () => { const a = S.randInt(500, 1000); const b = S.randInt(150, a - 200); return [`Toko buku memiliki ${a} buku. Terjual ${b} buku. Berapa buku yang tersisa?`, a - b]; },
+                    () => { const a = S.randInt(1000, 2000); const b = S.randInt(300, a - 400); return [`${S.randName()} menabung Rp${a.toLocaleString()}. Diambil Rp${b.toLocaleString()}. Sisa tabungan berapa rupiah?`, a - b]; },
+                    () => { const a = S.randInt(800, 1500); const b = S.randInt(250, a - 300); return [`Gudang menyimpan ${a} karung beras. Dijual ${b} karung. Berapa karung yang tersisa?`, a - b]; },
                     () => { const a = S.randInt(2500, 4000); const b = S.randInt(800, 1500); return [`Perpustakaan kota memiliki ${a} buku. Dipinjam ${b} buku. Berapa buku yang masih ada?`, a - b]; },
                     () => { const a = S.randInt(1500, 2500); const b = S.randInt(400, 800); return [`Supermarket mempunyai ${a} botol minuman. Terjual ${b} botol. Sisa berapa botol?`, a - b]; },
                 ];
                 break;
             case 5:
                 questions = [
-                    () => { const a = S.randInt(5000, 10000); const b = S.randInt(1500, a-2000); return [`Pabrik memproduksi ${a.toLocaleString()} unit barang. Terjual ${b.toLocaleString()} unit. Berapa unit yang tersisa?`, a - b]; },
+                    () => { const a = S.randInt(5000, 10000); const b = S.randInt(1500, a - 2000); return [`Pabrik memproduksi ${a.toLocaleString()} unit barang. Terjual ${b.toLocaleString()} unit. Berapa unit yang tersisa?`, a - b]; },
                     () => { const a = S.randInt(10000, 25000); const b = S.randInt(3000, 8000); return [`${S.randName()} memiliki tabungan Rp${a.toLocaleString()}. Digunakan Rp${b.toLocaleString()}. Sisa tabungan berapa rupiah?`, a - b]; },
                     () => { const a = S.randInt(15000, 30000); const b = S.randInt(5000, 12000); return [`Stadion menampung ${a.toLocaleString()} penonton. ${b.toLocaleString()} penonton pulang. Berapa penonton yang tersisa?`, a - b]; },
                     () => { const a = S.randInt(8000, 15000); const b = S.randInt(2000, 5000); return [`Perkebunan menghasilkan ${a.toLocaleString()} kg buah. Dijual ${b.toLocaleString()} kg. Berapa kg yang tersisa?`, a - b]; },
@@ -168,7 +218,7 @@ function generateOperatorQuestions(grade, subMode) {
                 break;
             case 6:
                 questions = [
-                    () => { const a = S.randInt(50000, 100000); const b = S.randInt(15000, a-20000); return [`Perusahaan memiliki aset Rp${a.toLocaleString()}. Pengeluaran Rp${b.toLocaleString()}. Sisa aset berapa rupiah?`, a - b]; },
+                    () => { const a = S.randInt(50000, 100000); const b = S.randInt(15000, a - 20000); return [`Perusahaan memiliki aset Rp${a.toLocaleString()}. Pengeluaran Rp${b.toLocaleString()}. Sisa aset berapa rupiah?`, a - b]; },
                     () => { const a = S.randInt(100000, 250000); const b = S.randInt(30000, 80000); return [`Koperasi memiliki modal Rp${a.toLocaleString()}. Digunakan Rp${b.toLocaleString()}. Berapa sisa modalnya?`, a - b]; },
                     () => { const a = S.randInt(75000, 150000); const b = S.randInt(20000, 50000); return [`Populasi kota adalah ${a.toLocaleString()} jiwa. ${b.toLocaleString()} jiwa pindah. Berapa populasi sekarang?`, a - b]; },
                     () => { const persen = S.randInt(10, 30); const nilai = S.randInt(500, 2000); const potongan = Math.round((persen * nilai) / 100); return [`Harga barang Rp${nilai.toLocaleString()}. Diskon ${persen}%. Berapa potongan harganya?`, potongan]; },
@@ -178,7 +228,7 @@ function generateOperatorQuestions(grade, subMode) {
         }
     }
     else if (subMode === "Tambah" || subMode === "penjumlahan") {
-        switch(grade) {
+        switch (grade) {
             case 1:
                 questions = [
                     () => { const a = S.randInt(1, 5); const b = S.randInt(1, 4); return [`${S.randName()} punya ${a} ${S.randFruit()}. Diberi ${b} lagi. Berapa semuanya?`, a + b]; },
@@ -237,7 +287,7 @@ function generateOperatorQuestions(grade, subMode) {
         }
     }
     else if (subMode === "Bagi" || subMode === "pembagian") {
-        switch(grade) {
+        switch (grade) {
             case 1:
                 questions = [
                     () => { const b = S.randInt(2, 3); const a = b * S.randInt(2, 4); return [`Ada ${a} ${S.randSnack()} dibagi ${b} anak. Masing-masing dapat berapa?`, a / b]; },
@@ -291,7 +341,7 @@ function generateOperatorQuestions(grade, subMode) {
         }
     }
     else if (subMode === "Kali" || subMode === "perkalian") {
-        switch(grade) {
+        switch (grade) {
             case 1:
                 questions = [
                     () => { const a = S.randInt(2, 3); const b = S.randInt(2, 4); return [`Ada ${a} piring. Tiap piring ada ${b} ${S.randSnack()}. Berapa jumlah ${S.randSnack()}?`, a * b]; },
@@ -355,9 +405,29 @@ function generateAljabarQuestions(grade, subMode) {
     let questions = [];
 
     if (subMode === "Isi Kotak Kosong") {
-        switch(grade) {
+        switch (grade) {
             case 1: case 2: case 3:
                 questions = [
+                    () => { const a = S.randInt(1, 5); const h = S.randInt(a + 1, a + 5); return [`${S.randName()} punya ${a} ${S.randFruit()}, lalu diberi beberapa lagi hingga menjadi ${h}. Berapa isi kotak (□)?`, h - a]; },
+                    () => { const h = S.randInt(4, 10); const a = S.randInt(1, h - 1); return [`Di meja ada beberapa ${S.randSnack()}. Setelah ditambah ${a} menjadi ${h}. Berapa jumlah awalnya (□)?`, h - a]; },
+                    () => { const a = S.randInt(5, 12); const s = S.randInt(1, a - 2); return [`${S.randName()} punya ${a} kelereng, lalu diberikan beberapa hingga sisa ${s}. Berapa yang diberikan (□)?`, a - s]; },
+                    () => { const h = S.randInt(6, 15); const a = S.randInt(2, h - 2); return [`Jumlah pensil ${S.randName()} setelah ditambah beberapa menjadi ${h}. Jika sebelumnya ada ${a}, berapa yang ditambahkan (□)?`, h - a]; },
+                    () => { const a = S.randInt(8, 15); const b = S.randInt(2, 6); return [`Ada beberapa burung di pohon. Setelah ${b} terbang, tersisa ${a - b}. Berapa burung mula-mula (□)?`, a]; },
+                    () => { const a = S.randInt(3, 7); const h = S.randInt(a + 2, a + 6); return [`${S.randName()} membaca ${a} halaman buku, lalu melanjutkan hingga total ${h} halaman. Berapa halaman selanjutnya (□)?`, h - a]; },
+                    () => { const h = S.randInt(5, 12); const a = S.randInt(1, h - 1); return [`Di keranjang ada beberapa ${S.randFruit()}. Setelah diambil ${a}, tersisa ${h - a}. Berapa jumlah awalnya (□)?`, h]; },
+                    () => { const a = S.randInt(6, 10); const s = S.randInt(1, 4); return [`${S.randName()} memiliki ${a} balon, lalu beberapa pecah sehingga tersisa ${a - s}. Berapa balon yang pecah (□)?`, s]; },
+                    () => { const h = S.randInt(7, 14); const a = S.randInt(3, h - 3); return [`Jumlah ikan di akuarium menjadi ${h} setelah ditambah beberapa. Jika sebelumnya ada ${a}, berapa ikan yang ditambahkan (□)?`, h - a]; },
+                    () => { const a = S.randInt(9, 15); const s = S.randInt(3, 7); return [`${S.randName()} membawa ${a} permen, lalu membagikan beberapa hingga tersisa ${a - s}. Berapa permen yang dibagikan (□)?`, s]; },
+                    () => { const a = S.randInt(2, 6); const t = S.randInt(a + 3, a + 9); return [`${S.randName()} membawa ${a} botol air. Di sekolah mendapat beberapa lagi hingga total ${t}. Berapa botol tambahan (□)?`, t - a]; },
+                    () => { const t = S.randInt(7, 14); const a = S.randInt(2, t - 3); return [`Jumlah ${S.randFruit()} di kantin ada ${t}. Jika ${a} milik ${S.randName()}, berapa milik teman-temannya (□)?`, t - a]; },
+                    () => { const a = S.randInt(6, 12); const s = S.randInt(2, a - 3); return [`${S.randName()} mengumpulkan ${a} stiker. Beberapa ditukar hingga tersisa ${s}. Berapa yang ditukar (□)?`, a - s]; },
+                    () => { const t = S.randInt(10, 20); const a = S.randInt(4, t - 4); return [`Total kursi di kelas ada ${t}. Jika ${a} sudah ditempati, berapa kursi kosong (□)?`, t - a]; },
+                    () => { const a = S.randInt(8, 16); const h = S.randInt(2, 7); return [`Di rak ada ${a} buku. ${h} dipinjam teman. Berapa buku yang tersisa (□)?`, a - h]; },
+                    () => { const a = S.randInt(3, 9); const t = S.randInt(a + 4, a + 10); return [`${S.randName()} memiliki ${a} poin game, lalu bermain hingga total poin ${t}. Berapa poin yang didapat (□)?`, t - a]; },
+                    () => { const t = S.randInt(9, 18); const h = S.randInt(3, 8); return [`Ada ${t} lampu di aula. ${h} mati. Berapa lampu yang masih menyala (□)?`, t - h]; },
+                    () => { const a = S.randInt(5, 11); const s = S.randInt(1, 4); return [`${S.randName()} membawa ${a} bekal. Sebagian dimakan hingga tersisa ${a - s}. Berapa yang dimakan (□)?`, s]; },
+                    () => { const t = S.randInt(12, 20); const a = S.randInt(5, t - 5); return [`Jumlah penonton pertandingan ${t}. Jika ${a} adalah siswa, berapa penonton lain (□)?`, t - a]; },
+                    () => { const a = S.randInt(7, 15); const s = S.randInt(3, 6); return [`${S.randName()} menyusun ${a} lego. ${s} dilepas kembali. Berapa lego yang masih tersusun (□)?`, a - s]; },
                     () => { const a = S.randInt(1, 5); const result = S.randInt(a + 1, a + 5); return [`${a} + □ = ${result}. Angka dalam kotak adalah ...`, result - a]; },
                     () => { const result = S.randInt(4, 10); const a = S.randInt(1, result - 1); return [`□ + ${a} = ${result}. Isi kotak kosong adalah ...`, result - a]; },
                     () => { const a = S.randInt(5, 12); const b = S.randInt(1, a - 2); return [`${a} - □ = ${b}. Berapa angka dalam kotak?`, a - b]; },
@@ -367,6 +437,26 @@ function generateAljabarQuestions(grade, subMode) {
                 break;
             case 4: case 5:
                 questions = [
+                    () => { const a = S.randInt(10, 30); const t = S.randInt(a + 5, a + 25); return [`${S.randName()} memiliki ${a} koin dan mendapat beberapa lagi hingga total ${t}. Berapa koin tambahan (□)?`, t - a]; },
+                    () => { const b = S.randInt(3, 8); const t = b * S.randInt(5, 15); return [`${S.randName()} membagi hadiah sama banyak ke ${b} anak hingga total ${t}. Berapa hadiah awal (□)?`, t / b]; },
+                    () => { const a = S.randInt(50, 100); const s = S.randInt(15, 40); return [`Di gudang ada ${a} karung beras. Setelah diambil beberapa, tersisa ${a - s}. Berapa yang diambil (□)?`, s]; },
+                    () => { const d = S.randInt(3, 10); const q = S.randInt(5, 15); return [`Jumlah apel dibagi rata ke ${d} keranjang, tiap keranjang berisi ${q}. Berapa jumlah apel awal (□)?`, d * q]; },
+                    () => { const a = S.randInt(20, 40); const t = S.randInt(a + 10, a + 35); return [`${S.randName()} mengumpulkan ${a} poin lalu bermain hingga total ${t}. Berapa poin tambahan (□)?`, t - a]; },
+                    () => { const b = S.randInt(4, 9); const t = b * S.randInt(6, 12); return [`Sebuah kelas membeli ${t} buku dan dibagi rata ke ${b} kelompok. Berapa buku tiap kelompok (□)?`, t / b]; },
+                    () => { const a = S.randInt(60, 120); const s = S.randInt(20, 50); return [`${S.randName()} membawa ${a} permen dan membagikan beberapa hingga sisa ${a - s}. Berapa yang dibagikan (□)?`, s]; },
+                    () => { const d = S.randInt(4, 12); const q = S.randInt(6, 14); return [`Sebuah toko mengemas barang ke ${d} kotak dengan isi sama banyak, tiap kotak ${q}. Berapa barang awal (□)?`, d * q]; },
+                    () => { const a = S.randInt(15, 35); const t = S.randInt(a + 8, a + 28); return [`Saldo awal ${S.randName()} adalah ${a} ribu rupiah, lalu menjadi ${t}. Berapa uang yang ditambahkan (□)?`, t - a]; },
+                    () => { const b = S.randInt(3, 7); const t = b * S.randInt(10, 20); return [`Total kursi ${t} disusun sama banyak ke ${b} baris. Berapa kursi tiap baris (□)?`, t / b]; },
+                    () => { const a = S.randInt(70, 150); const s = S.randInt(25, 60); return [`Stok awal ada ${a} botol minum. Setelah terjual beberapa, tersisa ${a - s}. Berapa yang terjual (□)?`, s]; },
+                    () => { const d = S.randInt(5, 10); const q = S.randInt(8, 16); return [`Jumlah kelereng dibagi rata ke ${d} anak, tiap anak mendapat ${q}. Berapa kelereng awal (□)?`, d * q]; },
+                    () => { const a = S.randInt(25, 45); const t = S.randInt(a + 12, a + 40); return [`${S.randName()} menulis ${a} halaman lalu lanjut hingga ${t}. Berapa halaman tambahan (□)?`, t - a]; },
+                    () => { const b = S.randInt(4, 8); const t = b * S.randInt(7, 15); return [`${t} snack dibagi rata ke ${b} kantong. Berapa isi tiap kantong (□)?`, t / b]; },
+                    () => { const a = S.randInt(80, 140); const s = S.randInt(30, 70); return [`Tangki berisi ${a} liter air. Setelah dipakai, tersisa ${a - s}. Berapa liter yang digunakan (□)?`, s]; },
+                    () => { const d = S.randInt(6, 12); const q = S.randInt(5, 12); return [`Pabrik menghasilkan barang yang dikemas ke ${d} kotak, tiap kotak ${q}. Berapa total barang (□)?`, d * q]; },
+                    () => { const a = S.randInt(18, 38); const t = S.randInt(a + 10, a + 30); return [`${S.randName()} mengoleksi ${a} kartu dan bertambah hingga ${t}. Berapa kartu tambahan (□)?`, t - a]; },
+                    () => { const b = S.randInt(5, 9); const t = b * S.randInt(9, 18); return [`Sebanyak ${t} pensil dibagi rata ke ${b} siswa. Berapa pensil tiap siswa (□)?`, t / b]; },
+                    () => { const a = S.randInt(90, 160); const s = S.randInt(35, 80); return [`Gudang menyimpan ${a} dus, lalu mengirim sebagian hingga tersisa ${a - s}. Berapa dus yang dikirim (□)?`, s]; },
+                    () => { const d = S.randInt(7, 14); const q = S.randInt(6, 13); return [`Panitia membagi hadiah sama rata ke ${d} kelompok, tiap kelompok ${q}. Berapa hadiah awal (□)?`, d * q]; },
                     () => { const a = S.randInt(10, 30); const result = S.randInt(a + 5, a + 25); return [`${a} + □ = ${result}. Berapa angka dalam kotak?`, result - a]; },
                     () => { const b = S.randInt(3, 8); const result = S.randInt(20, 60); const a = result / b; return [`□ × ${b} = ${result}. Nilai kotak adalah ...`, a]; },
                     () => { const a = S.randInt(50, 100); const b = S.randInt(15, 40); return [`${a} - □ = ${a - b}. Angka dalam kotak adalah ...`, b]; },
@@ -375,6 +465,26 @@ function generateAljabarQuestions(grade, subMode) {
                 break;
             case 6:
                 questions = [
+                    () => { const a = S.randInt(5, 15); const b = S.randInt(2, 8); const c = S.randInt(5, 20); const r = a * b + c; return [`${S.randName()} membeli ${a} kantong permen, tiap kantong berisi □ permen, lalu mendapat bonus ${c} permen sehingga total ${r}. Berapa isi tiap kantong (□)?`, b]; },
+                    () => { const x = S.randInt(2, 10); const a = S.randInt(2, 5); return [`${S.randName()} memiliki beberapa kotak, tiap kotak berisi ${a} buku sehingga total ${a * x} buku. Berapa jumlah kotak (□)?`, x]; },
+                    () => { const r = S.randInt(100, 300); const a = S.randInt(20, 50); return [`Tabungan ${S.randName()} bertambah ${a} ribu rupiah hingga menjadi ${r} ribu. Berapa tabungan awalnya (□)?`, r - a]; },
+                    () => { const a = S.randInt(6, 12); const b = S.randInt(3, 9); const c = S.randInt(10, 30); const r = a * b + c; return [`Ada ${a} rak buku, tiap rak berisi □ buku, lalu ditambah ${c} buku menjadi ${r}. Berapa buku tiap rak (□)?`, b]; },
+                    () => { const x = S.randInt(3, 12); const a = S.randInt(4, 7); return [`Sebuah kelas memiliki ${a} baris kursi dengan jumlah sama sehingga total ${a * x} kursi. Berapa kursi tiap baris (□)?`, x]; },
+                    () => { const r = S.randInt(120, 260); const a = S.randInt(30, 80); return [`Stok awal barang ditambah ${a} unit menjadi ${r} unit. Berapa stok awal (□)?`, r - a]; },
+                    () => { const a = S.randInt(7, 14); const b = S.randInt(2, 6); const c = S.randInt(8, 25); const r = a * b + c; return [`${S.randName()} menyusun ${a} baris lego, tiap baris □ lego, lalu menambah ${c} lego hingga total ${r}. Berapa lego tiap baris (□)?`, b]; },
+                    () => { const x = S.randInt(2, 9); const a = S.randInt(5, 10); return [`Total ${a * x} botol air dibagi sama banyak ke beberapa dus, tiap dus berisi ${a}. Berapa jumlah dus (□)?`, x]; },
+                    () => { const r = S.randInt(150, 320); const a = S.randInt(40, 90); return [`Uang kas ditambah ${a} ribu rupiah sehingga menjadi ${r} ribu. Berapa uang kas awal (□)?`, r - a]; },
+                    () => { const a = S.randInt(8, 16); const b = S.randInt(3, 7); const c = S.randInt(12, 30); const r = a * b + c; return [`Ada ${a} meja, tiap meja terdapat □ kursi, lalu ditambah ${c} kursi menjadi ${r}. Berapa kursi tiap meja (□)?`, b]; },
+                    () => { const x = S.randInt(3, 10); const a = S.randInt(6, 12); return [`Jumlah pensil adalah ${a * x} dan disusun sama banyak ke beberapa kotak, tiap kotak ${a}. Berapa jumlah kotak (□)?`, x]; },
+                    () => { const r = S.randInt(110, 280); const a = S.randInt(25, 70); return [`Jumlah pengunjung bertambah ${a} orang sehingga total ${r}. Berapa jumlah awal pengunjung (□)?`, r - a]; },
+                    () => { const a = S.randInt(9, 18); const b = S.randInt(2, 5); const c = S.randInt(10, 35); const r = a * b + c; return [`${S.randName()} membawa ${a} kantong beras, tiap kantong □ kg, lalu ditambah ${c} kg sehingga total ${r} kg. Berapa kg tiap kantong (□)?`, b]; },
+                    () => { const x = S.randInt(4, 12); const a = S.randInt(3, 8); return [`Total ${a * x} kue dibagi rata ke beberapa piring, tiap piring berisi ${a}. Berapa jumlah piring (□)?`, x]; },
+                    () => { const r = S.randInt(130, 300); const a = S.randInt(35, 85); return [`Produksi hari ini bertambah ${a} unit sehingga total ${r}. Berapa produksi awal (□)?`, r - a]; },
+                    () => { const a = S.randInt(10, 20); const b = S.randInt(2, 6); const c = S.randInt(15, 40); const r = a * b + c; return [`Ada ${a} kotak mainan, tiap kotak □ mainan, lalu ditambah ${c} mainan menjadi ${r}. Berapa mainan tiap kotak (□)?`, b]; },
+                    () => { const x = S.randInt(5, 14); const a = S.randInt(4, 9); return [`Jumlah total kursi ${a * x} disusun ke beberapa baris, tiap baris ${a}. Berapa jumlah baris (□)?`, x]; },
+                    () => { const r = S.randInt(160, 350); const a = S.randInt(50, 100); return [`Persediaan awal ditambah ${a} unit menjadi ${r} unit. Berapa persediaan awal (□)?`, r - a]; },
+                    () => { const a = S.randInt(6, 15); const b = S.randInt(3, 8); const c = S.randInt(10, 25); const r = a * b + c; return [`${S.randName()} menyiapkan ${a} paket, tiap paket □ barang, lalu menambah ${c} barang hingga total ${r}. Berapa barang tiap paket (□)?`, b]; },
+                    () => { const x = S.randInt(3, 11); const a = S.randInt(7, 13); return [`Total ${a * x} tanaman ditanam sama banyak ke beberapa baris, tiap baris ${a}. Berapa jumlah baris (□)?`, x]; },
                     () => { const a = S.randInt(5, 15); const b = S.randInt(2, 8); const result = a * b + S.randInt(5, 20); return [`${a} × □ + ${result - a * b} = ${result}. Nilai kotak adalah ...`, b]; },
                     () => { const x = S.randInt(2, 10); const a = S.randInt(2, 5); const b = S.randInt(5, 20); return [`${a} × □ = ${a * x}. Berapa nilai kotak?`, x]; },
                     () => { const result = S.randInt(100, 300); const a = S.randInt(20, 50); return [`□ + ${a} = ${result}. Angka dalam kotak adalah ...`, result - a]; },
@@ -383,9 +493,29 @@ function generateAljabarQuestions(grade, subMode) {
         }
     }
     else if (subMode === "Nilai Variabel") {
-        switch(grade) {
+        switch (grade) {
             case 1: case 2: case 3:
                 questions = [
+                    () => { const x = S.randInt(2, 8); const b = S.randInt(1, 5); return [`Jika Ani memiliki n = ${x} permen lalu membeli ${b} lagi, berapa jumlah permen Ani sekarang?`, x + b]; },
+                    () => { const x = S.randInt(5, 12); const b = S.randInt(1, x - 2); return [`Jika Budi memiliki x = ${x} kelereng dan kehilangan ${b}, berapa sisa kelereng Budi?`, x - b]; },
+                    () => { const x = S.randInt(2, 6); const b = S.randInt(2, 4); return [`Jika satu kotak berisi y = ${x} buku dan ada ${b} kotak, berapa jumlah buku seluruhnya?`, x * b]; },
+                    () => { const x = S.randInt(2, 5); const a = S.randInt(3, 6); const b = S.randInt(1, 4); return [`Jika m = ${x}, hitung jumlah buah jika ada ${a} buah di meja dan ${b} buah di tas.`, a + x + b]; },
+                    () => { const x = S.randInt(3, 9); const b = S.randInt(2, 6); return [`Jika Dika mengumpulkan n = ${x} stiker setiap hari selama ${b} hari, berapa total stiker Dika?`, x * b]; },
+                    () => { const x = S.randInt(6, 15); const b = S.randInt(2, 5); return [`Jika Rina memiliki x = ${x} pensil lalu meminjamkan ${b} pensil, berapa sisa pensil Rina?`, x - b]; },
+                    () => { const x = S.randInt(4, 10); const b = S.randInt(3, 7); return [`Jika satu rak berisi y = ${x} buku dan ada ${b} rak, berapa jumlah seluruh buku?`, x * b]; },
+                    () => { const x = S.randInt(3, 8); const a = S.randInt(2, 5); return [`Jika m = ${x}, berapa jumlah kelereng jika ditambah ${a} kelereng lagi?`, x + a]; },
+                    () => { const x = S.randInt(7, 14); const b = S.randInt(3, 6); return [`Jika Sinta memiliki x = ${x} permen lalu membagikan ${b}, berapa permen yang tersisa?`, x - b]; },
+                    () => { const x = S.randInt(2, 6); const b = S.randInt(4, 8); return [`Jika satu kantong berisi y = ${x} apel dan ada ${b} kantong, berapa jumlah apel semuanya?`, x * b]; },
+                    () => { const x = S.randInt(5, 10); const a = S.randInt(3, 7); return [`Jika m = ${x}, hitung total balon jika ditambah ${a} balon lagi.`, x + a]; },
+                    () => { const x = S.randInt(6, 12); const b = S.randInt(2, 5); return [`Jika Andi memiliki x = ${x} buku dan memberikan ${b} ke temannya, berapa buku yang tersisa?`, x - b]; },
+                    () => { const x = S.randInt(3, 7); const b = S.randInt(3, 6); return [`Jika satu piring berisi y = ${x} kue dan ada ${b} piring, berapa jumlah kue seluruhnya?`, x * b]; },
+                    () => { const x = S.randInt(4, 9); const a = S.randInt(2, 6); return [`Jika m = ${x}, berapa jumlah uang jika ditambah ${a} ribu rupiah?`, x + a]; },
+                    () => { const x = S.randInt(8, 16); const b = S.randInt(3, 7); return [`Jika Rudi memiliki x = ${x} kelereng lalu kehilangan ${b}, berapa sisa kelerengnya?`, x - b]; },
+                    () => { const x = S.randInt(2, 5); const b = S.randInt(5, 9); return [`Jika satu kotak berisi y = ${x} pensil dan ada ${b} kotak, berapa jumlah pensil semuanya?`, x * b]; },
+                    () => { const x = S.randInt(5, 11); const a = S.randInt(3, 6); return [`Jika m = ${x}, hitung jumlah buku jika ditambah ${a} buku lagi.`, x + a]; },
+                    () => { const x = S.randInt(6, 13); const b = S.randInt(2, 6); return [`Jika Nisa memiliki x = ${x} stiker dan memberikan ${b}, berapa stiker yang tersisa?`, x - b]; },
+                    () => { const x = S.randInt(3, 6); const b = S.randInt(4, 8); return [`Jika satu rak berisi y = ${x} sepatu dan ada ${b} rak, berapa jumlah sepatu seluruhnya?`, x * b]; },
+                    () => { const x = S.randInt(7, 15); const a = S.randInt(2, 6); return [`Jika m = ${x}, berapa total pensil jika ditambah ${a} pensil lagi?`, x + a]; },
                     () => { const x = S.randInt(2, 8); const b = S.randInt(1, 5); return [`Jika n = ${x}, maka n + ${b} = ...`, x + b]; },
                     () => { const x = S.randInt(5, 12); const b = S.randInt(1, x - 2); return [`Jika x = ${x}, maka x - ${b} = ...`, x - b]; },
                     () => { const x = S.randInt(2, 6); const b = S.randInt(2, 4); return [`Jika y = ${x}, maka y × ${b} = ...`, x * b]; },
@@ -394,6 +524,26 @@ function generateAljabarQuestions(grade, subMode) {
                 break;
             case 4: case 5:
                 questions = [
+                    () => { const x = S.randInt(5, 15); const a = S.randInt(2, 5); const b = S.randInt(3, 10); return [`Jika setiap kotak berisi x = ${x} buku dan ada ${a} kotak, lalu ditambah ${b} buku, berapa jumlah buku seluruhnya?`, a * x + b]; },
+                    () => { const x = S.randInt(4, 12); const a = S.randInt(2, 6); const b = S.randInt(1, 5); return [`Jika setiap rak berisi n = ${x} buku dan ada ${a} rak, lalu ${b} buku dipinjam, berapa sisa buku?`, a * x - b]; },
+                    () => { const x = S.randInt(3, 10); const y = S.randInt(2, 8); return [`Jika Ani memiliki x = ${x} pensil dan Budi memiliki y = ${y} pensil, berapa jumlah pensil mereka?`, x + y]; },
+                    () => { const x = S.randInt(2, 6); const a = S.randInt(3, 8); return [`Jika satu kotak berisi p = ${x} apel dan ada ${a} kotak, berapa jumlah apel semuanya?`, a * x]; },
+                    () => { const x = S.randInt(6, 14); const a = S.randInt(2, 5); const b = S.randInt(4, 12); return [`Jika setiap kantong berisi x = ${x} permen dan ada ${a} kantong, lalu ditambah ${b} permen, berapa total permen?`, a * x + b]; },
+                    () => { const x = S.randInt(5, 13); const a = S.randInt(3, 7); const b = S.randInt(1, 6); return [`Jika tiap kotak berisi n = ${x} kue dan ada ${a} kotak, lalu ${b} kue dimakan, berapa sisa kue?`, a * x - b]; },
+                    () => { const x = S.randInt(4, 11); const y = S.randInt(3, 10); return [`Jika Rina memiliki x = ${x} buku dan Sinta memiliki y = ${y} buku, berapa selisih jumlah buku mereka?`, x - y]; },
+                    () => { const x = S.randInt(3, 7); const a = S.randInt(4, 8); return [`Jika satu paket berisi p = ${x} pensil dan ada ${a} paket, berapa jumlah pensil seluruhnya?`, a * x]; },
+                    () => { const x = S.randInt(7, 16); const a = S.randInt(2, 4); const b = S.randInt(5, 15); return [`Jika setiap dus berisi x = ${x} botol dan ada ${a} dus, lalu ditambah ${b} botol, berapa total botol?`, a * x + b]; },
+                    () => { const x = S.randInt(4, 10); const a = S.randInt(3, 6); const b = S.randInt(2, 7); return [`Jika setiap rak berisi n = ${x} buku dan ada ${a} rak, lalu ${b} buku hilang, berapa sisa buku?`, a * x - b]; },
+                    () => { const x = S.randInt(5, 12); const y = S.randInt(2, 8); return [`Jika di rumah ada x = ${x} kursi dan di aula ada y = ${y} kursi, berapa jumlah kursi seluruhnya?`, x + y]; },
+                    () => { const x = S.randInt(2, 6); const a = S.randInt(5, 9); return [`Jika satu keranjang berisi p = ${x} jeruk dan ada ${a} keranjang, berapa jumlah jeruk semuanya?`, a * x]; },
+                    () => { const x = S.randInt(6, 15); const a = S.randInt(2, 5); const b = S.randInt(3, 9); return [`Jika tiap kantong berisi x = ${x} beras dan ada ${a} kantong, lalu ditambah ${b} kg beras, berapa total beras?`, a * x + b]; },
+                    () => { const x = S.randInt(5, 14); const a = S.randInt(2, 6); const b = S.randInt(1, 5); return [`Jika setiap kotak berisi n = ${x} mainan dan ada ${a} kotak, lalu ${b} mainan rusak, berapa sisa mainan?`, a * x - b]; },
+                    () => { const x = S.randInt(3, 9); const y = S.randInt(4, 11); return [`Jika Ani memiliki x = ${x} permen dan Dika memiliki y = ${y} permen, berapa jumlah permen mereka?`, x + y]; },
+                    () => { const x = S.randInt(2, 7); const a = S.randInt(3, 10); return [`Jika satu kotak berisi p = ${x} spidol dan ada ${a} kotak, berapa jumlah spidol seluruhnya?`, a * x]; },
+                    () => { const x = S.randInt(8, 18); const a = S.randInt(2, 4); const b = S.randInt(6, 14); return [`Jika setiap rak berisi x = ${x} buku dan ada ${a} rak, lalu ditambah ${b} buku baru, berapa total buku?`, a * x + b]; },
+                    () => { const x = S.randInt(6, 13); const a = S.randInt(3, 7); const b = S.randInt(2, 6); return [`Jika tiap kotak berisi n = ${x} kelereng dan ada ${a} kotak, lalu ${b} kelereng hilang, berapa sisa kelereng?`, a * x - b]; },
+                    () => { const x = S.randInt(4, 10); const y = S.randInt(2, 7); return [`Jika di kelas ada x = ${x} meja dan y = ${y} meja di ruang lain, berapa selisih jumlah meja?`, x - y]; },
+                    () => { const x = S.randInt(3, 8); const a = S.randInt(4, 9); return [`Jika satu paket berisi p = ${x} penghapus dan ada ${a} paket, berapa jumlah penghapus semuanya?`, a * x]; },
                     () => { const x = S.randInt(5, 15); const a = S.randInt(2, 5); const b = S.randInt(3, 10); return [`Jika x = ${x}, maka ${a}x + ${b} = ...`, a * x + b]; },
                     () => { const x = S.randInt(3, 10); const a = S.randInt(2, 6); const b = S.randInt(1, 5); return [`Jika n = ${x}, maka ${a}n - ${b} = ...`, a * x - b]; },
                     () => { const x = S.randInt(4, 12); const y = S.randInt(2, 8); return [`Jika x = ${x} dan y = ${y}, maka x + y = ...`, x + y]; },
@@ -402,6 +552,26 @@ function generateAljabarQuestions(grade, subMode) {
                 break;
             case 6:
                 questions = [
+                    () => { const x = S.randInt(5, 15); const a = S.randInt(2, 6); const b = S.randInt(5, 15); const c = S.randInt(2, 8); return [`Jika setiap kotak berisi x = ${x} buku, ada ${a} kotak, ditambah ${b} buku dan ${c} buku rusak, berapa jumlah buku sekarang?`, a * x + b - c]; },
+                    () => { const x = S.randInt(4, 10); const y = S.randInt(3, 7); const a = S.randInt(2, 4); const b = S.randInt(2, 5); return [`Jika satu rak berisi x = ${x} buku dan rak lain berisi y = ${y} buku, dengan ${a} rak pertama dan ${b} rak kedua, berapa jumlah buku seluruhnya?`, a * x + b * y]; },
+                    () => { const x = S.randInt(4, 10); const a = S.randInt(2, 5); return [`Jika luas persegi dengan sisi m = ${x} meter, lalu dikurangi ${a} meter persegi untuk jalan, berapa sisa luasnya?`, x * x - a]; },
+                    () => { const x = S.randInt(6, 14); const a = S.randInt(2, 6); const b = S.randInt(6, 18); const c = S.randInt(3, 9); return [`Jika setiap kantong berisi x = ${x} kue, ada ${a} kantong, ditambah ${b} kue dan ${c} kue dimakan, berapa jumlah kue sekarang?`, a * x + b - c]; },
+                    () => { const x = S.randInt(5, 12); const y = S.randInt(2, 6); const a = S.randInt(2, 4); const b = S.randInt(2, 5); return [`Jika Ani memiliki x = ${x} permen dan Budi memiliki y = ${y} permen, Ani punya ${a} kantong dan Budi punya ${b} kantong, berapa jumlah permen mereka?`, a * x + b * y]; },
+                    () => { const x = S.randInt(3, 9); const a = S.randInt(2, 6); return [`Jika sebuah taman berbentuk persegi dengan sisi m = ${x} meter dan ${a} meter dipakai untuk kolam, berapa luas sisa taman?`, x * x - a]; },
+                    () => { const x = S.randInt(7, 15); const a = S.randInt(2, 5); const b = S.randInt(5, 20); const c = S.randInt(2, 10); return [`Jika satu dus berisi x = ${x} botol, ada ${a} dus, lalu ditambah ${b} botol dan ${c} botol pecah, berapa botol tersisa?`, a * x + b - c]; },
+                    () => { const x = S.randInt(4, 9); const y = S.randInt(3, 8); const a = S.randInt(2, 4); const b = S.randInt(2, 6); return [`Jika rak A berisi x = ${x} buku dan rak B berisi y = ${y} buku, ada ${a} rak A dan ${b} rak B, berapa jumlah buku seluruhnya?`, a * x + b * y]; },
+                    () => { const x = S.randInt(5, 11); const a = S.randInt(2, 5); return [`Jika panjang sisi lantai berbentuk persegi adalah m = ${x} meter, lalu ${a} meter persegi dipakai untuk meja, berapa luas sisa lantai?`, x * x - a]; },
+                    () => { const x = S.randInt(6, 13); const a = S.randInt(2, 6); const b = S.randInt(8, 22); const c = S.randInt(3, 10); return [`Jika setiap rak berisi x = ${x} buku, ada ${a} rak, lalu ditambah ${b} buku dan ${c} buku hilang, berapa jumlah buku sekarang?`, a * x + b - c]; },
+                    () => { const x = S.randInt(5, 12); const y = S.randInt(2, 7); const a = S.randInt(2, 4); const b = S.randInt(2, 6); return [`Jika satu kotak berisi x = ${x} kelereng dan kotak lain berisi y = ${y} kelereng, dengan ${a} kotak pertama dan ${b} kotak kedua, berapa jumlah kelereng seluruhnya?`, a * x + b * y]; },
+                    () => { const x = S.randInt(4, 10); const a = S.randInt(2, 6); return [`Jika luas halaman berbentuk persegi dengan sisi m = ${x} meter dan ${a} meter persegi digunakan untuk jalan, berapa luas halaman yang tersisa?`, x * x - a]; },
+                    () => { const x = S.randInt(8, 16); const a = S.randInt(2, 6); const b = S.randInt(10, 25); const c = S.randInt(4, 12); return [`Jika satu karung berisi x = ${x} kg beras, ada ${a} karung, lalu ditambah ${b} kg dan ${c} kg terpakai, berapa kg beras sekarang?`, a * x + b - c]; },
+                    () => { const x = S.randInt(4, 9); const y = S.randInt(3, 7); const a = S.randInt(2, 5); const b = S.randInt(2, 6); return [`Jika rak kecil berisi x = ${x} buku dan rak besar berisi y = ${y} buku, ada ${a} rak kecil dan ${b} rak besar, berapa jumlah buku seluruhnya?`, a * x + b * y]; },
+                    () => { const x = S.randInt(6, 12); const a = S.randInt(2, 5); return [`Jika sebuah lapangan berbentuk persegi dengan sisi m = ${x} meter dan ${a} meter persegi dipakai untuk panggung, berapa luas lapangan yang tersisa?`, x * x - a]; },
+                    () => { const x = S.randInt(9, 18); const a = S.randInt(2, 6); const b = S.randInt(12, 30); const c = S.randInt(5, 15); return [`Jika satu kotak berisi x = ${x} botol, ada ${a} kotak, lalu ditambah ${b} botol dan ${c} botol bocor, berapa botol yang tersisa?`, a * x + b - c]; },
+                    () => { const x = S.randInt(5, 10); const y = S.randInt(4, 9); const a = S.randInt(2, 4); const b = S.randInt(3, 6); return [`Jika rak depan berisi x = ${x} sepatu dan rak belakang berisi y = ${y} sepatu, ada ${a} rak depan dan ${b} rak belakang, berapa jumlah sepatu seluruhnya?`, a * x + b * y]; },
+                    () => { const x = S.randInt(4, 11); const a = S.randInt(2, 6); return [`Jika luas kolam berbentuk persegi dengan sisi m = ${x} meter dan ${a} meter persegi tertutup daun, berapa luas kolam yang bersih?`, x * x - a]; },
+                    () => { const x = S.randInt(7, 15); const a = S.randInt(2, 5); const b = S.randInt(10, 22); const c = S.randInt(4, 12); return [`Jika satu rak berisi x = ${x} mainan, ada ${a} rak, lalu ditambah ${b} mainan dan ${c} mainan rusak, berapa mainan yang tersisa?`, a * x + b - c]; },
+                    () => { const x = S.randInt(5, 9); const y = S.randInt(3, 8); const a = S.randInt(2, 4); const b = S.randInt(2, 6); return [`Jika lemari A berisi x = ${x} baju dan lemari B berisi y = ${y} baju, ada ${a} lemari A dan ${b} lemari B, berapa jumlah baju seluruhnya?`, a * x + b * y]; },
                     () => { const x = S.randInt(5, 15); const a = S.randInt(2, 6); const b = S.randInt(5, 15); const c = S.randInt(2, 8); return [`Jika x = ${x}, maka ${a}x + ${b} - ${c} = ...`, a * x + b - c]; },
                     () => { const x = S.randInt(3, 8); const y = S.randInt(2, 6); const a = S.randInt(2, 4); const b = S.randInt(2, 5); return [`Jika x = ${x} dan y = ${y}, maka ${a}x + ${b}y = ...`, a * x + b * y]; },
                     () => { const x = S.randInt(4, 10); const a = S.randInt(2, 5); return [`Jika m = ${x}, maka m² - ${a} = ...`, x * x - a]; },
@@ -410,9 +580,29 @@ function generateAljabarQuestions(grade, subMode) {
         }
     }
     else if (subMode === "Persamaan Sederhana") {
-        switch(grade) {
+        switch (grade) {
             case 1: case 2: case 3:
                 questions = [
+                    () => { const a = S.randInt(2, 6); const b = S.randInt(a + 1, a + 8); return [`Andi memiliki x kelereng, lalu diberi ${a} kelereng sehingga totalnya menjadi ${b}. Berapa kelereng Andi semula?`, b - a]; },
+                    () => { const x = S.randInt(3, 10); const a = S.randInt(1, x - 1); return [`Budi mempunyai x pensil, lalu meminjamkan ${a} pensil sehingga tersisa ${x - a}. Berapa jumlah pensil Budi semula?`, x]; },
+                    () => { const b = S.randInt(2, 5); const result = S.randInt(6, 15); return [`Jumlah buku Dina dan n buku milik Rani adalah ${result}. Jika Dina memiliki ${result - b} buku, berapa buku milik Rani?`, b]; },
+                    () => { const a = S.randInt(3, 8); const b = S.randInt(5, 15); return [`Ani memiliki ${a} permen, lalu membeli y permen sehingga jumlahnya menjadi ${a + b}. Berapa permen yang dibeli Ani?`, b]; },
+                    () => { const a = S.randInt(2, 6); const b = S.randInt(a + 2, a + 9); return [`Sebuah kotak berisi x bola, kemudian ditambah ${a} bola sehingga totalnya ${b}. Berapa bola awal dalam kotak?`, b - a]; },
+                    () => { const x = S.randInt(4, 12); const a = S.randInt(1, x - 1); return [`Sebuah rak awalnya berisi x buku, lalu ${a} buku diambil sehingga tersisa ${x - a} buku. Berapa buku semula?`, x]; },
+                    () => { const b = S.randInt(2, 6); const result = S.randInt(7, 18); return [`Total kelereng Riko dan n kelereng Doni adalah ${result}. Jika Riko memiliki ${result - b} kelereng, berapa kelereng Doni?`, b]; },
+                    () => { const a = S.randInt(4, 9); const b = S.randInt(6, 16); return [`Jumlah apel Sinta bertambah menjadi ${a + b} setelah ia membeli y apel. Jika sebelumnya ia punya ${a} apel, berapa apel yang dibeli?`, b]; },
+                    () => { const a = S.randInt(3, 7); const b = S.randInt(a + 3, a + 10); return [`Uang Dina bertambah ${a} ribu rupiah sehingga totalnya menjadi ${b} ribu rupiah. Berapa uang Dina semula?`, b - a]; },
+                    () => { const x = S.randInt(5, 15); const a = S.randInt(2, x - 2); return [`Kotak mainan awalnya berisi x mainan, lalu ${a} mainan rusak sehingga tersisa ${x - a}. Berapa mainan semula?`, x]; },
+                    () => { const b = S.randInt(3, 7); const result = S.randInt(10, 20); return [`Jumlah pensil Tono dan n pensil milik Bima adalah ${result}. Jika Tono memiliki ${result - b} pensil, berapa pensil Bima?`, b]; },
+                    () => { const a = S.randInt(2, 8); const b = S.randInt(5, 14); return [`Di meja terdapat ${a} buku, lalu ditambah y buku sehingga totalnya ${a + b} buku. Berapa buku yang ditambahkan?`, b]; },
+                    () => { const a = S.randInt(3, 6); const b = S.randInt(a + 4, a + 11); return [`Jumlah koin dalam dompet setelah ditambah ${a} koin menjadi ${b} koin. Berapa koin awalnya?`, b - a]; },
+                    () => { const x = S.randInt(6, 14); const a = S.randInt(2, x - 2); return [`Tangki air awalnya berisi x liter air, lalu ${a} liter digunakan sehingga tersisa ${x - a} liter. Berapa liter air semula?`, x]; },
+                    () => { const b = S.randInt(2, 6); const result = S.randInt(8, 16); return [`Jumlah buku di rak A dan n buku di rak B adalah ${result}. Jika rak A berisi ${result - b} buku, berapa buku di rak B?`, b]; },
+                    () => { const a = S.randInt(3, 7); const b = S.randInt(6, 15); return [`Rani memiliki ${a} bunga, lalu membeli y bunga sehingga total bunganya ${a + b}. Berapa bunga yang dibeli Rani?`, b]; },
+                    () => { const a = S.randInt(2, 6); const b = S.randInt(a + 5, a + 12); return [`Jumlah kursi di ruangan setelah ditambah ${a} kursi menjadi ${b} kursi. Berapa jumlah kursi semula?`, b - a]; },
+                    () => { const x = S.randInt(5, 13); const a = S.randInt(1, x - 2); return [`Gudang berisi x karung beras, lalu ${a} karung diambil sehingga tersisa ${x - a}. Berapa karung semula?`, x]; },
+                    () => { const b = S.randInt(3, 8); const result = S.randInt(9, 20); return [`Jumlah mangga milik Ani dan n mangga milik Sari adalah ${result}. Jika Ani memiliki ${result - b} mangga, berapa mangga Sari?`, b]; },
+                    () => { const a = S.randInt(4, 8); const b = S.randInt(7, 17); return [`Awalnya ada ${a} botol minum, lalu ditambah y botol sehingga jumlahnya ${a + b}. Berapa botol yang ditambahkan?`, b]; },
                     () => { const a = S.randInt(2, 6); const b = S.randInt(a + 1, a + 8); return [`x + ${a} = ${b}. Nilai x = ...`, b - a]; },
                     () => { const x = S.randInt(3, 10); const a = S.randInt(1, x - 1); return [`x - ${a} = ${x - a}. Nilai x = ...`, x]; },
                     () => { const b = S.randInt(2, 5); const result = S.randInt(6, 15); return [`${result - b} + n = ${result}. Nilai n = ...`, b]; },
@@ -421,6 +611,26 @@ function generateAljabarQuestions(grade, subMode) {
                 break;
             case 4: case 5:
                 questions = [
+                    () => { const x = S.randInt(3, 12); const a = S.randInt(2, 5); return [`Setiap kotak berisi x pensil. Jika ada ${a} kotak dan total pensil ${a * x}, berapa nilai x?`, x]; },
+                    () => { const x = S.randInt(4, 10); const a = S.randInt(2, 4); const b = S.randInt(5, 15); return [`${a} kantong masing-masing berisi x kelereng. Setelah ditambah ${b} kelereng, jumlahnya ${a * x + b}. Berapa kelereng di tiap kantong?`, x]; },
+                    () => { const x = S.randInt(5, 15); const a = S.randInt(2, 5); const b = S.randInt(3, 10); return [`Ada ${a} rak berisi x buku. Setelah ${b} buku diambil, jumlahnya ${a * x - b}. Berapa buku di tiap rak?`, x]; },
+                    () => { const x = S.randInt(6, 18); const d = S.randInt(2, 6); const q = x / d; if (Number.isInteger(q)) return [`Jumlah kue adalah x buah. Jika dibagi rata ke ${d} anak, tiap anak mendapat ${q} kue. Berapa jumlah kue semula?`, x]; return [`2 kotak berisi total ${2 * S.randInt(3, 10)} bola. Berapa isi tiap kotak?`, S.randInt(3, 10)]; },
+                    () => { const x = S.randInt(3, 12); const a = S.randInt(2, 6); return [`Satu kantong berisi x permen. Jika ada ${a} kantong dan total permen ${a * x}, berapa permen per kantong?`, x]; },
+                    () => { const x = S.randInt(4, 10); const a = S.randInt(2, 5); const b = S.randInt(4, 12); return [`${a} kotak berisi x apel. Setelah ditambah ${b} apel, totalnya ${a * x + b}. Berapa apel tiap kotak?`, x]; },
+                    () => { const x = S.randInt(5, 14); const a = S.randInt(2, 4); const b = S.randInt(3, 9); return [`Terdapat ${a} dus berisi x botol. Setelah ${b} botol rusak, tersisa ${a * x - b} botol. Berapa botol tiap dus?`, x]; },
+                    () => { const x = S.randInt(6, 18); const d = S.randInt(2, 6); const q = x / d; if (Number.isInteger(q)) return [`Sejumlah x buku dibagi rata ke ${d} rak, masing-masing berisi ${q} buku. Berapa jumlah buku semula?`, x]; return [`3 kantong berisi total ${3 * S.randInt(4, 10)} kelereng. Berapa isi tiap kantong?`, S.randInt(4, 10)]; },
+                    () => { const x = S.randInt(3, 11); const a = S.randInt(2, 5); return [`Satu meja memiliki x kursi. Jika ada ${a} meja dan total kursi ${a * x}, berapa kursi per meja?`, x]; },
+                    () => { const x = S.randInt(4, 12); const a = S.randInt(2, 4); const b = S.randInt(5, 13); return [`${a} kotak berisi x buku tulis. Setelah ditambah ${b} buku, jumlahnya ${a * x + b}. Berapa buku di tiap kotak?`, x]; },
+                    () => { const x = S.randInt(5, 15); const a = S.randInt(2, 6); const b = S.randInt(2, 8); return [`Ada ${a} kantong berisi x kelereng. Setelah ${b} kelereng hilang, jumlahnya ${a * x - b}. Berapa kelereng per kantong?`, x]; },
+                    () => { const x = S.randInt(6, 18); const d = S.randInt(2, 6); const q = x / d; if (Number.isInteger(q)) return [`x jeruk dibagi sama rata ke ${d} anak, masing-masing mendapat ${q} jeruk. Berapa jeruk semula?`, x]; return [`4 dus berisi total ${4 * S.randInt(3, 9)} botol. Berapa botol per dus?`, S.randInt(3, 9)]; },
+                    () => { const x = S.randInt(3, 12); const a = S.randInt(2, 5); return [`Setiap rak berisi x buku. Jika terdapat ${a} rak dan total buku ${a * x}, berapa buku per rak?`, x]; },
+                    () => { const x = S.randInt(4, 11); const a = S.randInt(2, 4); const b = S.randInt(6, 14); return [`${a} kotak berisi x mainan. Setelah ditambah ${b} mainan, jumlahnya ${a * x + b}. Berapa mainan tiap kotak?`, x]; },
+                    () => { const x = S.randInt(5, 13); const a = S.randInt(2, 5); const b = S.randInt(3, 9); return [`Ada ${a} kantong berisi x koin. Setelah ${b} koin diambil, totalnya ${a * x - b}. Berapa koin tiap kantong?`, x]; },
+                    () => { const x = S.randInt(6, 18); const d = S.randInt(2, 6); const q = x / d; if (Number.isInteger(q)) return [`x liter air dibagi ke ${d} ember, masing-masing berisi ${q} liter. Berapa liter air semula?`, x]; return [`5 kotak berisi total ${5 * S.randInt(2, 8)} bola. Berapa bola tiap kotak?`, S.randInt(2, 8)]; },
+                    () => { const x = S.randInt(3, 10); const a = S.randInt(2, 6); return [`Satu paket berisi x pensil. Jika ada ${a} paket dan total pensil ${a * x}, berapa pensil per paket?`, x]; },
+                    () => { const x = S.randInt(4, 12); const a = S.randInt(2, 4); const b = S.randInt(5, 15); return [`${a} rak berisi x buku. Setelah ditambah ${b} buku, totalnya ${a * x + b}. Berapa buku tiap rak?`, x]; },
+                    () => { const x = S.randInt(5, 14); const a = S.randInt(2, 5); const b = S.randInt(2, 7); return [`Ada ${a} dus berisi x botol. Setelah ${b} botol pecah, tersisa ${a * x - b}. Berapa botol tiap dus?`, x]; },
+                    () => { const x = S.randInt(6, 18); const d = S.randInt(2, 6); const q = x / d; if (Number.isInteger(q)) return [`x permen dibagikan sama rata ke ${d} anak, masing-masing mendapat ${q} permen. Berapa permen semula?`, x]; return [`6 kantong berisi total ${6 * S.randInt(3, 7)} kelereng. Berapa isi tiap kantong?`, S.randInt(3, 7)]; },
                     () => { const x = S.randInt(3, 12); const a = S.randInt(2, 5); const result = a * x; return [`${a}x = ${result}. Nilai x = ...`, x]; },
                     () => { const x = S.randInt(4, 10); const a = S.randInt(2, 4); const b = S.randInt(5, 15); return [`${a}x + ${b} = ${a * x + b}. Nilai x = ...`, x]; },
                     () => { const x = S.randInt(5, 15); const a = S.randInt(2, 5); const b = S.randInt(3, 10); return [`${a}x - ${b} = ${a * x - b}. Nilai x = ...`, x]; },
@@ -429,6 +639,26 @@ function generateAljabarQuestions(grade, subMode) {
                 break;
             case 6:
                 questions = [
+                    () => { const x = S.randInt(2, 10); const a = S.randInt(2, 6); const b = S.randInt(3, 12); return [`Ani membeli ${a} kantong permen, tiap kantong berisi x permen. Setelah ditambah ${b} permen, jumlahnya ${a * x + b}. Berapa permen tiap kantong?`, x]; },
+                    () => { const x = S.randInt(3, 8); const a = S.randInt(3, 6); const b = S.randInt(2, 5); return [`Ada ${a} kotak berisi x pensil. Setelah ${b} pensil diambil, jumlahnya ${a * x - b}. Berapa pensil tiap kotak?`, x]; },
+                    () => { const x = S.randInt(4, 12); const a = S.randInt(2, 4); return [`Terdapat ${a} rak buku, masing-masing berisi x buku. Jika total buku ${a * x}, berapa buku tiap rak?`, x]; },
+                    () => { const x = S.randInt(6, 18); const a = S.randInt(2, 6); const q = x / a; if (Number.isInteger(q)) return [`Sebanyak x kue dibagi rata ke ${a} anak, masing-masing mendapat ${q} kue. Berapa jumlah kue semula?`, x]; return [`2 kotak berisi total ${2 * S.randInt(3, 10)} bola. Berapa isi tiap kotak?`, S.randInt(3, 10)]; },
+                    () => { const x = S.randInt(2, 10); const a = S.randInt(2, 5); const b = S.randInt(4, 14); return [`Budi memiliki ${a} dus berisi x botol. Setelah ditambah ${b} botol, jumlahnya ${a * x + b}. Berapa botol tiap dus?`, x]; },
+                    () => { const x = S.randInt(3, 9); const a = S.randInt(3, 6); const b = S.randInt(2, 6); return [`Ada ${a} kantong berisi x kelereng. Setelah ${b} kelereng hilang, totalnya ${a * x - b}. Berapa kelereng tiap kantong?`, x]; },
+                    () => { const x = S.randInt(4, 12); const a = S.randInt(2, 4); return [`Satu kelas memiliki ${a} meja. Jika tiap meja berisi x buku dan total buku ${a * x}, berapa buku di tiap meja?`, x]; },
+                    () => { const x = S.randInt(8, 20); const a = S.randInt(2, 5); const q = x / a; if (Number.isInteger(q)) return [`x jeruk dibagikan sama rata ke ${a} keranjang, tiap keranjang berisi ${q} jeruk. Berapa jeruk semula?`, x]; return [`3 dus berisi total ${3 * S.randInt(4, 9)} apel. Berapa apel tiap dus?`, S.randInt(4, 9)]; },
+                    () => { const x = S.randInt(2, 9); const a = S.randInt(2, 6); const b = S.randInt(3, 10); return [`Rani memiliki ${a} kotak mainan, masing-masing berisi x mainan. Setelah ditambah ${b} mainan, jumlahnya ${a * x + b}. Berapa mainan tiap kotak?`, x]; },
+                    () => { const x = S.randInt(3, 10); const a = S.randInt(3, 5); const b = S.randInt(2, 7); return [`Terdapat ${a} rak sepatu berisi x pasang sepatu. Setelah ${b} pasang diambil, totalnya ${a * x - b}. Berapa pasang sepatu tiap rak?`, x]; },
+                    () => { const x = S.randInt(4, 12); const a = S.randInt(2, 4); return [`Ada ${a} kotak kapur tulis, tiap kotak berisi x kapur. Jika total kapur ${a * x}, berapa kapur tiap kotak?`, x]; },
+                    () => { const x = S.randInt(6, 18); const a = S.randInt(2, 6); const q = x / a; if (Number.isInteger(q)) return [`x liter air dibagi rata ke ${a} ember, masing-masing berisi ${q} liter. Berapa liter air semula?`, x]; return [`4 ember berisi total ${4 * S.randInt(3, 8)} liter air. Berapa liter tiap ember?`, S.randInt(3, 8)]; },
+                    () => { const x = S.randInt(2, 10); const a = S.randInt(2, 5); const b = S.randInt(5, 15); return [`Sinta menyusun ${a} rak buku, tiap rak berisi x buku. Setelah ditambah ${b} buku, jumlahnya ${a * x + b}. Berapa buku tiap rak?`, x]; },
+                    () => { const x = S.randInt(3, 9); const a = S.randInt(3, 6); const b = S.randInt(2, 6); return [`Ada ${a} kantin kecil, masing-masing memiliki x meja. Setelah ${b} meja dipindah, totalnya ${a * x - b}. Berapa meja tiap kantin?`, x]; },
+                    () => { const x = S.randInt(4, 11); const a = S.randInt(2, 4); return [`Di gudang terdapat ${a} tumpukan karung, tiap tumpukan berisi x karung. Jika totalnya ${a * x}, berapa karung tiap tumpukan?`, x]; },
+                    () => { const x = S.randInt(6, 20); const a = S.randInt(2, 5); const q = x / a; if (Number.isInteger(q)) return [`x buku dibagi sama rata ke ${a} siswa, masing-masing mendapat ${q} buku. Berapa buku semula?`, x]; return [`5 paket berisi total ${5 * S.randInt(2, 7)} buku. Berapa buku tiap paket?`, S.randInt(2, 7)]; },
+                    () => { const x = S.randInt(2, 9); const a = S.randInt(2, 6); const b = S.randInt(4, 11); return [`Terdapat ${a} laci berisi x alat tulis. Setelah ditambah ${b} alat tulis, jumlahnya ${a * x + b}. Berapa alat tulis tiap laci?`, x]; },
+                    () => { const x = S.randInt(3, 10); const a = S.randInt(3, 5); const b = S.randInt(2, 6); return [`Ada ${a} rak berisi x botol minum. Setelah ${b} botol rusak, tersisa ${a * x - b}. Berapa botol tiap rak?`, x]; },
+                    () => { const x = S.randInt(4, 12); const a = S.randInt(2, 4); return [`Sebuah toko memiliki ${a} etalase, masing-masing berisi x barang. Jika total barang ${a * x}, berapa barang tiap etalase?`, x]; },
+                    () => { const x = S.randInt(6, 18); const a = S.randInt(2, 6); const q = x / a; if (Number.isInteger(q)) return [`x permen dibagi rata ke ${a} anak, masing-masing mendapat ${q} permen. Berapa permen semula?`, x]; return [`6 kantong berisi total ${6 * S.randInt(3, 6)} permen. Berapa permen tiap kantong?`, S.randInt(3, 6)]; },
                     () => { const x = S.randInt(2, 10); const a = S.randInt(2, 6); const b = S.randInt(3, 12); return [`${a}x + ${b} = ${a * x + b}. Nilai x = ...`, x]; },
                     () => { const x = S.randInt(3, 8); const a = S.randInt(3, 6); const b = S.randInt(2, 5); const c = S.randInt(5, 15); return [`${a}x - ${b} = ${a * x - b}. Nilai x = ...`, x]; },
                     () => { const x = S.randInt(4, 12); const a = S.randInt(2, 4); const b = S.randInt(10, 30); return [`${a}x = ${a * x}. Nilai x = ...`, x]; },
@@ -438,17 +668,56 @@ function generateAljabarQuestions(grade, subMode) {
         }
     }
     else if (subMode === "Pola Bilangan") {
-        switch(grade) {
+        switch (grade) {
             case 1: case 2: case 3:
                 questions = [
+                    () => { const start = S.randInt(1, 5); const step = S.randInt(1, 3); return [`Ani menata kelereng berurutan: ${start}, ${start + step}, ${start + 2 * step}, ${start + 3 * step}, ... Kelereng berikutnya berjumlah ...`, start + 4 * step]; },
+                    () => { const start = S.randInt(2, 6); const step = S.randInt(2, 4); return [`Jumlah kursi di tiap baris adalah ${start}, ${start + step}, ${start + 2 * step}, ... Banyak kursi pada baris ke-4 adalah ...`, start + 3 * step]; },
+                    () => { const start = S.randInt(1, 3); const step = 2; return [`Jumlah lampu menyala bertambah dengan pola ganjil: ${start}, ${start + step}, ${start + 2 * step}, ... Jumlah lampu berikutnya adalah ...`, start + 3 * step]; },
+                    () => { const start = S.randInt(3, 7); const step = S.randInt(1, 3); return [`Rani mencatat jumlah buku per hari: ${start}, ${start + step}, ${start + 2 * step}, ${start + 3 * step}, ... Jumlah buku hari berikutnya adalah ...`, start + 4 * step]; },
+                    () => { const start = S.randInt(2, 5); const step = S.randInt(2, 5); return [`Jumlah pengunjung toko tiap jam adalah ${start}, ${start + step}, ${start + 2 * step}, ... Banyak pengunjung pada jam ke-4 adalah ...`, start + 3 * step]; },
+                    () => { const start = S.randInt(1, 4); const step = 2; return [`Jumlah koin yang dikumpulkan membentuk pola: ${start}, ${start + step}, ${start + 2 * step}, ... Jumlah koin berikutnya adalah ...`, start + 3 * step]; },
+                    () => { const start = S.randInt(4, 8); const step = S.randInt(1, 4); return [`Banyak pohon di tiap baris adalah ${start}, ${start + step}, ${start + 2 * step}, ${start + 3 * step}, ... Banyak pohon selanjutnya adalah ...`, start + 4 * step]; },
+                    () => { const start = S.randInt(2, 6); const step = S.randInt(3, 6); return [`Tabungan Dina bertambah teratur: ${start}, ${start + step}, ${start + 2 * step}, ... Tabungan pada urutan ke-4 adalah ...`, start + 3 * step]; },
+                    () => { const start = S.randInt(1, 5); const step = 1; return [`Jumlah siswa hadir bertambah satu-satu: ${start}, ${start + step}, ${start + 2 * step}, ... Jumlah siswa berikutnya adalah ...`, start + 3 * step]; },
+                    () => { const start = S.randInt(3, 6); const step = 2; return [`Jumlah langkah Riko setiap hari: ${start}, ${start + step}, ${start + 2 * step}, ${start + 3 * step}, ... Jumlah langkah berikutnya adalah ...`, start + 4 * step]; },
+                    () => { const start = S.randInt(2, 4); const step = S.randInt(2, 3); return [`Jumlah apel di keranjang bertambah: ${start}, ${start + step}, ${start + 2 * step}, ... Banyak apel pada urutan ke-4 adalah ...`, start + 3 * step]; },
+                    () => { const start = S.randInt(5, 9); const step = S.randInt(1, 3); return [`Jumlah halaman yang dibaca tiap hari: ${start}, ${start + step}, ${start + 2 * step}, ${start + 3 * step}, ... Halaman hari berikutnya adalah ...`, start + 4 * step]; },
+                    () => { const start = S.randInt(1, 3); const step = 2; return [`Pola loncatan katak adalah ${start}, ${start + step}, ${start + 2 * step}, ... Loncatan berikutnya adalah ...`, start + 3 * step]; },
+                    () => { const start = S.randInt(4, 7); const step = S.randInt(2, 4); return [`Jumlah kursi di aula disusun bertambah: ${start}, ${start + step}, ${start + 2 * step}, ... Jumlah kursi ke-4 adalah ...`, start + 3 * step]; },
+                    () => { const start = S.randInt(2, 5); const step = 3; return [`Jumlah kue yang dipanggang bertahap: ${start}, ${start + step}, ${start + 2 * step}, ${start + 3 * step}, ... Jumlah kue berikutnya adalah ...`, start + 4 * step]; },
+                    () => { const start = S.randInt(1, 4); const step = S.randInt(1, 2); return [`Jumlah pensil di kotak bertambah: ${start}, ${start + step}, ${start + 2 * step}, ... Banyak pensil berikutnya adalah ...`, start + 3 * step]; },
+                    () => { const start = S.randInt(3, 6); const step = 2; return [`Jumlah tanaman yang tumbuh tiap minggu: ${start}, ${start + step}, ${start + 2 * step}, ${start + 3 * step}, ... Jumlah tanaman selanjutnya adalah ...`, start + 4 * step]; },
+                    () => { const start = S.randInt(2, 6); const step = S.randInt(2, 5); return [`Banyak botol minum disusun berurutan: ${start}, ${start + step}, ${start + 2 * step}, ... Banyak botol ke-4 adalah ...`, start + 3 * step]; },
+                    () => { const start = S.randInt(1, 5); const step = 2; return [`Jumlah bintang yang terlihat membentuk pola: ${start}, ${start + step}, ${start + 2 * step}, ... Jumlah bintang berikutnya adalah ...`, start + 3 * step]; },
+                    () => { const start = S.randInt(4, 8); const step = S.randInt(1, 3); return [`Jumlah kotak yang disusun bertambah: ${start}, ${start + step}, ${start + 2 * step}, ${start + 3 * step}, ... Jumlah kotak selanjutnya adalah ...`, start + 4 * step]; },
                     () => { const start = S.randInt(1, 5); const step = S.randInt(1, 3); return [`Pola: ${start}, ${start + step}, ${start + 2 * step}, ${start + 3 * step}, ... Bilangan selanjutnya adalah ...`, start + 4 * step]; },
                     () => { const start = S.randInt(2, 6); const step = S.randInt(2, 4); return [`Pola: ${start}, ${start + step}, ${start + 2 * step}, ... Bilangan ke-4 adalah ...`, start + 3 * step]; },
                     () => { const start = S.randInt(1, 3); const step = 2; return [`Pola bilangan ganjil: ${start}, ${start + step}, ${start + 2 * step}, ... Bilangan selanjutnya adalah ...`, start + 3 * step]; },
-                    () => { const start = 2; const step = 2; return [`Pola bilangan genap: 2, 4, 6, 8, ... Bilangan selanjutnya adalah ...`, 10]; },
                 ];
                 break;
             case 4: case 5:
                 questions = [
+                    () => { const start = S.randInt(1, 5); const step = S.randInt(3, 6); return [`Ani menyusun balok dengan pola jumlah: ${start}, ${start + step}, ${start + 2 * step}, ... Banyak balok pada susunan ke-5 adalah ...`, start + 4 * step]; },
+                    () => { const a = S.randInt(2, 5); return [`Jumlah koin Rani berlipat ganda: ${a}, ${a * 2}, ${a * 4}, ${a * 8}, ... Jumlah koin berikutnya adalah ...`, a * 16]; },
+                    () => { const start = S.randInt(5, 10); const step = S.randInt(4, 8); return [`Jumlah kursi di aula bertambah teratur: ${start}, ${start + step}, ${start + 2 * step}, ... Banyak kursi pada baris ke-6 adalah ...`, start + 5 * step]; },
+                    () => { const base = S.randInt(2, 4); return [`Jumlah bakteri berkembang: 1, ${base}, ${base * base}, ${base * base * base}, ... Jumlah bakteri berikutnya adalah ...`, base * base * base * base]; },
+                    () => { const start = S.randInt(2, 6); const step = S.randInt(3, 7); return [`Banyak pengunjung pameran tiap jam: ${start}, ${start + step}, ${start + 2 * step}, ... Jumlah pengunjung jam ke-5 adalah ...`, start + 4 * step]; },
+                    () => { const a = S.randInt(3, 6); return [`Tabungan Dina selalu dua kali lipat: ${a}, ${a * 2}, ${a * 4}, ${a * 8}, ... Tabungan berikutnya adalah ...`, a * 16]; },
+                    () => { const start = S.randInt(6, 12); const step = S.randInt(5, 9); return [`Jumlah halaman buku yang dibaca per hari: ${start}, ${start + step}, ${start + 2 * step}, ... Halaman pada hari ke-6 adalah ...`, start + 5 * step]; },
+                    () => { const base = S.randInt(2, 5); return [`Jumlah sel membelah diri: 1, ${base}, ${base * base}, ${base * base * base}, ... Jumlah sel berikutnya adalah ...`, base ** 4]; },
+                    () => { const start = S.randInt(3, 7); const step = S.randInt(4, 6); return [`Jumlah kursi disusun bertahap: ${start}, ${start + step}, ${start + 2 * step}, ... Banyak kursi pada susunan ke-5 adalah ...`, start + 4 * step]; },
+                    () => { const a = S.randInt(2, 4); return [`Jumlah pohon ditanam berlipat: ${a}, ${a * 2}, ${a * 4}, ${a * 8}, ... Jumlah pohon selanjutnya adalah ...`, a * 16]; },
+                    () => { const start = S.randInt(4, 9); const step = S.randInt(3, 8); return [`Jumlah botol minum di gudang bertambah: ${start}, ${start + step}, ${start + 2 * step}, ... Jumlah botol ke-6 adalah ...`, start + 5 * step]; },
+                    () => { const base = S.randInt(2, 4); return [`Pertumbuhan jamur mengikuti pola: 1, ${base}, ${base * base}, ${base * base * base}, ... Jumlah jamur berikutnya adalah ...`, base ** 4]; },
+                    () => { const start = S.randInt(5, 11); const step = S.randInt(4, 7); return [`Jumlah penonton pertandingan bertambah: ${start}, ${start + step}, ${start + 2 * step}, ... Penonton pada urutan ke-5 adalah ...`, start + 4 * step]; },
+                    () => { const a = S.randInt(3, 5); return [`Jumlah hadiah dilipatgandakan: ${a}, ${a * 2}, ${a * 4}, ${a * 8}, ... Jumlah hadiah berikutnya adalah ...`, a * 16]; },
+                    () => { const start = S.randInt(6, 10); const step = S.randInt(5, 8); return [`Jumlah kendaraan parkir bertambah: ${start}, ${start + step}, ${start + 2 * step}, ... Kendaraan pada urutan ke-6 adalah ...`, start + 5 * step]; },
+                    () => { const base = S.randInt(2, 3); return [`Jumlah virus menyebar: 1, ${base}, ${base * base}, ${base * base * base}, ... Jumlah virus berikutnya adalah ...`, base ** 4]; },
+                    () => { const start = S.randInt(2, 6); const step = S.randInt(3, 6); return [`Jumlah buku di rak bertambah teratur: ${start}, ${start + step}, ${start + 2 * step}, ... Banyak buku pada rak ke-5 adalah ...`, start + 4 * step]; },
+                    () => { const a = S.randInt(2, 6); return [`Jumlah uang tabungan selalu dua kali lipat: ${a}, ${a * 2}, ${a * 4}, ${a * 8}, ... Tabungan berikutnya adalah ...`, a * 16]; },
+                    () => { const start = S.randInt(7, 12); const step = S.randInt(4, 9); return [`Jumlah penumpang bus bertambah: ${start}, ${start + step}, ${start + 2 * step}, ... Penumpang ke-6 adalah ...`, start + 5 * step]; },
+                    () => { const base = S.randInt(2, 4); return [`Pola perkembangbiakan tanaman: 1, ${base}, ${base * base}, ${base * base * base}, ... Jumlah tanaman berikutnya adalah ...`, base ** 4]; },
                     () => { const start = S.randInt(1, 5); const step = S.randInt(3, 6); return [`Pola: ${start}, ${start + step}, ${start + 2 * step}, ... Suku ke-5 adalah ...`, start + 4 * step]; },
                     () => { const a = S.randInt(2, 5); return [`Pola: ${a}, ${a * 2}, ${a * 4}, ${a * 8}, ... Bilangan selanjutnya adalah ...`, a * 16]; },
                     () => { const start = S.randInt(5, 10); const step = S.randInt(4, 8); return [`Pola: ${start}, ${start + step}, ${start + 2 * step}, ... Suku ke-6 adalah ...`, start + 5 * step]; },
@@ -457,6 +726,26 @@ function generateAljabarQuestions(grade, subMode) {
                 break;
             case 6:
                 questions = [
+                    () => { const n = S.randInt(5, 10); const a = S.randInt(2, 5); const b = S.randInt(1, 8); return [`Jumlah pensil pada barisan mengikuti rumus Un = ${a}n + ${b}. Banyak pensil pada susunan ke-${n} adalah ...`, a * n + b]; },
+                    () => { const n = S.randInt(4, 8); const a = S.randInt(2, 4); const b = S.randInt(1, 5); return [`Jumlah kursi pada barisan mengikuti rumus Un = ${a}n - ${b}. Banyak kursi pada barisan ke-${n} adalah ...`, a * n - b]; },
+                    () => { const start = S.randInt(3, 8); const step = S.randInt(5, 10); return [`Jumlah buku di rak membentuk barisan: ${start}, ${start + step}, ${start + 2 * step}, ... Banyak buku pada rak ke-7 adalah ...`, start + 6 * step]; },
+                    () => { const a = 2; const n = S.randInt(4, 6); return [`Jumlah bakteri berkembang: 2, 4, 8, 16, ... Jumlah bakteri pada tahap ke-${n} adalah ...`, Math.pow(a, n)]; },
+                    () => { const n = S.randInt(6, 12); const a = S.randInt(3, 6); const b = S.randInt(2, 9); return [`Jumlah kelereng mengikuti rumus Un = ${a}n + ${b}. Banyak kelereng pada urutan ke-${n} adalah ...`, a * n + b]; },
+                    () => { const n = S.randInt(5, 9); const a = S.randInt(2, 5); const b = S.randInt(1, 6); return [`Jumlah pengunjung bertambah dengan rumus Un = ${a}n - ${b}. Banyak pengunjung ke-${n} adalah ...`, a * n - b]; },
+                    () => { const start = S.randInt(4, 9); const step = S.randInt(6, 12); return [`Jumlah botol disusun berurutan: ${start}, ${start + step}, ${start + 2 * step}, ... Banyak botol pada susunan ke-7 adalah ...`, start + 6 * step]; },
+                    () => { const a = 3; const n = S.randInt(3, 5); return [`Jumlah sel berkembang: 3, 9, 27, ... Jumlah sel pada tahap ke-${n} adalah ...`, Math.pow(a, n)]; },
+                    () => { const n = S.randInt(5, 11); const a = S.randInt(2, 6); const b = S.randInt(3, 10); return [`Jumlah halaman buku mengikuti rumus Un = ${a}n + ${b}. Halaman pada hari ke-${n} adalah ...`, a * n + b]; },
+                    () => { const n = S.randInt(4, 8); const a = S.randInt(3, 5); const b = S.randInt(1, 7); return [`Jumlah kendaraan parkir mengikuti rumus Un = ${a}n - ${b}. Kendaraan ke-${n} adalah ...`, a * n - b]; },
+                    () => { const start = S.randInt(5, 10); const step = S.randInt(4, 9); return [`Jumlah siswa hadir tiap hari: ${start}, ${start + step}, ${start + 2 * step}, ... Jumlah siswa hari ke-7 adalah ...`, start + 6 * step]; },
+                    () => { const a = 4; const n = S.randInt(3, 5); return [`Jumlah virus menyebar: 4, 16, 64, ... Jumlah virus pada tahap ke-${n} adalah ...`, Math.pow(a, n)]; },
+                    () => { const n = S.randInt(6, 10); const a = S.randInt(2, 5); const b = S.randInt(2, 8); return [`Jumlah kursi aula mengikuti rumus Un = ${a}n + ${b}. Jumlah kursi pada barisan ke-${n} adalah ...`, a * n + b]; },
+                    () => { const n = S.randInt(5, 9); const a = S.randInt(3, 6); const b = S.randInt(1, 6); return [`Jumlah buku perpustakaan mengikuti rumus Un = ${a}n - ${b}. Buku ke-${n} adalah ...`, a * n - b]; },
+                    () => { const start = S.randInt(6, 12); const step = S.randInt(5, 10); return [`Jumlah pohon ditanam berurutan: ${start}, ${start + step}, ${start + 2 * step}, ... Jumlah pohon ke-7 adalah ...`, start + 6 * step]; },
+                    () => { const a = 5; const n = S.randInt(3, 4); return [`Jumlah bakteri berkembang cepat: 5, 25, 125, ... Jumlah bakteri tahap ke-${n} adalah ...`, Math.pow(a, n)]; },
+                    () => { const n = S.randInt(5, 12); const a = S.randInt(2, 4); const b = S.randInt(3, 9); return [`Jumlah penonton mengikuti rumus Un = ${a}n + ${b}. Penonton pada urutan ke-${n} adalah ...`, a * n + b]; },
+                    () => { const n = S.randInt(4, 8); const a = S.randInt(3, 5); const b = S.randInt(1, 5); return [`Jumlah kendaraan keluar parkiran mengikuti rumus Un = ${a}n - ${b}. Kendaraan ke-${n} adalah ...`, a * n - b]; },
+                    () => { const start = S.randInt(4, 8); const step = S.randInt(6, 11); return [`Jumlah meja di aula bertambah: ${start}, ${start + step}, ${start + 2 * step}, ... Jumlah meja ke-7 adalah ...`, start + 6 * step]; },
+                    () => { const a = 2; const n = S.randInt(5, 7); return [`Jumlah sel membelah: 2, 4, 8, 16, ... Jumlah sel pada tahap ke-${n} adalah ...`, Math.pow(a, n)]; },
                     () => { const n = S.randInt(5, 10); const a = S.randInt(2, 5); const b = S.randInt(1, 8); return [`Rumus suku ke-n: Un = ${a}n + ${b}. Suku ke-${n} = ...`, a * n + b]; },
                     () => { const n = S.randInt(4, 8); const a = S.randInt(2, 4); const b = S.randInt(1, 5); return [`Rumus suku ke-n: Un = ${a}n - ${b}. Suku ke-${n} = ...`, a * n - b]; },
                     () => { const start = S.randInt(3, 8); const step = S.randInt(5, 10); return [`Barisan aritmetika: ${start}, ${start + step}, ${start + 2 * step}, ... Suku ke-7 = ...`, start + 6 * step]; },
@@ -474,9 +763,29 @@ function generateTimeQuestions(grade, subMode) {
     let questions = [];
 
     if (subMode === "Baca Jam") {
-        switch(grade) {
+        switch (grade) {
             case 1: case 2: case 3:
                 questions = [
+                    () => { const jam = S.randInt(6, 10); return [`Pagi hari, Ani bangun tidur saat jarum pendek menunjuk angka ${jam} dan jarum panjang di angka 12. Pukul berapa Ani bangun?`, jam]; },
+                    () => { const jam = S.randInt(7, 11); return [`Budi mulai belajar pukul ${jam}.00 pagi. Satu jam kemudian, pukul berapa Budi selesai belajar?`, jam + 1]; },
+                    () => { const jam = S.randInt(8, 12); return [`Siti berangkat ke sekolah pukul ${jam}.00. Dua jam kemudian ia sampai di rumah nenek. Pukul berapa Siti sampai?`, jam + 2 > 12 ? jam + 2 - 12 : jam + 2]; },
+                    () => { const jam = S.randInt(9, 12); return [`Jam dinding di ruang tamu menunjukkan pukul ${jam}.00. Tiga jam yang lalu, pukul berapa jam tersebut menunjukkan waktu?`, jam - 3 <= 0 ? jam - 3 + 12 : jam - 3]; },
+                    () => { const jam24 = S.randInt(13, 18); return [`Acara lomba dimulai pukul ${jam24}.00. Jika ditulis dalam sistem 12 jam, pukul berapa acara tersebut dimulai?`, jam24 - 12]; },
+                    () => { const jam = S.randInt(1, 6); return [`Dina tidur siang pukul ${jam}.00 siang. Tepat 12 jam kemudian, jam menunjukkan pukul berapa?`, jam]; },
+                    () => { const jam = S.randInt(7, 10); return [`Ayah berangkat bekerja pukul ${jam}.00 pagi dan pulang 4 jam kemudian. Pukul berapa Ayah pulang?`, jam + 4 > 12 ? jam + 4 - 12 : jam + 4]; },
+                    () => { const jam = S.randInt(8, 12); return [`Sekarang jam menunjukkan pukul ${jam}.00. Jika waktu dimundurkan 2 jam, jam menunjukkan pukul berapa?`, jam - 2 <= 0 ? jam - 2 + 12 : jam - 2]; },
+                    () => { const jam = S.randInt(6, 9); return [`Rina mulai mengerjakan PR pukul ${jam}.00 dan selesai 3 jam kemudian. Pukul berapa Rina selesai mengerjakan PR?`, jam + 3]; },
+                    () => { const jam24 = S.randInt(14, 22); return [`Film diputar pada pukul ${jam24}.00. Dalam sistem 12 jam, pukul berapa film tersebut dimulai?`, jam24 - 12]; },
+                    () => { const jam = S.randInt(9, 12); return [`Jam kelas menunjukkan pukul ${jam}.00. Lima jam kemudian, jam menunjukkan pukul berapa?`, jam + 5 > 12 ? jam + 5 - 12 : jam + 5]; },
+                    () => { const jam = S.randInt(1, 5); return [`Tono tidur malam pukul ${jam}.00 dini hari. Tepat 12 jam setelah itu, jam menunjukkan pukul berapa?`, jam]; },
+                    () => { const jam = S.randInt(7, 11); return [`Ibu mulai memasak pukul ${jam}.00 pagi dan selesai 2 jam kemudian. Pukul berapa Ibu selesai memasak?`, jam + 2]; },
+                    () => { const jam = S.randInt(8, 12); return [`Sekarang jam menunjukkan pukul ${jam}.00. Empat jam yang lalu menunjukkan pukul berapa?`, jam - 4 <= 0 ? jam - 4 + 12 : jam - 4]; },
+                    () => { const jam = S.randInt(6, 10); return [`Doni berolahraga pukul ${jam}.00 pagi dan beristirahat 1 jam kemudian. Pukul berapa Doni beristirahat?`, jam + 1]; },
+                    () => { const jam24 = S.randInt(13, 19); return [`Kereta berangkat pukul ${jam24}.00. Jika ditulis dengan jam biasa, pukul berapa kereta berangkat?`, jam24 - 12]; },
+                    () => { const jam = S.randInt(10, 12); return [`Jam menunjukkan pukul ${jam}.00. Dua jam lagi jam akan menunjukkan pukul berapa?`, jam + 2 > 12 ? jam + 2 - 12 : jam + 2]; },
+                    () => { const jam = S.randInt(7, 11); return [`Lani mulai menonton TV pukul ${jam}.00 dan berhenti 3 jam kemudian. Pukul berapa Lani berhenti menonton?`, jam + 3 > 12 ? jam + 3 - 12 : jam + 3]; },
+                    () => { const jam = S.randInt(8, 12); return [`Sekarang pukul ${jam}.00. Jika waktu dimajukan 6 jam, jam menunjukkan pukul berapa?`, jam + 6 > 12 ? jam + 6 - 12 : jam + 6]; },
+                    () => { const jam = S.randInt(1, 6); return [`Jam berapa waktu yang ditunjukkan 12 jam setelah pukul ${jam}.00 siang?`, jam]; },
                     () => { const jam = S.randInt(7, 12); return [`Jarum pendek di angka ${jam}, jarum panjang di angka 12. Jam berapa?`, jam]; },
                     () => { const jam = S.randInt(1, 12); return [`Jam menunjukkan pukul ${jam}.00. Dalam 1 jam akan menunjukkan pukul berapa?`, jam === 12 ? 1 : jam + 1]; },
                     () => { const jam = S.randInt(8, 11); return [`${S.randName()} bangun pukul ${jam}.00. Sekarang sudah 2 jam kemudian. Jam berapa sekarang?`, jam + 2]; },
@@ -486,6 +795,21 @@ function generateTimeQuestions(grade, subMode) {
                 break;
             case 4: case 5:
                 questions = [
+                    () => { const jam = S.randInt(7, 10); const menit = S.randInt(1, 4) * 15; return [`Di ruang kelas, jam dinding menunjukkan jarum pendek di angka ${jam} dan jarum panjang di angka ${menit / 5}. Pukul berapa tepatnya jam tersebut?`, `${jam}.${menit}`]; },
+                    () => { const jam = S.randInt(6, 9); const menit = 30; return [`Ani melihat jam di dapur menunjukkan pukul ${jam}.${menit}. Dalam satu jam, pukul berapa Ani akan makan siang?`, `${jam + 1}.${menit}`]; },
+                    () => { const jam = S.randInt(14, 20); return [`Acara televisi dimulai pukul ${jam}.30. Jika ditulis dalam format 12 jam, pukul berapa acara tersebut dimulai?`, jam - 12]; },
+                    () => { const jam = S.randInt(1, 11); return [`Budi mulai belajar pukul ${jam}.00 dan berhenti tepat pukul ${jam + 1}.00. Berapa menit Budi belajar?`, 60]; },
+                    () => { const jam = S.randInt(8, 11); const menit = 45; return [`Jam di rumah Siti menunjukkan pukul ${jam}.${menit}. Jarum panjang berada di angka berapa?`, menit / 5]; },
+                    () => { const jam = S.randInt(15, 21); return [`Kereta berangkat pukul ${jam}.30 sore. Jika diubah ke jam biasa, pukul berapa kereta berangkat?`, jam - 12]; },
+                    () => { const jam = S.randInt(2, 10); return [`Donu bermain sepeda dari pukul ${jam}.00 sampai pukul ${jam + 1}.00. Berapa menit Donu bermain sepeda?`, 60]; },
+                    () => { const jam = S.randInt(7, 10); const menit = 15; return [`Jam dinding di kelas menunjukkan pukul ${jam}.${menit}. Jarum panjang menunjuk angka berapa?`, menit / 5]; },
+                    () => { const jam = S.randInt(16, 22); return [`Film favorit Rani mulai pukul ${jam}.30. Jika ditulis dengan jam 12 jam, pukul berapa film dimulai?`, jam - 12]; },
+                    () => { const jam = S.randInt(3, 9); return [`Ibu memasak dari pukul ${jam}.00 hingga pukul ${jam + 1}.00. Berapa menit waktu memasak Ibu?`, 60]; },
+                    () => { const jam = S.randInt(8, 11); const menit = S.randInt(1, 4) * 15; return [`Jarum pendek jam berada di angka ${jam} dan jarum panjang di angka ${menit / 5}. Pukul berapa waktu yang ditunjukkan jam tersebut?`, `${jam}.${menit}`]; },
+                    () => { const jam = S.randInt(13, 19); return [`Latihan dimulai pukul ${jam}.30. Jika ditulis dalam format jam pagi/sore, pukul berapa latihan dimulai?`, jam - 12]; },
+                    () => { const jam = S.randInt(4, 10); return [`Andi membaca buku dari pukul ${jam}.00 sampai ${jam + 1}.00. Berapa menit Andi membaca buku?`, 60]; },
+                    () => { const jam = S.randInt(6, 9); const menit = 45; return [`Jam di ruang tamu menunjukkan pukul ${jam}.${menit}. Jarum panjang berada di angka berapa?`, menit / 5]; },
+                    () => { const jam = S.randInt(14, 20); return [`Pertandingan dimulai pukul ${jam}.30. Dalam sistem 12 jam, pukul berapa pertandingan dimulai?`, jam - 12]; },
                     () => { const jam = S.randInt(7, 10); const menit = S.randInt(1, 4) * 15; return [`Jarum pendek di ${jam} dan jarum panjang di ${menit / 5}. Jam berapa menit?`, menit]; },
                     () => { const jam = S.randInt(14, 20); return [`Pukul ${jam}.30 dalam format 12 jam adalah pukul berapa?`, jam - 12]; },
                     () => { const jam = S.randInt(1, 11); return [`Berapa menit dari pukul ${jam}.00 sampai pukul ${jam + 1}.00?`, 60]; },
@@ -493,6 +817,26 @@ function generateTimeQuestions(grade, subMode) {
                 break;
             case 6:
                 questions = [
+                    () => { const jam = S.randInt(8, 15); const menit = S.randInt(10, 50); return [`Ani mulai belajar pukul ${jam}.${menit.toString().padStart(2, '0')}. Ia belajar selama 45 menit. Menit pada jam sekarang menjadi berapa? (hanya menit)`, (menit + 45) % 60]; },
+                    () => { return [`Budi berangkat tidur pukul 23.30. Ia tidur selama 2 jam 45 menit. Sekarang pukul berapa? (jawab jamnya saja)`, 2]; },
+                    () => { const jam = S.randInt(7, 14); const menit = S.randInt(5, 40); return [`Siti mulai membaca buku pukul ${jam}.${menit.toString().padStart(2, '0')}. Setelah 30 menit, menit pada jam menunjukkan angka berapa?`, (menit + 30) % 60]; },
+                    () => { return [`Film malam dimulai pukul 22.15 dan berlangsung 3 jam. Film selesai pukul berapa? (jawab jamnya saja)`, 1]; },
+                    () => { const jam = S.randInt(9, 16); const menit = S.randInt(20, 55); return [`Rani mulai mengerjakan PR pukul ${jam}.${menit.toString().padStart(2, '0')}. Setelah 35 menit, menitnya menjadi berapa?`, (menit + 35) % 60]; },
+                    () => { return [`Ayah berangkat kerja pukul 21.40 dan perjalanan memakan waktu 2 jam 30 menit. Tiba pukul berapa? (jawab jamnya saja)`, 0]; },
+                    () => { const jam = S.randInt(6, 12); const menit = S.randInt(15, 45); return [`Doni mulai bersepeda pukul ${jam}.${menit.toString().padStart(2, '0')}. Ia bersepeda selama 40 menit. Menit akhirnya berapa?`, (menit + 40) % 60]; },
+                    () => { return [`Acara TV dimulai pukul 20.45 dan berlangsung 4 jam. Acara berakhir pukul berapa? (jawab jamnya saja)`, 0]; },
+                    () => { const jam = S.randInt(8, 14); const menit = S.randInt(10, 50); return [`Ibu memasak pukul ${jam}.${menit.toString().padStart(2, '0')}. Setelah 25 menit, menit pada jam menunjukkan berapa?`, (menit + 25) % 60]; },
+                    () => { return [`Kereta berangkat pukul 23.20 dan tiba setelah 1 jam 50 menit. Kereta tiba pukul berapa? (jawab jamnya saja)`, 1]; },
+                    () => { const jam = S.randInt(7, 13); const menit = S.randInt(20, 55); return [`Tono mulai bermain game pukul ${jam}.${menit.toString().padStart(2, '0')}. Ia bermain selama 50 menit. Menit akhirnya menjadi berapa?`, (menit + 50) % 60]; },
+                    () => { return [`Pertandingan dimulai pukul 18.30 dan berlangsung 6 jam. Pertandingan selesai pukul berapa? (jawab jamnya saja)`, 0]; },
+                    () => { const jam = S.randInt(10, 16); const menit = S.randInt(5, 35); return [`Nina mulai menggambar pukul ${jam}.${menit.toString().padStart(2, '0')}. Setelah 15 menit, menitnya menjadi berapa?`, (menit + 15) % 60]; },
+                    () => { return [`Kakak mulai belajar pukul 19.50 dan belajar selama 3 jam. Kakak selesai belajar pukul berapa? (jawab jamnya saja)`, 22]; },
+                    () => { const jam = S.randInt(6, 12); const menit = S.randInt(15, 55); return [`Adi mulai membersihkan kamar pukul ${jam}.${menit.toString().padStart(2, '0')}. Setelah 55 menit, menit pada jam menjadi berapa?`, (menit + 55) % 60]; },
+                    () => { return [`Bus berangkat pukul 23.45 dan perjalanan memakan waktu 1 jam 30 menit. Bus tiba pukul berapa? (jawab jamnya saja)`, 1]; },
+                    () => { const jam = S.randInt(9, 15); const menit = S.randInt(10, 40); return [`Lina mulai menonton kartun pukul ${jam}.${menit.toString().padStart(2, '0')}. Setelah 20 menit, menit akhirnya berapa?`, (menit + 20) % 60]; },
+                    () => { return [`Paman berangkat pukul 17.20 dan tiba setelah 7 jam. Paman tiba pukul berapa? (jawab jamnya saja)`, 0]; },
+                    () => { const jam = S.randInt(8, 14); const menit = S.randInt(25, 55); return [`Tari mulai latihan menari pukul ${jam}.${menit.toString().padStart(2, '0')}. Setelah 35 menit, menit jam menunjukkan berapa?`, (menit + 35) % 60]; },
+                    () => { return [`Pesawat lepas landas pukul 22.10 dan terbang selama 4 jam 30 menit. Pesawat mendarat pukul berapa? (jawab jamnya saja)`, 2]; },
                     () => { const jam = S.randInt(8, 15); const menit = S.randInt(10, 50); return [`Pukul ${jam}.${menit.toString().padStart(2, '0')} ditambah 45 menit. Menitnya jadi berapa? (hanya menit)`, (menit + 45) % 60]; },
                     () => { return [`Pukul 23.30 + 2 jam 45 menit = pukul berapa? (jawab jamnya saja)`, 2]; },
                 ];
@@ -500,7 +844,7 @@ function generateTimeQuestions(grade, subMode) {
         }
     }
     else if (subMode === "Tambah & Kurang Waktu") {
-        switch(grade) {
+        switch (grade) {
             case 1: case 2: case 3:
                 questions = [
                     () => { const jam = S.randInt(7, 10); const tambah = S.randInt(1, 3); return [`${S.randName()} mulai belajar jam ${jam}. Belajar ${tambah} jam. Selesai jam berapa?`, jam + tambah]; },
@@ -525,7 +869,7 @@ function generateTimeQuestions(grade, subMode) {
         }
     }
     else if (subMode === "Konversi Waktu") {
-        switch(grade) {
+        switch (grade) {
             case 1: case 2: case 3:
                 questions = [
                     () => { const jam = S.randInt(1, 3); return [`${jam} jam = ... menit`, jam * 60]; },
@@ -554,7 +898,7 @@ function generateTimeQuestions(grade, subMode) {
         }
     }
     else if (subMode === "Selisih Waktu") {
-        switch(grade) {
+        switch (grade) {
             case 1: case 2: case 3:
                 questions = [
                     () => { const jam1 = S.randInt(7, 10); const jam2 = jam1 + S.randInt(1, 3); return [`Dari jam ${jam1} sampai jam ${jam2} = ... jam`, jam2 - jam1]; },
@@ -586,7 +930,7 @@ function generateHeavyQuestions(grade, subMode) {
     let questions = [];
 
     if (subMode === "Konversi Berat") {
-        switch(grade) {
+        switch (grade) {
             case 1: case 2: case 3:
                 questions = [
                     () => { const kg = S.randInt(1, 5); return [`${kg} kg = ... ons (1 kg = 10 ons)`, kg * 10]; },
@@ -613,7 +957,7 @@ function generateHeavyQuestions(grade, subMode) {
         }
     }
     else if (subMode === "Tambah & Kurang Berat") {
-        switch(grade) {
+        switch (grade) {
             case 1: case 2: case 3:
                 questions = [
                     () => { const a = S.randInt(2, 8); const b = S.randInt(1, 5); return [`${S.randName()} membeli ${a} kg ${S.randFruit()}. Lalu membeli ${b} kg lagi. Total berapa kg?`, a + b]; },
@@ -637,7 +981,7 @@ function generateHeavyQuestions(grade, subMode) {
         }
     }
     else if (subMode === "Bandingkan Berat") {
-        switch(grade) {
+        switch (grade) {
             case 1: case 2: case 3:
                 questions = [
                     () => { const a = S.randInt(3, 8); const b = S.randInt(2, 7); const max = Math.max(a, b); return [`Apel ${a} kg dan jeruk ${b} kg. Mana yang lebih berat? (jawab beratnya)`, max]; },
@@ -660,7 +1004,7 @@ function generateHeavyQuestions(grade, subMode) {
         }
     }
     else if (subMode === "Selisih Berat") {
-        switch(grade) {
+        switch (grade) {
             case 1: case 2: case 3:
                 questions = [
                     () => { const a = S.randInt(5, 10); const b = S.randInt(2, a - 1); return [`Berat benda A ${a} kg dan B ${b} kg. Selisihnya berapa kg?`, a - b]; },
@@ -690,7 +1034,7 @@ function generateVolumeQuestions(grade, subMode) {
     let questions = [];
 
     if (subMode === "Volume") {
-        switch(grade) {
+        switch (grade) {
             case 1: case 2: case 3:
                 questions = [
                     () => { const liter = S.randInt(1, 5); return [`${liter} liter = ... mililiter (1 liter = 1000 ml)`, liter * 1000]; },
@@ -715,7 +1059,7 @@ function generateVolumeQuestions(grade, subMode) {
         }
     }
     else if (subMode === "Tambah Volume" || subMode === "Tambah & Kurang Volume") {
-        switch(grade) {
+        switch (grade) {
             case 1: case 2: case 3:
                 questions = [
                     () => { const a = S.randInt(2, 6); const b = S.randInt(1, 4); return [`Di ember ada ${a} liter air. Ditambah ${b} liter. Jadi berapa liter?`, a + b]; },
@@ -738,7 +1082,7 @@ function generateVolumeQuestions(grade, subMode) {
         }
     }
     else if (subMode === "Selisih Volume") {
-        switch(grade) {
+        switch (grade) {
             case 1: case 2: case 3:
                 questions = [
                     () => { const a = S.randInt(5, 10); const b = S.randInt(2, a - 1); return [`Ember A berisi ${a} liter, ember B berisi ${b} liter. Selisihnya ... liter`, a - b]; },
@@ -760,7 +1104,7 @@ function generateVolumeQuestions(grade, subMode) {
         }
     }
     else if (subMode === "Perkiraan Volume" || subMode === "Bandingkan Volume") {
-        switch(grade) {
+        switch (grade) {
             case 1: case 2: case 3:
                 questions = [
                     () => { return [`Setengah dari 1 liter = ... mililiter`, 500]; },
@@ -792,7 +1136,7 @@ function generateUpQuestions(grade, subMode) {
     let questions = [];
 
     if (subMode === "Keliling Bangun Datar") {
-        switch(grade) {
+        switch (grade) {
             case 1: case 2: case 3:
                 questions = [
                     () => { const sisi = S.randInt(2, 8); return [`Persegi sisi ${sisi} cm. Keliling = 4 × sisi = ... cm`, sisi * 4]; },
@@ -817,7 +1161,7 @@ function generateUpQuestions(grade, subMode) {
         }
     }
     else if (subMode === "Volume Bangun Ruang") {
-        switch(grade) {
+        switch (grade) {
             case 1: case 2: case 3:
                 questions = [
                     () => { const sisi = S.randInt(2, 5); return [`Kubus sisi ${sisi} cm. Volume = sisi³ = ... cm³`, sisi * sisi * sisi]; },
@@ -839,7 +1183,7 @@ function generateUpQuestions(grade, subMode) {
         }
     }
     else if (subMode === "Luas Permukaan Bangun Ruang") {
-        switch(grade) {
+        switch (grade) {
             case 1: case 2: case 3:
                 questions = [
                     () => { const sisi = S.randInt(2, 5); return [`Kubus sisi ${sisi} cm. Luas permukaan = 6×sisi² = ... cm²`, 6 * sisi * sisi]; },
@@ -861,7 +1205,7 @@ function generateUpQuestions(grade, subMode) {
         }
     }
     else if (subMode === "Perbandingan Bangun") {
-        switch(grade) {
+        switch (grade) {
             case 1: case 2: case 3:
                 questions = [
                     () => { const luas1 = S.randInt(10, 30); const kali = S.randInt(2, 3); return [`Luas A = ${luas1} cm², luas B = ${luas1 * kali} cm². B berapa kali A?`, kali]; },
@@ -882,7 +1226,7 @@ function generateUpQuestions(grade, subMode) {
         }
     }
     else {
-        switch(grade) {
+        switch (grade) {
             case 1: case 2: case 3:
                 questions = [
                     () => { const sisi = S.randInt(2, 6); return [`Persegi sisi ${sisi} cm. Keliling = ... cm`, sisi * 4]; },
@@ -911,7 +1255,7 @@ function getStoryQuestionsByModeAndSubMode(gameMode, subMode, difficulty) {
     const grade = getRandomGrade(difficulty);
     let questions = [];
 
-    switch(gameMode) {
+    switch (gameMode) {
         case "operator":
             questions = generateOperatorQuestions(grade, subMode);
             break;
@@ -939,7 +1283,7 @@ function getStoryQuestionsByModeAndSubMode(gameMode, subMode, difficulty) {
 
 function getStoryQuestion(gameMode, difficulty, questionType) {
     const questions = getStoryQuestionsByModeAndSubMode(gameMode, questionType, difficulty);
-    
+
     if (questions && questions.length > 0) {
         const questionGenerator = questions[Math.floor(Math.random() * questions.length)];
         try {
@@ -949,7 +1293,7 @@ function getStoryQuestion(gameMode, difficulty, questionType) {
             return null;
         }
     }
-    
+
     return null;
 }
 
@@ -957,45 +1301,45 @@ function getStoryQuestionArray(gameMode, difficulty, questionType, qno) {
     let questionArray = [];
     let attempts = 0;
     const maxAttempts = qno * 20;
-    
+
     console.log(`📚 Generating ${qno} questions for mode: ${gameMode}, subMode: ${questionType}, difficulty: ${difficulty}`);
-    
+
     while (questionArray.length < qno && attempts < maxAttempts) {
         attempts++;
         const questionData = getStoryQuestion(gameMode, difficulty, questionType);
-        
+
         if (questionData && questionData[0] && questionData[1] !== undefined) {
             const isDuplicate = questionArray.some(q => q[0] === questionData[0]);
-            
+
             if (!isDuplicate) {
                 questionArray.push(questionData);
             }
         }
     }
-    
+
     if (questionArray.length < qno) {
         console.warn(`⚠️ Only generated ${questionArray.length}/${qno} unique questions for ${gameMode} - ${questionType}`);
     } else {
         console.log(`✅ Successfully generated ${questionArray.length} questions`);
     }
-    
+
     return questionArray;
 }
 
 function getRandomStoryByMode(gameMode) {
     const difficulty = typeof bpmDifficulty !== 'undefined' ? bpmDifficulty : "medium";
     const questionData = getStoryQuestion(gameMode, difficulty, null);
-    
+
     if (questionData) {
         return questionData;
     }
-    
+
     const S = StoryMode;
     const nama = S.randName();
     const benda = S.randItem();
     const a = S.randInt(2, 10);
     const b = S.randInt(1, 8);
-    
+
     return [`${nama} punya ${a} ${benda}. Diberi ${b} lagi. Berapa totalnya?`, a + b];
 }
 
