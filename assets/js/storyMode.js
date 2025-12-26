@@ -1033,10 +1033,30 @@ function generateVolumeQuestions(grade, subMode) {
     const S = StoryMode;
     let questions = [];
 
-    if (subMode === "Volume") {
+    if (subMode === "Konversi Volume") {
         switch (grade) {
             case 1: case 2: case 3:
                 questions = [
+                    () => { const liter = S.randInt(1, 5); return [`Ibu membeli ${liter} liter sirup untuk acara keluarga. Berapa mililiter sirup yang dibeli Ibu? (1 liter = 1000 ml)`, liter * 1000]; },
+                    () => { const ml = S.randInt(1, 4) * 1000; return [`Di dapur ada ${ml} mililiter minyak goreng. Itu sama dengan berapa liter?`, ml / 1000]; },
+                    () => { const botol = S.randInt(2, 6); return [`Di kulkas ada ${botol} botol susu. Setiap botol berisi 1 liter. Berapa liter susu seluruhnya?`, botol]; },
+                    () => { const liter = S.randInt(2, 5); return [`Ayah membeli ${liter} liter bensin untuk motor. Berapa mililiter bensin tersebut?`, liter * 1000]; },
+                    () => { const ml = S.randInt(2, 6) * 1000; return [`Seorang pedagang membawa ${ml} mililiter air minum. Jika diubah ke liter, menjadi berapa liter?`, ml / 1000]; },
+                    () => { const botol = S.randInt(3, 8); return [`Terdapat ${botol} botol air mineral. Setiap botol berisi 1 liter. Total air mineral berapa liter?`, botol]; },
+                    () => { const liter = S.randInt(1, 4); return [`Nina menuang ${liter} liter air ke dalam galon kecil. Berapa mililiter air tersebut?`, liter * 1000]; },
+                    () => { const ml = S.randInt(3, 7) * 1000; return [`Di laboratorium tersedia ${ml} mililiter cairan kimia. Itu setara dengan berapa liter?`, ml / 1000]; },
+                    () => { const botol = S.randInt(2, 5); return [`Di meja ada ${botol} botol jus jeruk. Jika tiap botol 1 liter, berapa liter jus semuanya?`, botol]; },
+                    () => { const liter = S.randInt(2, 6); return [`Seorang penjual membawa ${liter} liter air kelapa. Berapa mililiter air kelapa tersebut?`, liter * 1000]; },
+                    () => { const ml = S.randInt(1, 5) * 1000; return [`Resep kue membutuhkan ${ml} mililiter susu. Itu sama dengan berapa liter susu?`, ml / 1000]; },
+                    () => { const botol = S.randInt(4, 9); return [`Panitia menyediakan ${botol} botol air minum. Setiap botol berisi 1 liter. Total air minum berapa liter?`, botol]; },
+                    () => { const liter = S.randInt(1, 5); return [`Ibu memasak sup menggunakan ${liter} liter air. Berapa mililiter air yang digunakan Ibu?`, liter * 1000]; },
+                    () => { const ml = S.randInt(2, 8) * 1000; return [`Tangki kecil berisi ${ml} mililiter air. Jika diubah ke liter, menjadi berapa liter?`, ml / 1000]; },
+                    () => { const botol = S.randInt(3, 7); return [`Di toko ada ${botol} botol minyak goreng. Setiap botol berisi 1 liter. Total minyak goreng berapa liter?`, botol]; },
+                    () => { const liter = S.randInt(2, 4); return [`Adi membawa ${liter} liter air minum saat berkemah. Berapa mililiter air yang dibawa Adi?`, liter * 1000]; },
+                    () => { const ml = S.randInt(4, 9) * 1000; return [`Sebuah drum kecil berisi ${ml} mililiter air. Itu sama dengan berapa liter?`, ml / 1000]; },
+                    () => { const botol = S.randInt(2, 6); return [`Di ruang olahraga tersedia ${botol} botol air. Setiap botol 1 liter. Berapa liter air semuanya?`, botol]; },
+                    () => { const liter = S.randInt(3, 6); return [`Seorang pedagang jus menyiapkan ${liter} liter jus buah. Berapa mililiter jus tersebut?`, liter * 1000]; },
+                    () => { const ml = S.randInt(1, 6) * 1000; return [`Dokter menyiapkan ${ml} mililiter cairan infus. Jika diubah ke liter, menjadi berapa liter?`, ml / 1000]; },
                     () => { const liter = S.randInt(1, 5); return [`${liter} liter = ... mililiter (1 liter = 1000 ml)`, liter * 1000]; },
                     () => { const ml = S.randInt(1, 3) * 1000; return [`${ml.toLocaleString()} mililiter = ... liter`, ml / 1000]; },
                     () => { const botol = S.randInt(2, 6); return [`Ada ${botol} botol air, tiap botol 1 liter. Total berapa liter?`, botol]; },
@@ -1062,6 +1082,26 @@ function generateVolumeQuestions(grade, subMode) {
         switch (grade) {
             case 1: case 2: case 3:
                 questions = [
+                    () => { const a = S.randInt(2, 6); const b = S.randInt(1, 5); return [`Di galon ada ${a} liter air. Ibu menambahkan ${b} liter lagi. Sekarang ada berapa liter air?`, a + b]; },
+                    () => { const total = S.randInt(6, 12); const dipakai = S.randInt(1, total - 3); return [`Di dapur ada ${total} liter air. Digunakan ${dipakai} liter untuk memasak. Sisa berapa liter air?`, total - dipakai]; },
+                    () => { const botol = S.randInt(3, 7); return [`Ada ${botol} botol susu, setiap botol berisi 1 liter. Total susu berapa liter?`, botol]; },
+                    () => { const a = S.randInt(1, 5); const b = S.randInt(2, 6); return [`Ayah membeli ${a} liter bensin lalu membeli lagi ${b} liter. Total bensin berapa liter?`, a + b]; },
+                    () => { const total = S.randInt(5, 10); const tumpah = S.randInt(1, 3); return [`Ember berisi ${total} liter air. ${tumpah} liter tumpah. Sisa air berapa liter?`, total - tumpah]; },
+                    () => { const gelas = S.randInt(4, 8); return [`Di meja ada ${gelas} gelas jus. Setiap gelas berisi 1 liter. Total jus berapa liter?`, gelas]; },
+                    () => { const a = S.randInt(2, 7); const b = S.randInt(1, 4); return [`Bak mandi berisi ${a} liter air. Kemudian ditambah ${b} liter. Jadi ada berapa liter air?`, a + b]; },
+                    () => { const total = S.randInt(7, 15); const diminum = S.randInt(2, 5); return [`Persediaan sirup ada ${total} liter. Diminum ${diminum} liter. Sisa sirup berapa liter?`, total - diminum]; },
+                    () => { const botol = S.randInt(2, 6); return [`Terdapat ${botol} botol air mineral. Tiap botol berisi 1 liter. Total air berapa liter?`, botol]; },
+                    () => { const a = S.randInt(3, 8); const b = S.randInt(2, 5); return [`Seorang pedagang membawa ${a} liter jus. Ia menambah ${b} liter lagi. Total jus berapa liter?`, a + b]; },
+                    () => { const total = S.randInt(6, 12); const dipakai = S.randInt(1, 4); return [`Di galon ada ${total} liter air. Digunakan ${dipakai} liter untuk minum. Sisa berapa liter?`, total - dipakai]; },
+                    () => { const gelas = S.randInt(3, 6); return [`Ada ${gelas} gelas susu, setiap gelas berisi 1 liter. Berapa liter susu semuanya?`, gelas]; },
+                    () => { const a = S.randInt(2, 5); const b = S.randInt(3, 7); return [`Ibu menyiapkan ${a} liter air lalu menambah ${b} liter lagi. Total air berapa liter?`, a + b]; },
+                    () => { const total = S.randInt(8, 14); const bocor = S.randInt(1, 4); return [`Tangki berisi ${total} liter air. Karena bocor, ${bocor} liter keluar. Sisa air berapa liter?`, total - bocor]; },
+                    () => { const botol = S.randInt(5, 9); return [`Panitia menyediakan ${botol} botol minuman. Tiap botol berisi 1 liter. Total minuman berapa liter?`, botol]; },
+                    () => { const a = S.randInt(1, 4); const b = S.randInt(2, 6); return [`Doni membawa ${a} liter air dari rumah dan membeli lagi ${b} liter. Total air berapa liter?`, a + b]; },
+                    () => { const total = S.randInt(5, 11); const diminum = S.randInt(1, 3); return [`Jus mangga ada ${total} liter. Diminum ${diminum} liter. Sisa jus berapa liter?`, total - diminum]; },
+                    () => { const gelas = S.randInt(4, 7); return [`Di kantin ada ${gelas} gelas teh. Setiap gelas 1 liter. Total teh berapa liter?`, gelas]; },
+                    () => { const a = S.randInt(3, 7); const b = S.randInt(1, 5); return [`Bak air berisi ${a} liter. Ditambah lagi ${b} liter. Jadi berapa liter air sekarang?`, a + b]; },
+                    () => { const total = S.randInt(9, 15); const dipakai = S.randInt(2, 6); return [`Persediaan air ada ${total} liter. Dipakai ${dipakai} liter. Sisa air berapa liter?`, total - dipakai]; },
                     () => { const a = S.randInt(2, 6); const b = S.randInt(1, 4); return [`Di ember ada ${a} liter air. Ditambah ${b} liter. Jadi berapa liter?`, a + b]; },
                     () => { const total = S.randInt(5, 10); const diminum = S.randInt(1, total - 2); return [`Ada ${total} liter jus. Diminum ${diminum} liter. Sisa berapa liter?`, total - diminum]; },
                     () => { const gelas = S.randInt(3, 6); return [`Ada ${gelas} gelas air, tiap gelas 1 liter. Total berapa liter?`, gelas]; },
