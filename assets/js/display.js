@@ -441,20 +441,15 @@ function initialiseHealthBar(difficulty) {
         $("#heart5").show();
     } else if (difficulty == "medium") {
         // If difficulty level is "medium", initialise health bar with 3 hearts
-        healthArray = [5, 5];
+        healthArray = [3, 5];
         $("#heart1").show();
         $("#heart2").show();
         $("#heart3").show();
-        $("#heart4").show();
-        $("#heart5").show();
     } else if (difficulty == "hard") {
         // If difficulty level is "hard", initialise health bar with 1 heart
-        healthArray = [5, 5];
+        healthArray = [2, 5];
         $("#heart1").show();
         $("#heart2").show();
-        $("#heart3").show();
-        $("#heart4").show();
-        $("#heart5").show();
     }
     // Set health bar, given health array of 2 integers from 1 to 5
     setHealthBar(healthArray);

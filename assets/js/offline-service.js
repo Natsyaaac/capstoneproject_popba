@@ -6,7 +6,7 @@
 /*jshint esversion: 8 */
 /* globals $ */
 
-const OfflineService = (function() {
+const OfflineService = (function () {
     'use strict';
 
     let isOnline = navigator.onLine;
@@ -55,7 +55,7 @@ const OfflineService = (function() {
                 </p>
             </div>
         `;
-        
+
         const style = document.createElement('style');
         style.textContent = `
             #offline-overlay {
@@ -135,7 +135,7 @@ const OfflineService = (function() {
                 margin-right: 5px;
             }
         `;
-        
+
         document.head.appendChild(style);
         document.body.appendChild(overlay);
         offlineOverlayElement = overlay;
@@ -155,7 +155,7 @@ const OfflineService = (function() {
 
     function handleOnline() {
         console.log('Network: Online event triggered');
-        checkOnlineStatus().then(function(online) {
+        checkOnlineStatus().then(function (online) {
             if (online) {
                 setOnlineStatus(true);
             }
@@ -171,11 +171,11 @@ const OfflineService = (function() {
         const button = document.getElementById('retry-connection');
         button.classList.add('loading');
         button.disabled = true;
-        
-        checkOnlineStatus().then(function(online) {
+
+        checkOnlineStatus().then(function (online) {
             button.classList.remove('loading');
             button.disabled = false;
-            
+
             if (online) {
                 setOnlineStatus(true);
                 showNotificationMessage('Koneksi berhasil dipulihkan!');
@@ -186,25 +186,25 @@ const OfflineService = (function() {
     }
 
     function checkOnlineStatus() {
-        return new Promise(function(resolve) {
+        return new Promise(function (resolve) {
             if (!navigator.onLine) {
                 resolve(false);
                 return;
             }
 
             const img = new Image();
-            const timeout = setTimeout(function() {
+            const timeout = setTimeout(function () {
                 img.onload = img.onerror = null;
                 resolve(false);
             }, 5000);
 
-            img.onload = function() {
+            img.onload = function () {
                 clearTimeout(timeout);
                 lastOnlineCheck = Date.now();
                 resolve(true);
             };
 
-            img.onerror = function() {
+            img.onerror = function () {
                 clearTimeout(timeout);
                 resolve(false);
             };
@@ -217,10 +217,10 @@ const OfflineService = (function() {
         if (checkInterval) {
             clearInterval(checkInterval);
         }
-        
-        checkInterval = setInterval(function() {
+
+        checkInterval = setInterval(function () {
             if (!isOnline) {
-                checkOnlineStatus().then(function(online) {
+                checkOnlineStatus().then(function (online) {
                     if (online && !isOnline) {
                         setOnlineStatus(true);
                     }
@@ -247,7 +247,7 @@ const OfflineService = (function() {
     function showOfflineOverlay() {
         if (offlineOverlayElement) {
             offlineOverlayElement.style.display = 'flex';
-            setTimeout(function() {
+            setTimeout(function () {
                 offlineOverlayElement.classList.add('visible');
             }, 10);
         }
@@ -256,7 +256,7 @@ const OfflineService = (function() {
     function hideOfflineOverlay() {
         if (offlineOverlayElement) {
             offlineOverlayElement.classList.remove('visible');
-            setTimeout(function() {
+            setTimeout(function () {
                 offlineOverlayElement.style.display = 'none';
             }, 300);
         }
@@ -284,7 +284,7 @@ const OfflineService = (function() {
     }
 
     function notifyListeners(status) {
-        listeners.forEach(function(callback) {
+        listeners.forEach(function (callback) {
             try {
                 callback(status, isOnline);
             } catch (e) {
@@ -298,7 +298,7 @@ const OfflineService = (function() {
     }
 
     function requireOnline(action) {
-        return new Promise(function(resolve, reject) {
+        return new Promise(function (resolve, reject) {
             if (isOnline) {
                 if (typeof action === 'function') {
                     Promise.resolve(action()).then(resolve).catch(reject);
@@ -314,7 +314,7 @@ const OfflineService = (function() {
 
     return {
         init: init,
-        isOnline: function() { return isOnline; },
+        isOnline: function () { return isOnline; },
         getStatus: getStatus,
         checkOnlineStatus: checkOnlineStatus,
         addListener: addListener,
@@ -328,7 +328,7 @@ const OfflineService = (function() {
 window.OfflineService = OfflineService;
 
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         OfflineService.init();
     });
 } else {
