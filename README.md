@@ -153,119 +153,6 @@ Berikut adalah daftar kebutuhan fungsional beserta penjelasan fungsinya:
 | 4 | **Nyawa (Hati)** | Memberikan kesempatan siswa untuk mencoba lagi |
 | 5 | **How to Play** | Membantu siswa memahami cara bermain dengan benar |
 
----
-
-## Fitur Utama
-
-### 1. Judul dan Branding
-```
-Komponen: Header dengan logo "Balloon Pop Maths"
-Fungsi: Identitas visual game yang menarik perhatian anak-anak
-Lokasi: Bagian atas halaman utama
-```
-<img src="./assets/testing/features/title.png" style="margin: 15px; width:300px;">
-
-### 2. Game Mode Selector
-```
-Komponen: Tombol pemilihan mode permainan
-Fungsi: Memungkinkan pemilihan jenis operasi matematika yang ingin dipelajari
-Mode: Aljabar, Waktu, Massa, Volume, Bangunan, Operasi, Ujian
-```
-<img src="./assets/testing/features/game-mode.png" style="margin: 15px; width:300px;">
-
-### 3. High Score Panel
-```
-Komponen: Panel penampil skor tertinggi
-Fungsi: Menyimpan dan menampilkan skor terbaik untuk memotivasi siswa
-Format: Skor saat ini / Skor maksimal (contoh: 0 / 10)
-```
-<img src="./assets/testing/features/high-score.png" style="margin: 15px; width:300px;">
-
-### 4. Tombol Play
-```
-Komponen: Tombol besar "PLAY"
-Fungsi: Memulai permainan setelah mode dan pengaturan dipilih
-Validasi: Menampilkan notifikasi jika mode belum dipilih
-```
-<img src="./assets/testing/features/play.png" style="margin: 15px; width:300px;">
-
-### 5. Audio Control
-```
-Komponen: Tombol kontrol suara (on/off)
-Fungsi: Mengaktifkan atau menonaktifkan efek suara permainan
-Manfaat: Menyesuaikan pengalaman bermain sesuai lingkungan
-```
-<img src="./assets/testing/features/options-audio.png" style="margin: 15px; width:300px;">
-
-### 6. Light/Dark Mode Toggle
-```
-Komponen: Tombol pengaturan tema (terang/gelap)
-Fungsi: Mengubah tampilan visual untuk kenyamanan mata
-Mode: Light mode (siang) dan Dark mode (malam)
-```
-
-### 7. Pilihan (Options)
-```
-Komponen: Menu pengaturan permainan
-Fungsi: Mengatur parameter permainan seperti jumlah soal dan tingkat kesulitan
-Lokasi: Tombol "Pilihan" di halaman utama
-```
-
-### 8. Input Soal
-```
-Komponen: Menu input soal kustom
-Fungsi: Memungkinkan guru atau pengguna menambahkan soal sendiri
-Manfaat: Fleksibilitas dalam penyesuaian materi pembelajaran
-```
-
-### 9. How to Play Section
-```
-Komponen: Panel panduan bermain
-Fungsi: Memberikan instruksi langkah-langkah cara bermain game
-Target: Membantu pengguna baru memahami mekanisme permainan
-```
-<img src="./assets/testing/features/how-to-play.png" style="margin: 15px; width:300px;">
-
-### 10. Answer Balloons
-```
-Komponen: Balon-balon berisi angka jawaban
-Fungsi: Elemen interaktif utama yang dipecahkan untuk menjawab soal
-Animasi: Efek "pop" saat benar, efek "deflate" saat salah
-Suara: Feedback audio untuk setiap interaksi
-```
-<img src="./assets/testing/features/game-balloons.png" style="margin: 15px; width:500px;">
-
-### 11. Custom Cursor
-```
-Komponen: Pointer kustom berbentuk jarum/pin
-Fungsi: Memberikan pengalaman interaktif saat mengarahkan ke balon
-Visual: Memperkuat konsep "memecahkan" balon
-```
-<img src="./assets/images/pin.svg" style="margin: 15px; width:30px;">
-
-### 12. Game Loader
-```
-Komponen: Animasi loading saat memuat permainan
-Fungsi: Memberikan feedback visual bahwa game sedang dimuat
-Desain: Animasi balon yang menarik perhatian
-```
-<img src="./assets/testing/features/game-loader.png" style="margin: 15px; width:100px;">
-
-### 13. Sistem Nyawa (Health Bar)
-```
-Komponen: Indikator nyawa berbentuk hati
-Fungsi: Menunjukkan sisa kesempatan menjawab salah
-Mekanisme: Nyawa berkurang saat jawaban salah, game over saat habis
-```
-
-### 14. Question Display
-```
-Komponen: Panel penampil soal matematika
-Fungsi: Menampilkan soal yang harus dijawab oleh siswa
-Format: Operasi matematika dengan angka yang harus dihitung
-```
-
----
 
 ## Mode Permainan
 
@@ -741,6 +628,21 @@ Proyek ini dikonfigurasi untuk deployment di Replit:
 - **Program Studi Ilmu Komputer** - Universitas Muhammadiyah Metro
 - **Dosen Pembimbing** - Atas bimbingan selama pengembangan Capstone Project
 
+---
+
+## Latar Belakang Proyek
+
+POPBA (Pop Balon Ajaib) merupakan permainan edukasi matematika yang dikembangkan sebagai bagian dari proyek Capstone Project akademik di Universitas Muhammadiyah Metro.
+
+Proyek ini terinspirasi dari Balloon Pop Maths yang awalnya dikembangkan oleh Richard Henyash.
+
+POPBA mengadaptasi dan mengembangkan konsep permainan asli untuk menghadirkan pengalaman belajar matematika yang interaktif. Proyek ini mencakup berbagai modifikasi dan pengembangan tambahan yang disesuaikan dengan tujuan pembelajaran serta kebutuhan pengguna.
+
+**Referensi Proyek Asli:**
+
+https://github.com/richardhenyash/balloon-pop-maths
+
+Aset dan sumber daya pihak ketiga yang digunakan dalam proyek ini tetap menjadi milik masing-masing pemegang hak cipta dan tunduk pada ketentuan lisensi yang berlaku.
 ---
 
 <div align="center">
