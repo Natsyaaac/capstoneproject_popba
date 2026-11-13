@@ -612,14 +612,16 @@ Proyek ini dikonfigurasi untuk deployment di Replit:
 
 ---
 
-## Lisensi dan Kredit
+## Kredit dan Referensi
 
-### Kredit
+Proyek POPBA dikembangkan dengan mengadaptasi dan memodifikasi proyek Balloon Pop Maths karya Richard Henyash.
 
-- **Font Whale I Tried** - [Misti's Fonts](https://mistifonts.com/) (Free for personal use)
-- **Font Nunito** - [Google Fonts](https://fonts.google.com/) (Open Font License)
-- **Icons** - [Font Awesome](https://fontawesome.com/)
-- **Framework** - [Bootstrap](https://getbootstrap.com/)
+**Sumber aset dan referensi:**
+- Richard Henyash – Referensi proyek dan kode sumber.
+- Game Developer Studio – Aset gambar sprite balon, sebagaimana dicantumkan dalam proyek asli.
+- Pengembangan efek suara dilakukan secara mandiri untuk proyek POPBA.
+
+Hak cipta kode sumber dan aset pihak ketiga tetap mengikuti ketentuan yang berlaku dari masing-masing pemiliknya.
 
 ### Ucapan Terima Kasih
 
