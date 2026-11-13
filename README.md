@@ -1,19 +1,3 @@
-# POPBA - Pop Balon Ajaib
-
-<div align="center">
-
-<img src="./assets/testing/responsive/balloon-pop-maths-responsive.png" width="100%" style="margin: 15px;">
-
-**Game Edukasi Matematika Interaktif untuk Siswa Sekolah Dasar**
-
-[![Status](https://img.shields.io/badge/Status-Active-success)]()
-[![Platform](https://img.shields.io/badge/Platform-Web-blue)]()
-[![Language](https://img.shields.io/badge/Language-Bahasa%20Indonesia-red)]()
-
-</div>
-
----
-
 ## Daftar Isi
 
 - [Tentang Proyek](#tentang-proyek)
