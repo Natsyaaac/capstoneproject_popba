@@ -1,4 +1,4 @@
-     @import url('https://fonts.googleapis.com/css2?family=Chewy&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Chewy&display=swap');
 
      @import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
 
@@ -2463,4 +2463,150 @@
      body.night-mode .alert-danger {
          background: #4a2a2a !important;
          border-color: #8a4a4a !important;
+     }
+
+
+     /* ============================================================= */
+     /* ===== TAMPILAN LAPTOP / DESKTOP - MENU UTAMA (>= 992px) ===== */
+     /* ============================================================= */
+     /* Hanya mengatur SUSUNAN. Warna, font, dan ID elemen tidak      */
+     /* diubah. Layar HP / tablet (< 992px) tampil seperti sebelumnya.*/
+     /*                                                               */
+     /*   [ Kartu mode (3 kolom) ]  [ High Score                  ]   */
+     /*   [                      ]  [ PLAY                        ]   */
+     /*   [                      ]  [ Audio    | Siang-Malam      ]   */
+     /*   [                      ]  [ Pilihan  | Input Soal       ]   */
+     /*   [ Ujian (lebar penuh)  ]  [ Bagaimana Cara Bermain?     ]   */
+     /*   [ Panel Pilihan (muncul saat tombol Pilihan ditekan)    ]   */
+     /* ============================================================= */
+
+     @media (min-width: 992px) {
+
+         /* Wadah menu dibuat lebih lebar */
+         #options-section {
+             max-width: 1180px;
+         }
+
+         /* Kolom kosong bawaan Bootstrap tidak dipakai di desktop */
+         #options-section .menu-spacer {
+             display: none;
+         }
+
+         /* Isi menu menjadi grid: 1 kolom lebar (mode) + 2 kolom setengah (kontrol) */
+         #options-section .menu-main {
+             flex: 0 0 100%;
+             max-width: 100%;
+             display: grid;
+             grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 1fr);
+             column-gap: 1.6rem;
+             row-gap: 0;
+             align-items: stretch;
+             align-content: start;
+         }
+
+         /* Penempatan tiap bagian di grid */
+         #options-section .menu-main > .menu-modes {
+             grid-column: 1;
+             grid-row: 1 / span 5;
+         }
+
+         #options-section .menu-main > .menu-highscore {
+             grid-column: 2 / 4;
+             grid-row: 1;
+         }
+
+         #options-section .menu-main > .menu-play {
+             grid-column: 2 / 4;
+             grid-row: 2;
+         }
+
+         #options-section .menu-main > .menu-audio {
+             grid-column: 2;
+             grid-row: 3;
+         }
+
+         #options-section .menu-main > .menu-theme {
+             grid-column: 3;
+             grid-row: 3;
+         }
+
+         #options-section .menu-main > .menu-btn-options {
+             grid-column: 2;
+             grid-row: 4;
+         }
+
+         #options-section .menu-main > .menu-btn-input {
+             grid-column: 3;
+             grid-row: 4;
+         }
+
+         #options-section .menu-main > .menu-info {
+             grid-column: 2 / 4;
+             grid-row: 5;
+         }
+
+         #options-section .menu-main > .menu-options-panel {
+             grid-column: 1 / -1;
+             grid-row: 6;
+         }
+
+         /* Kartu mode: tinggi mengikuti kolom kanan, teks di tengah */
+         #options-section .menu-modes {
+             max-width: none;
+             margin: 0;
+             gap: 1.2rem;
+             grid-template-rows: repeat(3, minmax(9rem, 1fr));
+         }
+
+         #options-section .menu-modes .btn {
+             display: flex;
+             align-items: center;
+             justify-content: center;
+             padding: 0;
+             font-size: 2.2rem;
+             border-radius: 1.2rem !important;
+         }
+
+         /* Ujian: kartu selebar penuh di baris terakhir */
+         #options-section .menu-modes .grid-7 {
+             grid-column: 1 / -1;
+             grid-row: 3;
+         }
+
+         /* Panel Pilihan: dua kolom (umum | khusus mode) */
+         .menu-options-panel .options-inner {
+             display: grid;
+             grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+             column-gap: 1.6rem;
+             align-items: start;
+             padding-top: 1rem;
+         }
+
+         /* Judul: jarak atas-bawah lebih rapat agar menu muat satu layar */
+         .container-heading-main-large {
+             padding-top: 2.4rem;
+             padding-bottom: 2rem;
+         }
+     }
+
+     /* Judul sedikit lebih besar di layar yang cukup tinggi */
+     @media (min-width: 992px) and (min-height: 681px) {
+         .container-heading-main-large .heading-main {
+             font-size: 6.4rem;
+         }
+     }
+
+     /* Layar lebar (monitor besar) */
+     @media (min-width: 1400px) {
+         #options-section {
+             max-width: 1320px;
+         }
+
+         #options-section .menu-main {
+             column-gap: 2rem;
+         }
+
+         #options-section .menu-modes .btn {
+             font-size: 2.6rem;
+         }
      }

@@ -42,18 +42,18 @@
             <!-- Screens smaller than md -->
             <div class="col-12 d-md-none container-heading-main text-center">
                 <a href="index.html">
-                    <h1 class="heading-main">Balloon</h1>
-                    <h1 class="heading-main">Pop
+                    <h1 class="heading-main">Pop</h1>
+                    <h1 class="heading-main">Balon
                         <img src="assets/images/balloon-purple-cropped.png" alt="Purple balloon popping" />
                     </h1>
-                    <h1 class="heading-main">Maths</h1>
+                    <h1 class="heading-main">Ajaib</h1>
                 </a>
             </div>
             <!-- Screens larger than md -->
             <div class="col-12 d-none d-md-block container-heading-main-large text-center">
                 <a href="index.html">
-                    <h1 class="heading-main">Balloon Pop<img src="assets/images/balloon-purple-cropped.png"
-                            alt="Purple balloon popping"> Maths</h1>
+                    <h1 class="heading-main">Pop Balon<img src="assets/images/balloon-purple-cropped.png"
+                            alt="Purple balloon popping"> Ajaib</h1>
                 </a>
             </div>
         </div>
@@ -61,10 +61,10 @@
     <!-- Options -->
     <section id="options-section" class="container-sm" aria-label="Options Section">
         <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-8">
+            <div class="col-md-2 menu-spacer"></div>
+            <div class="col-md-8 menu-main">
                 <!-- Game Mode Options -->
-                <div class="btn-group btn-group-toggle  w-100 container-button-group grid-tem" data-toggle="buttons">
+                <div class="btn-group btn-group-toggle  w-100 container-button-group grid-tem menu-modes" data-toggle="buttons">
                     <label id="aljabar" class="btn btn-xl w-100 btn-info btn-text">
                         <input type="radio" aria-label="Aljabar" name="game-mode"> Aljabar
                     </label>
@@ -88,15 +88,15 @@
                     </label>
                 </div>
                 <!-- High Score -->
-                <div class="container-button-group d-flex w-100">
+                <div class="container-button-group d-flex w-100 menu-highscore">
                     <span id="highscore" class="btn-xl-nofill w-100 btn-text-score">High Score: 0 / 10</span>
                 </div>
                 <!-- Play Button, hidden until window has finished loading -->
-                <div class="container-button-group d-flex w-100 hover">
+                <div class="container-button-group d-flex w-100 hover menu-play">
                     <button id="play" type="button" class="btn btn-xxl w-100 btn-info btn-text btn-play">PLAY</button>
                 </div>
                 <!-- Audio Controls -->
-                <div class="btn-group btn-group-toggle d-flex w-100 container-button-group" data-toggle="buttons">
+                <div class="btn-group btn-group-toggle d-flex w-100 container-button-group menu-audio" data-toggle="buttons">
                     <label id="audio-on" class="btn btn-xl w-100 btn-info btn-text active ">
                         <input type="radio" aria-label="Audio On" name="audio-on" checked>
                         <i class="fas fa-volume-up"></i>
@@ -107,7 +107,7 @@
                     </label>
                 </div>
                 <!-- Night Mode Toggle -->
-                <div class="btn-group btn-group-toggle d-flex w-100 container-button-group" data-toggle="buttons">
+                <div class="btn-group btn-group-toggle d-flex w-100 container-button-group menu-theme" data-toggle="buttons">
                     <label id="day-mode" class="btn btn-xl w-100 btn-info btn-text active">
                         <input type="radio" aria-label="Day Mode" name="theme-mode" id="theme-day" checked>
                         <i class="fas fa-sun"></i>
@@ -118,29 +118,18 @@
                     </label>
                 </div>
                 <!-- Options Button -->
-                <div class="container-button-group d-flex w-100 hover">
+                <div class="container-button-group d-flex w-100 hover menu-btn-options">
                     <button type="button" data-toggle="collapse" data-target="#options" aria-expanded="false"
                         aria-controls="options" class="btn btn-xl w-100 btn-info btn-text">Pilihan</button>
                 </div>
-                <div class="container-button-group d-flex w-100 hover">
+                <div class="container-button-group d-flex w-100 hover menu-btn-input">
                     <button type="button" id="btn-input-soal" class="btn btn-xl w-100 btn-info btn-text">Input
                         Soal</button>
                 </div>
-            </div>
-        </div>
-
-        <div class="modal" id="modal">
-            <div class="modal-inner">
-                <p>
-                    Silahkan pilh mode soal terlebih dahulu sebelum menekan tombol Play.
-                </p>
-                <button id="closeModal">Close</button>
-            </div>
-        </div>
-        <!-- Collapsing Options -->
-        <div class="row collapse options" id="options">
-            <div class="col-md-2"></div>
-            <div class="col-md-8">
+                <!-- Collapsing Options (desktop: panel lebar 2 kolom di bawah menu) -->
+                <div class="collapse options menu-options-panel" id="options">
+                    <div class="options-inner">
+                        <div class="options-common">
                 <!-- Options applicable to all games -->
                 <div class="btn-group btn-group-toggle d-flex w-100 container-button-group" data-toggle="buttons">
                     <label id="10q" class="btn btn-xl w-100 btn-info btn-text active">
@@ -161,7 +150,9 @@
                         <input type="radio" name="difficulty"> Hard
                     </label>
                 </div>
+                        </div><!-- /options-common -->
 
+                        <div class="options-mode">
                 <div id="options-add-aljabar">
                     <div class="row">
                         <div class="col d-flex w-100 container-button">
@@ -354,23 +345,31 @@
                         </div>
                     </div>
                 </div>
+                        </div><!-- /options-mode -->
+                    </div><!-- /options-inner -->
+                </div><!-- /menu-options-panel -->
 
-            </div>
-            <div class="col-md-2"></div>
-        </div>
-    </section>
-    <!-- Information -->
-    <section id="information-section" class="container-sm" aria-label="Information Section">
-        <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-8">
-                <div class="container-button-group d-flex w-100 hover">
+                <!-- Information Button (tombol dipindah ke sini; ID tetap #information) -->
+                <div class="container-button-group d-flex w-100 hover menu-info">
                     <button type="button" id="information" class="btn btn-xl w-100 btn-info btn-text">
                         Bagaimana Cara Bermain?
                     </button>
                 </div>
+            </div><!-- /menu-main -->
+            <div class="col-md-2 menu-spacer"></div>
+        </div>
+
+        <div class="modal" id="modal">
+            <div class="modal-inner">
+                <p>
+                    Silahkan pilh mode soal terlebih dahulu sebelum menekan tombol Play.
+                </p>
+                <button id="closeModal">Close</button>
             </div>
         </div>
+    </section>
+    <!-- Information (overlay Cara Bermain) -->
+    <section id="information-section" class="container-sm" aria-label="Information Section">
 
         <!-- Overlay / Collapse -->
         <div class="row_collapse" id="infoBox">
@@ -932,7 +931,7 @@
     <script src="assets/js/display.js"></script>
     <script src="assets/js/input-soal.js"></script>
     <script src="assets/js/game-logic.js"></script>
-    <script src="assets/js/mail.js"></script>
+    <!-- <script src="assets/js/mail.js"></script> -->
     <script src="assets/js/storyMode.js"></script>
     <script src="assets/js/maths.js"></script>
     <script src="assets/js/events.js"></script>
