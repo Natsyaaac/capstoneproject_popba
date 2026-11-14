@@ -4,27 +4,8 @@
 * @version 1.1.1
 */
 /*jshint esversion: 6 */
-/* globals $, imgBalloonBlue, imgBalloonOrange, imgBalloonPurple, imgBalloonYellow */
+/* globals $, imgBalloonBlue, imgBalloonOrange, imgBalloonPurple */
 /* globals imgBalloonRed, imgBalloonGreen, imgBalloonYellow */
-/* globals getCanvasSize, returnCanvasID, animateBalloon, initialiseBalloons */
-
-/**
-* [Function to return an array of canvas width and height, given canvas element ID]
-* @param  {[string]}   canvasID     [Canvas ID]
-* @return {[array]}                 [Array of canvas width and height]
-*/
-function getCanvasSize(canvasID) {
-    // Check if canvasID starts with #, otherwise add it
-    if (canvasID.substr(0, 1) != "#") {
-        canvasID = "#" + canvasID;
-    }
-    // Get canvas width and height
-    let cW = $(canvasID).width();
-    let cH = $(canvasID).height();
-    // Add to array
-    let cArray = [cW, cH];
-    return cArray;
-}
 
 /**
 * [Function to draw balloon image on the canvas, given canvasID, image and frame number]

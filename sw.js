@@ -4,14 +4,14 @@
  * @version 1.0.0
  */
 
-const CACHE_NAME = 'pop-balon-ajaib-v3';
-const DYNAMIC_CACHE = 'balloon-pop-dynamic';
+// Naikkan angka versi ini setiap kali daftar/isi file di bawah berubah,
+// supaya cache lama di HP/browser pengguna terhapus.
+const CACHE_NAME = 'pop-balon-ajaib-v4';
 
 const STATIC_ASSETS = [
     'index.html',
     '404.html',
     'assets/css/style.css',
-    'assets/css/style_cloud.css',
     'assets/js/platform-service.js',
     'assets/js/offline-service.js',
     'assets/js/firebase-config.js',
@@ -27,13 +27,11 @@ const STATIC_ASSETS = [
     'assets/js/storyMode.js',
     'assets/js/nightMode.js',
     'assets/js/background.js',
-    'assets/js/mail.js',
     'assets/images/balloon-favicon.ico',
     'assets/images/balloon-purple-cropped.png',
     'assets/images/balloon-blue-sprite.png',
     'assets/images/balloon-green-sprite.png',
     'assets/images/balloon-orange-sprite.png',
-    'assets/images/balloon-pink-sprite.png',
     'assets/images/balloon-purple-sprite.png',
     'assets/images/balloon-red-sprite.png',
     'assets/images/balloon-yellow-sprite.png',
@@ -44,26 +42,22 @@ const STATIC_ASSETS = [
     'assets/sounds/unlucky.mp3',
     'assets/sounds/well-done.mp3',
     'assets/sounds/music_background.mp3',
-    'assets/fonts/whale-i-tried.woff2',
-    'assets/fonts/whale-i-tried.woff',
-    'assets/fonts/whale-i-tried.ttf',
     'assets/css/popba-header.css',
     'assets/css/popba-scene.css',
     'assets/js/popba-scene.js',
     'assets/images/logo-popba-day.png',
     'assets/images/logo-popba-night.png',
-    'assets/images/bg/cloud-day-back.svg',     
+    'assets/images/bg/cloud-day-back.svg',
     'assets/images/bg/cloud-night-back.svg',
-    'assets/images/bg/cloud-day-mid.svg',      
+    'assets/images/bg/cloud-day-mid.svg',
     'assets/images/bg/cloud-night-mid.svg',
-    'assets/images/bg/cloud-day-front.svg',    
+    'assets/images/bg/cloud-day-front.svg',
     'assets/images/bg/cloud-night-front.svg',
 ];
 
 const EXTERNAL_ASSETS = [
     'https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css',
-    'https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap',
-    'https://fonts.googleapis.com/css2?family=Rajdhani&display=swap'
+    'https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap'
 ];
 
 self.addEventListener('install', function(event) {
@@ -113,7 +107,7 @@ self.addEventListener('activate', function(event) {
             .then(function(cacheNames) {
                 return Promise.all(
                     cacheNames.map(function(cacheName) {
-                        if (cacheName !== CACHE_NAME && cacheName !== DYNAMIC_CACHE) {
+                        if (cacheName !== CACHE_NAME) {
                             console.log('[ServiceWorker] Deleting old cache:', cacheName);
                             return caches.delete(cacheName);
                         }
@@ -130,9 +124,8 @@ self.addEventListener('activate', function(event) {
 self.addEventListener('fetch', function(event) {
     const url = new URL(event.request.url);
     
-    if (url.origin.includes('firebase') || 
-        url.origin.includes('googleapis') ||
-        url.origin.includes('emailjs')) {
+    if (url.origin.includes('firebase') ||
+        url.origin.includes('googleapis')) {
         event.respondWith(networkFirst(event.request));
         return;
     }

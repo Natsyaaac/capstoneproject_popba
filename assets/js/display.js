@@ -4,7 +4,7 @@
 * @version 1.1.1
 */
 /*jshint esversion: 6 */
-/* globals $ */
+/* globals $, playGame, showNotification, getEssayQuestions, getPilganQuestions, getVisualQuestions */
 
 /**
 * [Function to return to menu - hides game section and shows heading and options]
@@ -25,8 +25,6 @@ function modeAljabar() {
     $("#options-add-time").hide(400);
     $("#options-add-operator").hide(400);
     $("#options-add-exam").hide(400);
-    $("#options-add-subtract").hide(400);
-    $("#options-multiply-divide").hide(400);
     $("#options-add-heavy").hide(400);
     // Tampilkan opsi untuk Aljabar
     $("#options-add-aljabar").show(400);
@@ -78,8 +76,6 @@ function modeHeavy() {
 
     $("#options-add-time").hide(400);
     $("#options-add-aljabar").hide(400);
-    $("#options-add-subtract").hide(400);
-    $("#options-multiply-divide").hide(400);
     $("#options-add-up").hide(400);
     $("#options-add-exam").hide(400);
     $("#options-add-operator").hide(400);
@@ -102,8 +98,6 @@ function modeHeavy() {
 
 function modeVolume() {
     $("#options-add-time").hide(400);
-    $("#options-add-subtract").hide(400);
-    $("#options-multiply-divide").hide(400);
     $("#options-add-aljabar").hide(400);
     $("#options-add-up").hide(400);
     $("#options-add-exam").hide(400);
@@ -129,8 +123,6 @@ function modeUp() {
     $("#options-add-time").hide(400);
     $("#options-add-aljabar").hide(400);
     $("#options-add-heavy").hide(400);
-    $("#options-add-subtract").hide(400);
-    $("#options-multiply-divide").hide(400);
     $("#options-add-operator").hide(400);
     $("#options-add-volume").hide(400);
     $("#options-add-exam").hide(400);
@@ -212,20 +204,11 @@ function returnBtnIdArray(btnPrefix) {
 }
 
 /**
- * [Function to make the passed button active, and all other buttons not active]
+ * [Function to make the passed button active]
  * @param  {[string]} btnId  [Button ID]
  * @return {[string]}        [Button ID]
  */
 function makeActive(btnId) {
-    // Set button ID array
-    let btnIdArray = [
-        "#btn-mul-div-1", "#btn-mul-div-2", "#btn-mul-div-3", "#btn-mul-div-4",
-        "#btn-mul-div-5", "#btn-mul-div-6", "#btn-mul-div-7", "#btn-mul-div-8",
-        "#btn-mul-div-9", "#btn-mul-div-10", "#btn-mul-div-11", "#btn-mul-div-12",
-        "#btn-mul-div-13", "#btn-mul-div-14",
-    ];
-    // Make all buttons in button ID array not active
-    makeNotActive(btnIdArray);
     // Make passed button active
     $(btnId).addClass("active").attr("aria-pressed", "true");
     return btnId;
@@ -241,26 +224,7 @@ function makeNotActive(btnIdArray) {
     for (let btnId of btnIdArray) {
         $(btnId).removeClass("active").removeClass("focus").attr("aria-pressed", "false");
     }
-    // console.log("Reset tombol:", btnIdArray);
     return (btnIdArray);
-}
-
-/**
-* [Function to check if any other buttons with the .btn-mul-div-sticky class are selected]
-* @param  {[string]}   btnId            [Button ID]
-* @return {[boolean]}                   [Boolean indicating if any other buttons with the .btn-mul-div-sticky class are selected]
-*/
-function checkOtherStickyButtons(btnId) {
-    let mdbtnIdArray = $(".btn-mul-div-sticky");
-    let activeFlag = false;
-    let i = 0;
-    while ((activeFlag == false) && (i < mdbtnIdArray.length)) {
-        if (((mdbtnIdArray[i].id) !== btnId) && (mdbtnIdArray[i].classList.contains("active"))) {
-            activeFlag = true;
-        }
-        i++;
-    }
-    return (activeFlag);
 }
 
 /**
@@ -599,36 +563,6 @@ function setBalloons(answerArray) {
     return (answerArray);
 }
 
-/**
-* [Function to set multiple choice options for exam mode]
-* @param  {[array]}   choicesArray      [Array of 4 choices for multiple choice]
-* @return {[array]}                     [Array of choices]
-*/
-function setMultipleChoiceOptions(choicesArray) {
-    // Ensure we have exactly 4 choices
-    if (choicesArray.length !== 4) {
-        console.error("Multiple choice needs exactly 4 options, got:", choicesArray.length);
-        return choicesArray;
-    }
-
-    // Set choice text for A, B, C, D
-    $("#choice-a .choice-text").html(choicesArray[0]);
-    $("#choice-b .choice-text").html(choicesArray[1]);
-    $("#choice-c .choice-text").html(choicesArray[2]);
-    $("#choice-d .choice-text").html(choicesArray[3]);
-
-    // Remove any previous correct/incorrect classes
-    $(".choice-option").removeClass("correct incorrect");
-
-    // Show multiple choice container
-    $("#multiple-choice-container").removeClass("d-none");
-
-    // Hide balloons for multiple choice mode
-    $(".game-section-balloons").hide();
-
-    return choicesArray;
-}
-
 $("#play").on("click", function () {
     const selected = document.querySelector('input[name="game-mode"]:checked');
 
@@ -734,8 +668,7 @@ let visualZoomState = {
     startX: 0,
     startY: 0,
     translateX: 0,
-    translateY: 0,
-    initialized: false
+    translateY: 0
 };
 
 /**
@@ -1030,16 +963,10 @@ function initVisualZoom() {
     // Atur kursor awal
     zoomedImg.style.cursor = visualZoomState.scale > 1 ? 'grab' : 'default';
     
-    // Update kursor saat zoom berubah
-    const originalZoomInClick = zoomIn.onclick;
-    zoomIn.onclick = function(e) {
-        if (originalZoomInClick) originalZoomInClick.call(this, e);
+    // Update kursor saat zoom berubah (listener ini jalan setelah listener zoom di atas)
+    function updateCursor() {
         zoomedImg.style.cursor = visualZoomState.scale > 1 ? 'grab' : 'default';
-    };
-    
-    const originalZoomOutClick = zoomOut.onclick;
-    zoomOut.onclick = function(e) {
-        if (originalZoomOutClick) originalZoomOutClick.call(this, e);
-        zoomedImg.style.cursor = visualZoomState.scale > 1 ? 'grab' : 'default';
-    };
+    }
+    zoomIn.addEventListener('click', updateCursor);
+    zoomOut.addEventListener('click', updateCursor);
 }

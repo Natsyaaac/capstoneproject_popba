@@ -2,17 +2,14 @@
    POPBA – scene background (siang & malam)
 
    Yang dilakukan file ini:
-   1. Membuat scene background baru (matahari/bulan, pelangi/aurora, awan,
+   1. Membuat scene background (matahari/bulan, pelangi/aurora, awan,
       burung, bintang, gelembung simbol matematika, bank awan) di dalam
-      Shadow DOM -> tidak bisa bentrok dengan CSS lama.
-   2. Membaca mode siang/malam dari kode yang SUDAH ADA (nightMode.js)
-      tanpa mengubahnya, lalu memasang atribut data-popba-theme="day|night"
+      Shadow DOM -> tidak bisa bentrok dengan CSS lain. Scene dipasang di
+      dalam #wrapper (warna dasar langit ada di popba-header.css / style.css).
+   2. Membaca mode siang/malam dari class body.night-mode (diatur oleh
+      nightMode.js), lalu memasang atribut data-popba-theme="day|night"
       di <html>. Atribut ini juga dipakai CSS untuk menukar logo.
    3. Menyembunyikan hiasan yang mirip balon jawaban saat game berjalan.
-
-   SVG lama di #wrapper TIDAK dihapus (nightMode.js / background.js masih
-   memakainya); hanya disembunyikan lewat popba-header.css setelah scene
-   baru siap.
    ========================================================================== */
 (function () {
   'use strict';
@@ -211,12 +208,12 @@
   var mount = doc.getElementById('wrapper') || doc.body;
   mount.insertBefore(host, mount.firstChild);
 
+  // Scene baru ditampilkan setelah CSS-nya selesai dimuat (supaya tidak berkedip tanpa gaya)
   var revealed = false;
   function reveal() {
     if (revealed) return;
     revealed = true;
     host.style.setProperty('visibility', 'visible', 'important');
-    root.classList.add('popba-ready'); // sekarang SVG lama boleh disembunyikan
     if (REDUCE) {
       var svgs = shadow.querySelectorAll('svg');
       for (var i = 0; i < svgs.length; i++) if (svgs[i].pauseAnimations) svgs[i].pauseAnimations();
@@ -226,19 +223,9 @@
   link.addEventListener('error', reveal);
   setTimeout(reveal, 1500);
 
-  /* ---------- deteksi siang / malam (dibaca dari kode lama) ---------- */
-  function shown(id) {
-    var el = doc.getElementById(id);
-    return !!el && window.getComputedStyle(el).display !== 'none';
-  }
+  /* ---------- deteksi siang / malam ---------- */
   function isNight() {
-    if (shown('moon') || shown('clouds-night') || shown('stars')) return true; // yang di-toggle nightMode.js
-    var r = doc.getElementById('theme-night');
-    if (r && r.checked) return true;
-    var l = doc.getElementById('night-mode');
-    if (l && l.classList.contains('active')) return true;
-    var cls = ((doc.body && doc.body.className) + ' ' + root.className).toLowerCase();
-    return /(^|[\s_-])(night|dark)(-mode|-theme)?($|[\s_-])/.test(cls);
+    return !!doc.body && doc.body.classList.contains('night-mode'); // diatur oleh nightMode.js
   }
   function isGame() {
     var g = doc.getElementById('game-section');
@@ -265,8 +252,8 @@
     var opts = { attributes: true, attributeFilter: ['style', 'class', 'checked', 'data-theme'] };
     if (window.MutationObserver) {
       var mo = new MutationObserver(sync);
-      ['moon', 'clouds-night', 'stars', 'night-mode', 'day-mode', 'theme-night', 'theme-day', 'game-section']
-        .forEach(function (id) { var el = doc.getElementById(id); if (el) mo.observe(el, opts); });
+      var gameEl = doc.getElementById('game-section');
+      if (gameEl) mo.observe(gameEl, opts);
       mo.observe(doc.body, { attributes: true, attributeFilter: ['class', 'style', 'data-theme'] });
       mo.observe(root, { attributes: true, attributeFilter: ['class', 'data-theme'] });
     }

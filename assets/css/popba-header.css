@@ -1,42 +1,36 @@
 /* ==========================================================================
-   POPBA – judul (logo) + penyesuaian jarak menu
-   Dimuat SETELAH style.css dan style_cloud.css.
+   POPBA – wadah background (#wrapper) + judul (logo)
+   Dimuat SETELAH style.css.
+   (Isi style_cloud.css yang masih terpakai dipindah ke sini; sisanya adalah
+   aturan untuk SVG langit lama dan sudah dihapus.)
    ========================================================================== */
+
+/* --- Reset margin & padding ---------------------------------------------- */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* --- Wadah background. Scene siang/malam dipasang di dalamnya oleh
+       popba-scene.js. Warna di sini = warna dasar langit siang; warna malam
+       ada di style.css (body.night-mode #wrapper). ----------------------- */
+#wrapper {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 105vh;
+  background: #fbf0fc;
+  overflow: hidden;
+  z-index: -100;
+  pointer-events: none;   /* supaya tidak mengganggu tombol di atasnya */
+}
 
 /* --- Tinggi logo: menyesuaikan layar. Di layar pendek logo mengecil,
        di HP logo dibatasi lebar layar. Ubah angka ini kalau ingin lebih
        besar / kecil. ---------------------------------------------------- */
 :root {
   --popba-logo-h: clamp(88px, min(19vh, 36vw), 160px);
-}
-
-/* --- Setelah scene baru siap, SVG background lama disembunyikan.
-       (Elemennya sengaja tidak dihapus: nightMode.js masih memakainya.) -- */
-html.popba-ready #wrapper > svg {
-  display: none !important;
-}
-
-/* --- Judul teks lama disembunyikan. Markup-nya dibiarkan di index.html
-       supaya tidak ada JS lama yang error; boleh dihapus kalau sudah
-       dipastikan tidak ada yang memakainya. ------------------------------ */
-#heading-section .container-heading-main,
-#heading-section .container-heading-main-large {
-  display: none !important;
-}
-
-/* --- Bagian judul ikut alur halaman, sehingga semua tombol di bawahnya
-       otomatis turun mengikuti tinggi logo (berlaku di semua perangkat). -- */
-#heading-section {
-  position: relative !important;
-  height: auto !important;
-  min-height: 0 !important;
-  margin-top: 0 !important;
-  margin-bottom: 0 !important;
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
-}
-#options-section {
-  margin-top: 0 !important;
 }
 
 .popba-heading {
@@ -84,7 +78,8 @@ html.popba-ready #wrapper > svg {
 }
 
 /* --- Logo kuning (siang) <-> logo putih (malam). Atribut data-popba-theme
-       dipasang oleh popba-scene.js dengan membaca mode dari nightMode.js. -- */
+       dipasang oleh popba-scene.js dengan membaca class body.night-mode
+       (diatur oleh nightMode.js). ---------------------------------------- */
 .popba-logo__img--night { opacity: 0; filter: drop-shadow(0 5px 9px rgba(0, 0, 0, .40)); }
 html[data-popba-theme="night"] .popba-logo__img--day   { opacity: 0; }
 html[data-popba-theme="night"] .popba-logo__img--night { opacity: 1; }
