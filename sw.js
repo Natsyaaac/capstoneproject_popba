@@ -4,7 +4,7 @@
  * @version 1.0.0
  */
 
-const CACHE_NAME = 'pop-balon-ajaib-v2';
+const CACHE_NAME = 'pop-balon-ajaib-v3';
 const DYNAMIC_CACHE = 'balloon-pop-dynamic';
 
 const STATIC_ASSETS = [
@@ -46,7 +46,18 @@ const STATIC_ASSETS = [
     'assets/sounds/music_background.mp3',
     'assets/fonts/whale-i-tried.woff2',
     'assets/fonts/whale-i-tried.woff',
-    'assets/fonts/whale-i-tried.ttf'
+    'assets/fonts/whale-i-tried.ttf',
+    'assets/css/popba-header.css',
+    'assets/css/popba-scene.css',
+    'assets/js/popba-scene.js',
+    'assets/images/logo-popba-day.png',
+    'assets/images/logo-popba-night.png',
+    'assets/images/bg/cloud-day-back.svg',     
+    'assets/images/bg/cloud-night-back.svg',
+    'assets/images/bg/cloud-day-mid.svg',      
+    'assets/images/bg/cloud-night-mid.svg',
+    'assets/images/bg/cloud-day-front.svg',    
+    'assets/images/bg/cloud-night-front.svg',
 ];
 
 const EXTERNAL_ASSETS = [

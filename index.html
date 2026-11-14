@@ -23,6 +23,7 @@
     <!-- Link to Custom CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/style_cloud.css">
+    <link rel="stylesheet" href="assets/css/popba-header.css">
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani&display=swap" rel="stylesheet">
     <!-- Link to Email JS -->
     <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
@@ -37,6 +38,16 @@
             <source src="assets/sounds/music_background.mp3" type="audio/mpeg">
         </audio>
 
+        <div class="popba-heading">
+            <h1 class="popba-title">
+                <a class="popba-logo" href="index.html" aria-label="PopBA – Pop Balon Ajaib, kembali ke menu utama">
+                    <img class="popba-logo__img popba-logo__img--day" src="assets/images/logo-popba-day.png" width="620"
+                        height="559" alt="" decoding="async">
+                    <img class="popba-logo__img popba-logo__img--night" src="assets/images/logo-popba-night.png"
+                        width="620" height="559" alt="" decoding="async">
+                </a>
+            </h1>
+        </div>
         <!-- Balloon Pop Maths Heading -->
         <div class="row">
             <!-- Screens smaller than md -->
@@ -64,7 +75,8 @@
             <div class="col-md-2 menu-spacer"></div>
             <div class="col-md-8 menu-main">
                 <!-- Game Mode Options -->
-                <div class="btn-group btn-group-toggle  w-100 container-button-group grid-tem menu-modes" data-toggle="buttons">
+                <div class="btn-group btn-group-toggle  w-100 container-button-group grid-tem menu-modes"
+                    data-toggle="buttons">
                     <label id="aljabar" class="btn btn-xl w-100 btn-info btn-text">
                         <input type="radio" aria-label="Aljabar" name="game-mode"> Aljabar
                     </label>
@@ -101,7 +113,8 @@
                     <button id="play" type="button" class="btn btn-xxl w-100 btn-info btn-text btn-play">PLAY</button>
                 </div>
                 <!-- Audio Controls -->
-                <div class="btn-group btn-group-toggle d-flex w-100 container-button-group menu-audio" data-toggle="buttons">
+                <div class="btn-group btn-group-toggle d-flex w-100 container-button-group menu-audio"
+                    data-toggle="buttons">
                     <label id="audio-on" class="btn btn-xl w-100 btn-info btn-text active ">
                         <input type="radio" aria-label="Audio On" name="audio-on" checked>
                         <i class="fas fa-volume-up"></i>
@@ -112,7 +125,8 @@
                     </label>
                 </div>
                 <!-- Night Mode Toggle -->
-                <div class="btn-group btn-group-toggle d-flex w-100 container-button-group menu-theme" data-toggle="buttons">
+                <div class="btn-group btn-group-toggle d-flex w-100 container-button-group menu-theme"
+                    data-toggle="buttons">
                     <label id="day-mode" class="btn btn-xl w-100 btn-info btn-text active">
                         <input type="radio" aria-label="Day Mode" name="theme-mode" id="theme-day" checked>
                         <i class="fas fa-sun"></i>
@@ -135,221 +149,228 @@
                 <div class="collapse options menu-options-panel" id="options">
                     <div class="options-inner">
                         <div class="options-common">
-                <!-- Options applicable to all games -->
-                <div class="btn-group btn-group-toggle d-flex w-100 container-button-group" data-toggle="buttons">
-                    <label id="10q" class="btn btn-xl w-100 btn-info btn-text active">
-                        <input type="radio" name="questions" checked> 10 Questions
-                    </label>
-                    <label id="20q" class="btn btn-xl w-100 btn-info btn-text">
-                        <input type="radio" name="questions"> 20 Questions
-                    </label>
-                </div>
-                <div class="btn-group btn-group-toggle d-flex w-100 container-button-group" data-toggle="buttons">
-                    <label id="easy" class="btn btn-xl w-100 btn-info btn-text active">
-                        <input type="radio" name="difficulty" checked> Easy
-                    </label>
-                    <label id="medium" class="btn btn-xl w-100 btn-info btn-text">
-                        <input type="radio" name="difficulty"> Medium
-                    </label>
-                    <label id="hard" class="btn btn-xl w-100 btn-info btn-text">
-                        <input type="radio" name="difficulty"> Hard
-                    </label>
-                </div>
+                            <!-- Options applicable to all games -->
+                            <div class="btn-group btn-group-toggle d-flex w-100 container-button-group"
+                                data-toggle="buttons">
+                                <label id="10q" class="btn btn-xl w-100 btn-info btn-text active">
+                                    <input type="radio" name="questions" checked> 10 Questions
+                                </label>
+                                <label id="20q" class="btn btn-xl w-100 btn-info btn-text">
+                                    <input type="radio" name="questions"> 20 Questions
+                                </label>
+                            </div>
+                            <div class="btn-group btn-group-toggle d-flex w-100 container-button-group"
+                                data-toggle="buttons">
+                                <label id="easy" class="btn btn-xl w-100 btn-info btn-text active">
+                                    <input type="radio" name="difficulty" checked> Easy
+                                </label>
+                                <label id="medium" class="btn btn-xl w-100 btn-info btn-text">
+                                    <input type="radio" name="difficulty"> Medium
+                                </label>
+                                <label id="hard" class="btn btn-xl w-100 btn-info btn-text">
+                                    <input type="radio" name="difficulty"> Hard
+                                </label>
+                            </div>
                         </div><!-- /options-common -->
 
                         <div class="options-mode">
-                <div id="options-add-aljabar">
-                    <div class="row">
-                        <div class="col d-flex w-100 container-button">
-                            <span class="container-button"></span>
-                            <button id="btn-aljabar-1" type="button" data-toggle="button" aria-pressed="true"
-                                class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-aljabar-toggle active">Isi
-                                Kotak Kosong</button>
-                            <span class="container-button"></span>
-                            <button id="btn-aljabar-2" type="button" data-toggle="button"
-                                class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-aljabar-toggle">Nilai
-                                Variabel</button>
-                            <span class="container-button"></span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col d-flex w-100 container-button">
-                            <span class="container-button"></span>
-                            <button id="btn-aljabar-3" type="button" data-toggle="button"
-                                class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-aljabar-toggle">Persamaan
-                                Sederhana</button>
-                            <span class="container-button"></span>
-                            <button id="btn-aljabar-4" type="button" data-toggle="button"
-                                class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-aljabar-toggle">Pola
-                                Bilangan</button>
-                            <span class="container-button"></span>
-                        </div>
-                    </div>
-                </div>
+                            <div id="options-add-aljabar">
+                                <div class="row">
+                                    <div class="col d-flex w-100 container-button">
+                                        <span class="container-button"></span>
+                                        <button id="btn-aljabar-1" type="button" data-toggle="button"
+                                            aria-pressed="true"
+                                            class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-aljabar-toggle active">Isi
+                                            Kotak Kosong</button>
+                                        <span class="container-button"></span>
+                                        <button id="btn-aljabar-2" type="button" data-toggle="button"
+                                            class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-aljabar-toggle">Nilai
+                                            Variabel</button>
+                                        <span class="container-button"></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col d-flex w-100 container-button">
+                                        <span class="container-button"></span>
+                                        <button id="btn-aljabar-3" type="button" data-toggle="button"
+                                            class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-aljabar-toggle">Persamaan
+                                            Sederhana</button>
+                                        <span class="container-button"></span>
+                                        <button id="btn-aljabar-4" type="button" data-toggle="button"
+                                            class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-aljabar-toggle">Pola
+                                            Bilangan</button>
+                                        <span class="container-button"></span>
+                                    </div>
+                                </div>
+                            </div>
 
-                <div id="options-add-time">
-                    <div class="row">
-                        <div class="col d-flex w-100 container-button">
-                            <span class="container-button"></span>
-                            <button id="btn-time-1" type="button" data-toggle="button" aria-pressed="true"
-                                class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-time-toggle active">Baca
-                                Jam</button>
-                            <span class="container-button"></span>
-                            <button id="btn-time-2" type="button" data-toggle="button"
-                                class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-time-toggle">Tambah &
-                                Kurang Waktu</button>
-                            <span class="container-button"></span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col d-flex w-100 container-button">
-                            <span class="container-button"></span>
-                            <button id="btn-time-3" type="button" data-toggle="button"
-                                class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-time-toggle">Konversi
-                                Waktu</button>
-                            <span class="container-button"></span>
-                            <button id="btn-time-4" type="button" data-toggle="button"
-                                class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-time-toggle">Selisih
-                                Waktu</button>
-                            <span class="container-button"></span>
-                        </div>
-                    </div>
-                </div>
+                            <div id="options-add-time">
+                                <div class="row">
+                                    <div class="col d-flex w-100 container-button">
+                                        <span class="container-button"></span>
+                                        <button id="btn-time-1" type="button" data-toggle="button" aria-pressed="true"
+                                            class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-time-toggle active">Baca
+                                            Jam</button>
+                                        <span class="container-button"></span>
+                                        <button id="btn-time-2" type="button" data-toggle="button"
+                                            class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-time-toggle">Tambah
+                                            &
+                                            Kurang Waktu</button>
+                                        <span class="container-button"></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col d-flex w-100 container-button">
+                                        <span class="container-button"></span>
+                                        <button id="btn-time-3" type="button" data-toggle="button"
+                                            class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-time-toggle">Konversi
+                                            Waktu</button>
+                                        <span class="container-button"></span>
+                                        <button id="btn-time-4" type="button" data-toggle="button"
+                                            class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-time-toggle">Selisih
+                                            Waktu</button>
+                                        <span class="container-button"></span>
+                                    </div>
+                                </div>
+                            </div>
 
-                <div id="options-add-heavy">
-                    <div class="row">
-                        <div class="col d-flex w-100 container-button">
-                            <span class="container-button"></span>
-                            <button id="btn-heavy-1" type="button" data-toggle="button" aria-pressed="true"
-                                class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-heavy-toggle active">Konversi
-                                Berat</button>
-                            <span class="container-button"></span>
-                            <button id="btn-heavy-2" type="button" data-toggle="button"
-                                class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-heavy-toggle">Tambah &
-                                Kurang Berat</button>
-                            <span class="container-button"></span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col d-flex w-100 container-button">
-                            <span class="container-button"></span>
-                            <button id="btn-heavy-3" type="button" data-toggle="button"
-                                class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-heavy-toggle">Bandingkan
-                                Berat</button>
-                            <span class="container-button"></span>
-                            <button id="btn-heavy-4" type="button" data-toggle="button"
-                                class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-heavy-toggle">Selisih
-                                Berat</button>
-                            <span class="container-button"></span>
-                        </div>
-                    </div>
-                </div>
+                            <div id="options-add-heavy">
+                                <div class="row">
+                                    <div class="col d-flex w-100 container-button">
+                                        <span class="container-button"></span>
+                                        <button id="btn-heavy-1" type="button" data-toggle="button" aria-pressed="true"
+                                            class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-heavy-toggle active">Konversi
+                                            Berat</button>
+                                        <span class="container-button"></span>
+                                        <button id="btn-heavy-2" type="button" data-toggle="button"
+                                            class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-heavy-toggle">Tambah
+                                            &
+                                            Kurang Berat</button>
+                                        <span class="container-button"></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col d-flex w-100 container-button">
+                                        <span class="container-button"></span>
+                                        <button id="btn-heavy-3" type="button" data-toggle="button"
+                                            class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-heavy-toggle">Bandingkan
+                                            Berat</button>
+                                        <span class="container-button"></span>
+                                        <button id="btn-heavy-4" type="button" data-toggle="button"
+                                            class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-heavy-toggle">Selisih
+                                            Berat</button>
+                                        <span class="container-button"></span>
+                                    </div>
+                                </div>
+                            </div>
 
-                <div id="options-add-volume">
-                    <div class="row">
-                        <div class="col d-flex w-100 container-button">
-                            <span class="container-button"></span>
-                            <button id="btn-volume-1" type="button" data-toggle="button" aria-pressed="true"
-                                class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-volume-toggle active">Volume</button>
-                            <span class="container-button"></span>
-                            <button id="btn-volume-2" type="button" data-toggle="button"
-                                class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-volume-toggle">Tambah
-                                Volume</button>
-                            <span class="container-button"></span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col d-flex w-100 container-button">
-                            <span class="container-button"></span>
-                            <button id="btn-volume-3" type="button" data-toggle="button"
-                                class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-volume-toggle">Selisih
-                                Volume</button>
-                            <span class="container-button"></span>
-                            <button id="btn-volume-4" type="button" data-toggle="button"
-                                class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-volume-toggle">Perkiraan
-                                Volume</button>
-                            <span class="container-button"></span>
-                        </div>
-                    </div>
-                </div>
+                            <div id="options-add-volume">
+                                <div class="row">
+                                    <div class="col d-flex w-100 container-button">
+                                        <span class="container-button"></span>
+                                        <button id="btn-volume-1" type="button" data-toggle="button" aria-pressed="true"
+                                            class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-volume-toggle active">Volume</button>
+                                        <span class="container-button"></span>
+                                        <button id="btn-volume-2" type="button" data-toggle="button"
+                                            class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-volume-toggle">Tambah
+                                            Volume</button>
+                                        <span class="container-button"></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col d-flex w-100 container-button">
+                                        <span class="container-button"></span>
+                                        <button id="btn-volume-3" type="button" data-toggle="button"
+                                            class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-volume-toggle">Selisih
+                                            Volume</button>
+                                        <span class="container-button"></span>
+                                        <button id="btn-volume-4" type="button" data-toggle="button"
+                                            class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-volume-toggle">Perkiraan
+                                            Volume</button>
+                                        <span class="container-button"></span>
+                                    </div>
+                                </div>
+                            </div>
 
-                <div id="options-add-up">
-                    <div class="row">
-                        <div class="col d-flex w-100 container-button">
-                            <span class="container-button"></span>
-                            <button id="btn-up-1" type="button" data-toggle="button" aria-pressed="true"
-                                class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-up-toggle active">Keliling
-                                Bangun Datar</button>
-                            <span class="container-button"></span>
-                            <button id="btn-up-2" type="button" data-toggle="button"
-                                class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-up-toggle">Volume Bangun
-                                Ruang</button>
-                            <span class="container-button"></span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col d-flex w-100 container-button">
-                            <span class="container-button"></span>
-                            <button id="btn-up-3" type="button" data-toggle="button"
-                                class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-up-toggle">Luas
-                                Permukaan Bangun Ruang</button>
-                            <span class="container-button"></span>
-                            <button id="btn-up-4" type="button" data-toggle="button"
-                                class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-up-toggle">Perbandingan
-                                Bangun</button>
-                            <span class="container-button"></span>
-                        </div>
-                    </div>
-                </div>
+                            <div id="options-add-up">
+                                <div class="row">
+                                    <div class="col d-flex w-100 container-button">
+                                        <span class="container-button"></span>
+                                        <button id="btn-up-1" type="button" data-toggle="button" aria-pressed="true"
+                                            class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-up-toggle active">Keliling
+                                            Bangun Datar</button>
+                                        <span class="container-button"></span>
+                                        <button id="btn-up-2" type="button" data-toggle="button"
+                                            class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-up-toggle">Volume
+                                            Bangun
+                                            Ruang</button>
+                                        <span class="container-button"></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col d-flex w-100 container-button">
+                                        <span class="container-button"></span>
+                                        <button id="btn-up-3" type="button" data-toggle="button"
+                                            class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-up-toggle">Luas
+                                            Permukaan Bangun Ruang</button>
+                                        <span class="container-button"></span>
+                                        <button id="btn-up-4" type="button" data-toggle="button"
+                                            class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-up-toggle">Perbandingan
+                                            Bangun</button>
+                                        <span class="container-button"></span>
+                                    </div>
+                                </div>
+                            </div>
 
-                <div id="options-add-operator">
-                    <div class="row">
-                        <div class="col d-flex w-100 container-button">
-                            <span class="container-button"></span>
-                            <button id="btn-operator-1" type="button" data-toggle="button" aria-pressed="true"
-                                class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-operator-toggle active">Kurang</button>
-                            <span class="container-button"></span>
-                            <button id="btn-operator-2" type="button" data-toggle="button"
-                                class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-operator-toggle">Tambah</button>
-                            <span class="container-button"></span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col d-flex w-100 container-button">
-                            <span class="container-button"></span>
-                            <button id="btn-operator-3" type="button" data-toggle="button"
-                                class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-operator-toggle">Bagi</button>
-                            <span class="container-button"></span>
-                            <button id="btn-operator-4" type="button" data-toggle="button"
-                                class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-operator-toggle">Kali</button>
-                            <span class="container-button"></span>
-                        </div>
-                    </div>
-                </div>
+                            <div id="options-add-operator">
+                                <div class="row">
+                                    <div class="col d-flex w-100 container-button">
+                                        <span class="container-button"></span>
+                                        <button id="btn-operator-1" type="button" data-toggle="button"
+                                            aria-pressed="true"
+                                            class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-operator-toggle active">Kurang</button>
+                                        <span class="container-button"></span>
+                                        <button id="btn-operator-2" type="button" data-toggle="button"
+                                            class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-operator-toggle">Tambah</button>
+                                        <span class="container-button"></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col d-flex w-100 container-button">
+                                        <span class="container-button"></span>
+                                        <button id="btn-operator-3" type="button" data-toggle="button"
+                                            class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-operator-toggle">Bagi</button>
+                                        <span class="container-button"></span>
+                                        <button id="btn-operator-4" type="button" data-toggle="button"
+                                            class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-operator-toggle">Kali</button>
+                                        <span class="container-button"></span>
+                                    </div>
+                                </div>
+                            </div>
 
 
-                <div id="options-add-exam">
-                    <div class="row">
-                        <div class="col d-flex w-100 container-button">
-                            <span class="container-button"></span>
-                            <button id="btn-exam-1" type="button" data-toggle="button" aria-pressed="true"
-                                class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-exam-toggle active">Essay</button>
-                            <span class="container-button"></span>
-                            <button id="btn-exam-2" type="button" data-toggle="button"
-                                class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-exam-toggle">Pilihan
-                                Ganda</button>
-                            <span class="container-button"></span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col d-flex w-100 container-button">
-                            <span class="container-button"></span>
-                            <button id="btn-exam-3" type="button" data-toggle="button"
-                                class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-exam-toggle">Visual</button>
-                            <span class="container-button"></span>
-                        </div>
-                    </div>
-                </div>
+                            <div id="options-add-exam">
+                                <div class="row">
+                                    <div class="col d-flex w-100 container-button">
+                                        <span class="container-button"></span>
+                                        <button id="btn-exam-1" type="button" data-toggle="button" aria-pressed="true"
+                                            class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-exam-toggle active">Essay</button>
+                                        <span class="container-button"></span>
+                                        <button id="btn-exam-2" type="button" data-toggle="button"
+                                            class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-exam-toggle">Pilihan
+                                            Ganda</button>
+                                        <span class="container-button"></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col d-flex w-100 container-button">
+                                        <span class="container-button"></span>
+                                        <button id="btn-exam-3" type="button" data-toggle="button"
+                                            class="btn btn-xl w-100 btn-info btn-text btn-xl-focus-none btn-exam-toggle">Visual</button>
+                                        <span class="container-button"></span>
+                                    </div>
+                                </div>
+                            </div>
                         </div><!-- /options-mode -->
                     </div><!-- /options-inner -->
                 </div><!-- /menu-options-panel -->
@@ -611,7 +632,8 @@
                         <span class="c-mode">Mode</span>
                         <span class="c-soal">Soal</span>
                     </div>
-                    <div id="riwayat-label-podium" class="riwayat-label riwayat-anim">3 Skor Tertinggi &middot; Hard (permanen)</div>
+                    <div id="riwayat-label-podium" class="riwayat-label riwayat-anim">3 Skor Tertinggi &middot; Hard
+                        (permanen)</div>
                     <ol id="riwayat-podium" class="riwayat-list"></ol>
                     <div class="riwayat-label riwayat-anim">Permainan Terakhir</div>
                     <ol id="riwayat-terakhir" class="riwayat-list"></ol>
@@ -981,6 +1003,7 @@
     <script src="assets/js/events.js"></script>
     <script src="assets/js/nightMode.js"></script>
     <script src="assets/js/background.js"></script>
+    <script src="assets/js/popba-scene.js"></script>
 
 
     <script>
