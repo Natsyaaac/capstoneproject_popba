@@ -4,7 +4,7 @@
  * @version 1.0.0
  */
 
-const CACHE_NAME = 'balloon-pop-maths-v1';
+const CACHE_NAME = 'pop-balon-ajaib-v2';
 const DYNAMIC_CACHE = 'balloon-pop-dynamic';
 
 const STATIC_ASSETS = [
@@ -21,6 +21,7 @@ const STATIC_ASSETS = [
     'assets/js/animation.js',
     'assets/js/events.js',
     'assets/js/game-logic.js',
+    'assets/js/riwayat-skor.js',
     'assets/js/maths.js',
     'assets/js/input-soal.js',
     'assets/js/storyMode.js',

@@ -9,13 +9,17 @@
 /* globals returnGameMode, returnQuestions, returnDifficulty, returnActiveButtons, returnOptionArray, returnQuestionArray */
 /* globals initialiseHealthBar, setQuestion, answerArray, setBalloons, setScore, returnCanvasID, getHighScore, soundPop */
 /* globals animateBalloon, checkHighScore, setHighScore, soundHighScore, soundUnlucky, soundWellDone, returnToMenu, setHealthBar */
-/* globals soundDeflate */
+/* globals soundDeflate, catatRiwayatPermainan, resetPencatatanRiwayat */
 
 /**
 * [Function to launch game]
 * @return {[array]}                     [Score array - array of 2 numbers, score and number of questions]          
 */
 function playGame() {
+    // Permainan baru dimulai: izinkan pencatatan riwayat skor lagi
+    if (typeof resetPencatatanRiwayat === "function") {
+        resetPencatatanRiwayat();
+    }
     // Set global variables 
     bpmGameMode = returnGameMode();
     bpmQno = returnQuestions();
@@ -266,6 +270,10 @@ function checkSelectedAnswer() {
             $("#modal-feedback-body-text").text("You scored " +  bpmScoreArray[0] + " out of " + bpmScoreArray[1] + "!");
             // Display feedback modal
             $('#modal-feedback').modal();
+            // Catat hasil permainan ke riwayat skor
+            if (typeof catatRiwayatPermainan === "function") {
+                catatRiwayatPermainan();
+            }
             // Return to menu
             returnToMenu();
         }
@@ -314,6 +322,10 @@ function checkSelectedAnswer() {
             $("#modal-feedback-body-text").text("You scored " +  bpmScoreArray[0] + " out of " + bpmScoreArray[1] + "!");
             // Display feedback modal
             $('#modal-feedback').modal();
+            // Catat hasil permainan ke riwayat skor
+            if (typeof catatRiwayatPermainan === "function") {
+                catatRiwayatPermainan();
+            }
             // Return to menu
             returnToMenu();
         }

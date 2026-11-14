@@ -87,9 +87,14 @@
                         <input type="radio" aria-label="Fraction" name="game-mode"> Ujian
                     </label>
                 </div>
-                <!-- High Score -->
-                <div class="container-button-group d-flex w-100 menu-highscore">
-                    <span id="highscore" class="btn-xl-nofill w-100 btn-text-score">High Score: 0 / 10</span>
+                <!-- High Score (sekarang tombol: membuka halaman Riwayat Permainan; ID #highscore tetap) -->
+                <div class="container-button-group d-flex w-100 hover menu-highscore">
+                    <button type="button" id="btn-riwayat" class="btn btn-xl w-100 btn-info btn-text btn-riwayat"
+                        title="Lihat riwayat permainan">
+                        <i class="fas fa-trophy" aria-hidden="true"></i>
+                        <span id="highscore">High Score: 0 / 10</span>
+                        <i class="fas fa-chevron-right btn-riwayat-arrow" aria-hidden="true"></i>
+                    </button>
                 </div>
                 <!-- Play Button, hidden until window has finished loading -->
                 <div class="container-button-group d-flex w-100 hover menu-play">
@@ -578,6 +583,44 @@
         </div>
     </section>
 
+    <!-- Riwayat Permainan Section (dibuka dari tombol High Score) -->
+    <section id="riwayat-section" class="container-sm d-none" aria-label="Riwayat Permainan Section">
+        <div class="row">
+            <div class="col-md-2 riwayat-spacer"></div>
+            <div class="col-md-8 riwayat-main">
+                <!-- Home Button -->
+                <div class="container-button-group d-flex w-100">
+                    <button id="btn-riwayat-home" type="button" class="btn btn-xl w-100 btn-info btn-text">
+                        <i class="fas fa-home"></i> Kembali ke Menu
+                    </button>
+                </div>
+
+                <!-- Judul -->
+                <div class="container-button-group d-flex w-100">
+                    <div class="btn-xl-nofill w-100 btn-text-score riwayat-judul">
+                        <i class="fas fa-trophy"></i> Riwayat Permainan
+                    </div>
+                </div>
+
+                <!-- Daftar skor: baris diisi oleh assets/js/riwayat-skor.js -->
+                <div class="riwayat-tabel" role="group" aria-label="Daftar skor">
+                    <div class="riwayat-head riwayat-anim" aria-hidden="true">
+                        <span class="c-rank">#</span>
+                        <span class="c-skor">Skor</span>
+                        <span class="c-hati">Hati</span>
+                        <span class="c-mode">Mode</span>
+                        <span class="c-soal">Soal</span>
+                    </div>
+                    <div id="riwayat-label-podium" class="riwayat-label riwayat-anim">3 Skor Tertinggi &middot; Hard (permanen)</div>
+                    <ol id="riwayat-podium" class="riwayat-list"></ol>
+                    <div class="riwayat-label riwayat-anim">Permainan Terakhir</div>
+                    <ol id="riwayat-terakhir" class="riwayat-list"></ol>
+                </div>
+            </div>
+            <div class="col-md-2 riwayat-spacer"></div>
+        </div>
+    </section>
+
     <!-- Modal for Adding Essay Questions -->
     <div class="modal" id="modal-tambah-essay" style="display: none;">
         <div class="modal-inner" style="max-width: 600px;">
@@ -622,7 +665,7 @@
                     <label for="input-jawaban-pilgan" style="color: #A2529A; font-weight: bold;">Jawaban yang
                         Benar:</label>
                     <input type="text" id="input-jawaban-pilgan" class="form-control"
-                        placeholder="Masukkan jawaban yang benar (A, B, C, atau D)..." required>
+                        placeholder="Masukkan jawaban yang benar" required>
                 </div>
 
                 <div class="form-group">
@@ -931,6 +974,7 @@
     <script src="assets/js/display.js"></script>
     <script src="assets/js/input-soal.js"></script>
     <script src="assets/js/game-logic.js"></script>
+    <script src="assets/js/riwayat-skor.js"></script>
     <!-- <script src="assets/js/mail.js"></script> -->
     <script src="assets/js/storyMode.js"></script>
     <script src="assets/js/maths.js"></script>
