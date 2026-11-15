@@ -58,6 +58,9 @@ const STATIC_ASSETS = [
     'assets/css/popba-tutorial.css',
     'assets/js/tutorial.js',
     'assets/images/tutorial-hand.png',
+    'assets/images/icon.png',
+    'assets/fonts/whale-i-tried.woff2',
+    'assets/fonts/whale-i-tried.woff',
 ];
 
 const EXTERNAL_ASSETS = [
@@ -189,7 +192,7 @@ function networkFirst(request) {
                         if (url.pathname === '/' || url.pathname === '/index.html') {
                             return caches.match('/index.html');
                         }
-                        return caches.match('/404.html');
+                        return caches.match('404.html');
                     }
 
                     return new Response('Offline', {
