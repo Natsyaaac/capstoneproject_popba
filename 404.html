@@ -628,7 +628,8 @@
                     callback(ok);
                 }
                 var timer = setTimeout(function () { akhir(false); }, 6000);
-                fetch('assets/images/balloon-favicon.ico?t=' + Date.now(), { cache: 'no-store' })
+                // "cek-koneksi" dikenali sw.js: langsung ke jaringan, tidak dijawab dari cache
+                fetch('assets/images/balloon-favicon.ico?cek-koneksi=' + Date.now(), { cache: 'no-store' })
                     .then(function (r) { akhir(r.ok); })
                     .catch(function () { akhir(false); });
             }
