@@ -6,7 +6,7 @@
 
 // Naikkan angka versi ini setiap kali daftar/isi file di bawah berubah,
 // supaya cache lama di HP/browser pengguna terhapus.
-const CACHE_NAME = 'pop-balon-ajaib-v4';
+const CACHE_NAME = 'pop-balon-ajaib-v7';
 
 const STATIC_ASSETS = [
     'index.html',
@@ -44,6 +44,8 @@ const STATIC_ASSETS = [
     'assets/sounds/music_background.mp3',
     'assets/css/popba-header.css',
     'assets/css/popba-scene.css',
+    'assets/css/popba-game.css',
+    'assets/css/popba-menu-mobile.css',
     'assets/js/popba-scene.js',
     'assets/images/logo-popba-day.png',
     'assets/images/logo-popba-night.png',
@@ -62,7 +64,7 @@ const EXTERNAL_ASSETS = [
 
 self.addEventListener('install', function(event) {
     console.log('[ServiceWorker] Installing...');
-    
+
     event.waitUntil(
         caches.open(CACHE_NAME)
             .then(function(cache) {
@@ -77,7 +79,7 @@ self.addEventListener('install', function(event) {
                         return new Request(url, { cache: 'reload' });
                     }));
                 });
-                
+
                 var externalPromise = Promise.all(EXTERNAL_ASSETS.map(function(url) {
                     return fetch(url, { mode: 'cors' })
                         .then(function(response) {
@@ -89,7 +91,7 @@ self.addEventListener('install', function(event) {
                             console.warn('[ServiceWorker] Failed to cache external asset:', url, error);
                         });
                 }));
-                
+
                 return Promise.all([staticPromise, externalPromise]);
             })
             .then(function() {
@@ -101,7 +103,7 @@ self.addEventListener('install', function(event) {
 
 self.addEventListener('activate', function(event) {
     console.log('[ServiceWorker] Activating...');
-    
+
     event.waitUntil(
         caches.keys()
             .then(function(cacheNames) {
@@ -123,24 +125,24 @@ self.addEventListener('activate', function(event) {
 
 self.addEventListener('fetch', function(event) {
     const url = new URL(event.request.url);
-    
+
     if (url.origin.includes('firebase') ||
         url.origin.includes('googleapis')) {
         event.respondWith(networkFirst(event.request));
         return;
     }
-    
-    if (event.request.destination === 'audio' || 
+
+    if (event.request.destination === 'audio' ||
         event.request.destination === 'video') {
         event.respondWith(cacheFirst(event.request));
         return;
     }
-    
+
     if (event.request.mode === 'navigate') {
         event.respondWith(networkFirst(event.request));
         return;
     }
-    
+
     event.respondWith(staleWhileRevalidate(event.request));
 });
 
@@ -178,7 +180,7 @@ function networkFirst(request) {
                     if (cachedResponse) {
                         return cachedResponse;
                     }
-                    
+
                     if (request.mode === 'navigate') {
                         var url = new URL(request.url);
                         if (url.pathname === '/' || url.pathname === '/index.html') {
@@ -186,9 +188,9 @@ function networkFirst(request) {
                         }
                         return caches.match('/404.html');
                     }
-                    
+
                     return new Response('Offline', {
-                        status: 503, 
+                        status: 503,
                         statusText: 'Service Unavailable'
                     });
                 });
@@ -215,7 +217,7 @@ function staleWhileRevalidate(request) {
                         statusText: 'Service Unavailable'
                     });
                 });
-            
+
             return cachedResponse || fetchPromise;
         });
 }
@@ -238,7 +240,7 @@ self.addEventListener('message', function(event) {
     if (event.data && event.data.type === 'SKIP_WAITING') {
         self.skipWaiting();
     }
-    
+
     if (event.data && event.data.type === 'CACHE_URLS') {
         var urls = event.data.urls;
         caches.open(CACHE_NAME)

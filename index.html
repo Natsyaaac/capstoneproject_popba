@@ -23,6 +23,9 @@
     <!-- Link to Custom CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/popba-header.css">
+    <!-- Tampilan in-game (balon, bilah atas, kartu soal) dan tombol menu untuk HP -->
+    <link rel="stylesheet" href="assets/css/popba-game.css">
+    <link rel="stylesheet" href="assets/css/popba-menu-mobile.css">
     <title>Balloon Pop Maths</title>
 </head>
 
@@ -389,16 +392,25 @@
     <!-- Game Section -->
     <section id="game-section" class="container-xl d-none" aria-label="Game Section">
 
-        <!-- Home Button -->
-        <div id="game-section-home" class="row container-button-game">
-            <div class="col text-left pr-0">
-                <button id="btn-game-section-home" type="button" data-toggle="button"
-                    class="btn btn-xl btn-info btn-text btn-xl-focus-none">Home
-                </button>
+        <!-- Bilah atas: Home | Suara & Nyawa | Skor -->
+        <div id="game-section-home" class="game-hud">
+            <button id="btn-game-section-home" type="button"
+                class="btn btn-xl btn-info btn-text btn-xl-focus-none hud-home">
+                <i class="fas fa-home" aria-hidden="true"></i><span>Home</span>
+            </button>
+            <div class="h" id="health-section">
+                <div id="audio-controls">
+                    <i id="mute" class="fas fa-volume-up"></i>
+                </div>
+                <div id="health">
+                    <i id="heart1" class="fas fa-heart"></i>
+                    <i id="heart2" class="fas fa-heart"></i>
+                    <i id="heart3" class="fas fa-heart"></i>
+                    <i id="heart4" class="fas fa-heart"></i>
+                    <i id="heart5" class="fas fa-heart"></i>
+                </div>
             </div>
-            <div class="col text-right pl-0">
-                <div id="score" class="btn btn-xl-nofill btn-text-score d-none">Score: 0 / 20</div>
-            </div>
+            <div id="score" class="btn btn-xl-nofill btn-text-score d-none">Score: 0 / 20</div>
         </div>
         <!-- Game Loader, shown until window has completed loading -->
         <div id="game-loader" class="container-xl text-center">
@@ -418,72 +430,37 @@
         </div>
         <!-- Game Div, hidden until window has completed loading -->
         <div id="game-canvas-controls" class="d-none">
-            <!-- Game Canvas, 2 panels - stacked on medium and small devices -->
-            <div class="row game-section-balloons p-0 m-0">
-                <div class="col-lg-6 p-0 m-0">
-                    <div class="row canvas-balloon p-0 m-0">
-                        <div class="col d-flex justify-content-center p-0 m-0">
-                            <canvas id="canvas-balloon-left-1"></canvas>
-                            <div id="balloon-answer-text-left-1" class="balloon-answer-text balloon-answer-text-top">8
-                            </div>
-                        </div>
-                        <div class="col d-flex justify-content-center p-0 m-0">
-                            <canvas id="canvas-balloon-left-2"></canvas>
-                            <div id="balloon-answer-text-left-2" class="balloon-answer-text balloon-answer-text-bottom">
-                                10</div>
-                        </div>
-                    </div>
-                    <div class="row canvas-balloon p-0 m-0">
-                        <div class="col d-flex justify-content-center p-0 m-0">
-                            <canvas id="canvas-balloon-left-3"></canvas>
-                            <div id="balloon-answer-text-left-3" class="balloon-answer-text balloon-answer-text-top">12
-                            </div>
-                        </div>
-                    </div>
+            <!-- Balon: 6 slot dalam satu grid. Urutan di sini = urutan jawaban (kiri-1, kiri-2, kiri-3, kanan-1, kanan-2, kanan-3).
+                 Di setiap slot, canvas HARUS tepat sebelum teks jawabannya (dipakai returnCanvasID di animation.js). -->
+            <div class="game-section-balloons balloon-grid">
+                <div class="balloon-slot">
+                    <canvas id="canvas-balloon-left-1" width="512" height="512"></canvas>
+                    <div id="balloon-answer-text-left-1" class="balloon-answer-text balloon-answer-text-top">8</div>
                 </div>
-                <div class="col-lg-6 p-0 m-0">
-                    <div class="row canvas-balloon p-0 m-0">
-                        <div class="col d-flex justify-content-center p-0 m-0">
-                            <canvas id="canvas-balloon-right-1"></canvas>
-                            <div id="balloon-answer-text-right-1" class="balloon-answer-text balloon-answer-text-top">18
-                            </div>
-                        </div>
-                        <div class="col d-flex justify-content-center p-0 m-0">
-                            <canvas id="canvas-balloon-right-2"></canvas>
-                            <div id="balloon-answer-text-right-2"
-                                class="balloon-answer-text balloon-answer-text-bottom">18</div>
-                        </div>
-                    </div>
-                    <div class="row canvas-balloon p-0 m-0">
-                        <div class="col d-flex justify-content-center p-0 m-0">
-                            <canvas id="canvas-balloon-right-3"></canvas>
-                            <div id="balloon-answer-text-right-3" class="balloon-answer-text balloon-answer-text-top">18
-                            </div>
-                        </div>
-                    </div>
+                <div class="balloon-slot">
+                    <canvas id="canvas-balloon-left-2" width="512" height="512"></canvas>
+                    <div id="balloon-answer-text-left-2" class="balloon-answer-text balloon-answer-text-bottom">10</div>
+                </div>
+                <div class="balloon-slot">
+                    <canvas id="canvas-balloon-left-3" width="512" height="512"></canvas>
+                    <div id="balloon-answer-text-left-3" class="balloon-answer-text balloon-answer-text-top">12</div>
+                </div>
+                <div class="balloon-slot">
+                    <canvas id="canvas-balloon-right-1" width="512" height="512"></canvas>
+                    <div id="balloon-answer-text-right-1" class="balloon-answer-text balloon-answer-text-top">18</div>
+                </div>
+                <div class="balloon-slot">
+                    <canvas id="canvas-balloon-right-2" width="512" height="512"></canvas>
+                    <div id="balloon-answer-text-right-2" class="balloon-answer-text balloon-answer-text-bottom">18</div>
+                </div>
+                <div class="balloon-slot">
+                    <canvas id="canvas-balloon-right-3" width="512" height="512"></canvas>
+                    <div id="balloon-answer-text-right-3" class="balloon-answer-text balloon-answer-text-top">18</div>
                 </div>
             </div>
-            <!-- Game Controls - Responsif untuk semua device -->
-            <div class="row game-section-controls p-0 m-0">
-                <!-- Health dan Audio - Centered di tengah -->
-                <div class="col-12 d-flex justify-content-center">
-                    <div class="h" id="health-section">
-                        <div id="audio-controls">
-                            <i id="mute" class="fas fa-volume-up"></i>
-                        </div>
-                        <div id="health">
-                            <i id="heart1" class="fas fa-heart"></i>
-                            <i id="heart2" class="fas fa-heart"></i>
-                            <i id="heart3" class="fas fa-heart"></i>
-                            <i id="heart4" class="fas fa-heart"></i>
-                            <i id="heart5" class="fas fa-heart"></i>
-                        </div>
-                    </div>
-                </div>
-                <!-- Question Box - Full width untuk soal panjang -->
-                <div class="col-12">
-                    <div id="question">10 x 10</div>
-                </div>
+            <!-- Kartu soal -->
+            <div class="game-section-controls">
+                <div id="question">10 x 10</div>
             </div>
         </div>
     </section>
