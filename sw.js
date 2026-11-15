@@ -6,7 +6,7 @@
 
 // Naikkan angka versi ini setiap kali daftar/isi file di bawah berubah,
 // supaya cache lama di HP/browser pengguna terhapus.
-const CACHE_NAME = 'pop-balon-ajaib-v7';
+const CACHE_NAME = 'pop-balon-ajaib-v8';
 
 const STATIC_ASSETS = [
     'index.html',
@@ -55,6 +55,9 @@ const STATIC_ASSETS = [
     'assets/images/bg/cloud-night-mid.svg',
     'assets/images/bg/cloud-day-front.svg',
     'assets/images/bg/cloud-night-front.svg',
+    'assets/css/popba-tutorial.css',
+    'assets/js/tutorial.js',
+    'assets/images/tutorial-hand.png',
 ];
 
 const EXTERNAL_ASSETS = [
@@ -62,53 +65,53 @@ const EXTERNAL_ASSETS = [
     'https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap'
 ];
 
-self.addEventListener('install', function(event) {
+self.addEventListener('install', function (event) {
     console.log('[ServiceWorker] Installing...');
 
     event.waitUntil(
         caches.open(CACHE_NAME)
-            .then(function(cache) {
+            .then(function (cache) {
                 console.log('[ServiceWorker] Caching static assets');
-                var staticPromise = cache.addAll(STATIC_ASSETS.map(function(url) {
+                var staticPromise = cache.addAll(STATIC_ASSETS.map(function (url) {
                     return new Request(url, { cache: 'reload' });
-                })).catch(function(error) {
+                })).catch(function (error) {
                     console.warn('[ServiceWorker] Some static assets failed to cache:', error);
-                    return cache.addAll(STATIC_ASSETS.filter(function(url) {
+                    return cache.addAll(STATIC_ASSETS.filter(function (url) {
                         return !url.includes('assets/sounds/');
-                    }).map(function(url) {
+                    }).map(function (url) {
                         return new Request(url, { cache: 'reload' });
                     }));
                 });
 
-                var externalPromise = Promise.all(EXTERNAL_ASSETS.map(function(url) {
+                var externalPromise = Promise.all(EXTERNAL_ASSETS.map(function (url) {
                     return fetch(url, { mode: 'cors' })
-                        .then(function(response) {
+                        .then(function (response) {
                             if (response.ok) {
                                 return cache.put(url, response);
                             }
                         })
-                        .catch(function(error) {
+                        .catch(function (error) {
                             console.warn('[ServiceWorker] Failed to cache external asset:', url, error);
                         });
                 }));
 
                 return Promise.all([staticPromise, externalPromise]);
             })
-            .then(function() {
+            .then(function () {
                 console.log('[ServiceWorker] All assets cached');
                 return self.skipWaiting();
             })
     );
 });
 
-self.addEventListener('activate', function(event) {
+self.addEventListener('activate', function (event) {
     console.log('[ServiceWorker] Activating...');
 
     event.waitUntil(
         caches.keys()
-            .then(function(cacheNames) {
+            .then(function (cacheNames) {
                 return Promise.all(
-                    cacheNames.map(function(cacheName) {
+                    cacheNames.map(function (cacheName) {
                         if (cacheName !== CACHE_NAME) {
                             console.log('[ServiceWorker] Deleting old cache:', cacheName);
                             return caches.delete(cacheName);
@@ -116,14 +119,14 @@ self.addEventListener('activate', function(event) {
                     })
                 );
             })
-            .then(function() {
+            .then(function () {
                 console.log('[ServiceWorker] Claiming clients');
                 return self.clients.claim();
             })
     );
 });
 
-self.addEventListener('fetch', function(event) {
+self.addEventListener('fetch', function (event) {
     const url = new URL(event.request.url);
 
     if (url.origin.includes('firebase') ||
@@ -148,13 +151,13 @@ self.addEventListener('fetch', function(event) {
 
 function cacheFirst(request) {
     return caches.match(request)
-        .then(function(cachedResponse) {
+        .then(function (cachedResponse) {
             if (cachedResponse) {
                 return cachedResponse;
             }
             return fetchAndCache(request);
         })
-        .catch(function() {
+        .catch(function () {
             return new Response('Offline - Resource not available', {
                 status: 503,
                 statusText: 'Service Unavailable'
@@ -164,19 +167,19 @@ function cacheFirst(request) {
 
 function networkFirst(request) {
     return fetch(request)
-        .then(function(networkResponse) {
+        .then(function (networkResponse) {
             if (networkResponse && networkResponse.status === 200) {
                 var responseClone = networkResponse.clone();
                 caches.open(CACHE_NAME)
-                    .then(function(cache) {
+                    .then(function (cache) {
                         cache.put(request, responseClone);
                     });
             }
             return networkResponse;
         })
-        .catch(function() {
+        .catch(function () {
             return caches.match(request)
-                .then(function(cachedResponse) {
+                .then(function (cachedResponse) {
                     if (cachedResponse) {
                         return cachedResponse;
                     }
@@ -199,19 +202,19 @@ function networkFirst(request) {
 
 function staleWhileRevalidate(request) {
     return caches.match(request)
-        .then(function(cachedResponse) {
+        .then(function (cachedResponse) {
             var fetchPromise = fetch(request)
-                .then(function(networkResponse) {
+                .then(function (networkResponse) {
                     if (networkResponse && networkResponse.status === 200) {
                         var responseClone = networkResponse.clone();
                         caches.open(CACHE_NAME)
-                            .then(function(cache) {
+                            .then(function (cache) {
                                 cache.put(request, responseClone);
                             });
                     }
                     return networkResponse;
                 })
-                .catch(function() {
+                .catch(function () {
                     return cachedResponse || new Response('Offline', {
                         status: 503,
                         statusText: 'Service Unavailable'
@@ -224,11 +227,11 @@ function staleWhileRevalidate(request) {
 
 function fetchAndCache(request) {
     return fetch(request)
-        .then(function(networkResponse) {
+        .then(function (networkResponse) {
             if (networkResponse && networkResponse.status === 200) {
                 var responseClone = networkResponse.clone();
                 caches.open(CACHE_NAME)
-                    .then(function(cache) {
+                    .then(function (cache) {
                         cache.put(request, responseClone);
                     });
             }
@@ -236,7 +239,7 @@ function fetchAndCache(request) {
         });
 }
 
-self.addEventListener('message', function(event) {
+self.addEventListener('message', function (event) {
     if (event.data && event.data.type === 'SKIP_WAITING') {
         self.skipWaiting();
     }
@@ -244,18 +247,18 @@ self.addEventListener('message', function(event) {
     if (event.data && event.data.type === 'CACHE_URLS') {
         var urls = event.data.urls;
         caches.open(CACHE_NAME)
-            .then(function(cache) {
+            .then(function (cache) {
                 return cache.addAll(urls);
             });
     }
 });
 
-self.addEventListener('sync', function(event) {
+self.addEventListener('sync', function (event) {
     if (event.tag === 'sync-firebase-deletions') {
         event.waitUntil(
             self.clients.matchAll()
-                .then(function(clients) {
-                    clients.forEach(function(client) {
+                .then(function (clients) {
+                    clients.forEach(function (client) {
                         client.postMessage({
                             type: 'PROCESS_PENDING_DELETIONS'
                         });

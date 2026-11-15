@@ -626,7 +626,11 @@ $("#closeModal").on("click", function () {
 
 // Tombol "How To Play"
 $('#information').on("click", function () {
-    document.querySelector('#infoBox').classList.add('show');
+    if (window.PopbaTutorial) {
+        window.PopbaTutorial.start();
+    } else {
+        document.querySelector('#infoBox').classList.add('show');
+    }
 });
 
 // Tombol "Close"
